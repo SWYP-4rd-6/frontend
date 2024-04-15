@@ -1,1 +1,1 @@
-# frontend
+# React + TypeScript + Vite
