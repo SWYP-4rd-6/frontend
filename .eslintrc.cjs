@@ -9,16 +9,14 @@ module.exports = {
     'airbnb',
     'airbnb-typescript',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: './tsconfig.json',
   },
   plugins: ['react', 'react-refresh', '@typescript-eslint', 'prettier'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    'import/extensions': 'off',
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
   },
-}
+};
