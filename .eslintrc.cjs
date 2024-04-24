@@ -12,5 +12,6 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off', 
     'import/extensions': 'off',
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'linebreak-style':'off'
   },
 };
