@@ -12,6 +12,17 @@ module.exports = {
     'import/no-extraneous-dependencies': 'off', 
     'import/extensions': 'off',
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-    'linebreak-style':'off'
+    'arrow-body-style': ["error", "as-needed"],
+    'react/function-component-definition':[2,   { "namedComponents": [
+      "arrow-function", 
+      "function-declaration",
+      "function-expression",
+    ],
+    "unnamedComponents":[
+      "arrow-function", 
+      "function-declaration",
+      "function-expression",
+    ] }
+  ]
   },
 };
