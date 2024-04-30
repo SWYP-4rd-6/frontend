@@ -13,6 +13,8 @@ interface PropsType {
     speed: number;
     slidesToShow: number;
     slidesToScroll: number;
+    touchThreshold: number;
+    beforeChange: () => void;
     afterChange: (currentSlide: number) => void;
   };
   onClickTripImage: () => void;
