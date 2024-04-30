@@ -15,9 +15,10 @@ interface PropsType {
     slidesToScroll: number;
     afterChange: (currentSlide: number) => void;
   };
+  onClickTripImage: () => void;
 }
 
-const HomeView = ({ slickSettings }: PropsType) => {
+const HomeView = ({ slickSettings, onClickTripImage }: PropsType) => {
   return (
     <div className="overflow-hidden">
       <div>
@@ -38,8 +39,8 @@ const HomeView = ({ slickSettings }: PropsType) => {
           </div>
           <div className="w-full max-w-xl mx-auto"></div>
           <Slider {...slickSettings}>
-            <SlideCard title="한강 치맥파티" />
-            <SlideCard title="한강 치맥파티2" />
+            <SlideCard title="한강 치맥파티" onClick={onClickTripImage} />
+            <SlideCard title="한강 치맥파티2" onClick={onClickTripImage} />
           </Slider>
         </section>
         <section>

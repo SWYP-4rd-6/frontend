@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import HomeView from '@/pages/Home/home';
-import { useNavigate } from 'react-router-dom';
+import TourDetailView from '@/pages/TourDetail/tourDetail';
 
-function Home() {
+function TourDetail() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const navigateTo = useNavigate();
 
   interface SlickSettingsType {
     dots: boolean;
@@ -26,10 +24,6 @@ function Home() {
     },
   };
 
-  const onClickTripImage = () => {
-    navigateTo('/tour/detail');
-  };
-
-  return <HomeView slickSettings={slickSettings} onClickTripImage={onClickTripImage} />;
+  return <TourDetailView slickSettings={slickSettings} />;
 }
-export default Home;
+export default TourDetail;

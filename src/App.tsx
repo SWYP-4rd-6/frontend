@@ -1,12 +1,15 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import HomePage from '@/pages/home';
+import Home from '@/pages/Home';
+import TourDetail from '@/pages/TourDetail';
+
 import './App.css';
 
 function App() {
   return (
     <Routes>
-      <Route path="*" element={<HomePage />} />
+      <Route path="*" element={<Home />} />
+      <Route path="/tour/detail" element={<TourDetail />} />
     </Routes>
   );
 }
