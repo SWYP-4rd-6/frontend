@@ -1,16 +1,15 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Home from '@/pages/home-page';
-import TourDetail from '@/pages/tour-detail-page';
-
 import './App.css';
+import { Outlet } from 'react-router-dom';
+import BackGround from './components/BackGround';
+import Container from './components/Container';
 
 function App() {
   return (
-    <Routes>
-      <Route path="*" element={<Home />} />
-      <Route path="/tour/detail" element={<TourDetail />} />
-    </Routes>
+    <BackGround>
+      <Container>
+        <Outlet />
+      </Container>
+    </BackGround>
   );
 }
 
