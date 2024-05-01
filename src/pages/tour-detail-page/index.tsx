@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import HomeView from './home';
+import TourDetailPageView from '@/pages/tour-detail-page/tour-detail-page';
 
-function Home() {
+function TourDetail() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   interface SlickSettingsType {
@@ -24,6 +24,6 @@ function Home() {
     },
   };
 
-  return <HomeView slickSettings={slickSettings} />;
+  return <TourDetailPageView slickSettings={slickSettings} />;
 }
-export default Home;
+export default TourDetail;
