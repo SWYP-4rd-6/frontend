@@ -11,7 +11,7 @@ const LoginButton = ({ loginType }: LoginButtonProps) => {
   const googleLogin = useGoogleLogin({
     flow: 'auth-code',
     onSuccess: async (codeResponse) => {
-      console.log(codeResponse);
+      console.log('codeResponse', codeResponse);
       const tokens = await axios.post('http://localhost:3001/auth/google', {
         code: codeResponse.code,
       });
