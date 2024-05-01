@@ -20,7 +20,7 @@ interface PropsType {
   onClickTripImage: () => void;
 }
 
-const HomeView = ({ slickSettings, onClickTripImage }: PropsType) => {
+const HomePageView = ({ slickSettings, onClickTripImage }: PropsType) => {
   return (
     <div className="overflow-hidden">
       <div>
@@ -71,4 +71,4 @@ const HomeView = ({ slickSettings, onClickTripImage }: PropsType) => {
   );
 };
 
-export default HomeView;
+export default HomePageView;

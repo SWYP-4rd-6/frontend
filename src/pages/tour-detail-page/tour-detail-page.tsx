@@ -13,7 +13,7 @@ interface PropsType {
   };
 }
 
-const TourDetailView = ({ slickSettings }: PropsType) => {
+const TourDetailPageView = ({ slickSettings }: PropsType) => {
   return (
     <div className="overflow-hidden">
       {' '}
@@ -24,4 +24,4 @@ const TourDetailView = ({ slickSettings }: PropsType) => {
   );
 };
 
-export default TourDetailView;
+export default TourDetailPageView;

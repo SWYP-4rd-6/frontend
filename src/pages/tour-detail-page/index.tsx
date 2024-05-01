@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import TourDetailView from '@/pages/TourDetail/tourDetail';
+import TourDetailPageView from '@/pages/tour-detail-page/tour-detail-page';
 
 function TourDetail() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
@@ -24,6 +24,6 @@ function TourDetail() {
     },
   };
 
-  return <TourDetailView slickSettings={slickSettings} />;
+  return <TourDetailPageView slickSettings={slickSettings} />;
 }
 export default TourDetail;

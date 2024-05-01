@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import HomeView from '@/pages/Home/home';
+import HomePageView from '@/pages/home-page/home-page';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
@@ -39,6 +39,6 @@ function Home() {
     if (!dragging) navigateTo('/tour/detail');
   };
 
-  return <HomeView slickSettings={slickSettings} onClickTripImage={onClickTripImage} />;
+  return <HomePageView slickSettings={slickSettings} onClickTripImage={onClickTripImage} />;
 }
 export default Home;
