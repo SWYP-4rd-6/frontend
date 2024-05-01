@@ -28,3 +28,4 @@ dist-ssr
 /yarn.lock
 
 .env
+.yarn/install-state.gz 

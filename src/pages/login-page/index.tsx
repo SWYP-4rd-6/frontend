@@ -1,5 +1,5 @@
 import LoginPageView from './login-page';
 
-const LoginPage = () => <LoginPageView />;
+const Login = () => <LoginPageView />;
 
-export default LoginPage;
+export default Login;
