@@ -1,13 +1,15 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import HomePage from '@/pages/home';
 import './App.css';
+import { Outlet } from 'react-router-dom';
+import BackGround from './components/BackGround';
+import Container from './components/Container';
 
 function App() {
   return (
-    <Routes>
-      <Route path="*" element={<HomePage />} />
-    </Routes>
+    <BackGround>
+      <Container>
+        <Outlet />
+      </Container>
+    </BackGround>
   );
 }
 
