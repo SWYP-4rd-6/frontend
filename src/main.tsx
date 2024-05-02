@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { enableMocking } from './mocks';
 import './index.css';
+import 'react-material-symbols/rounded'; 
 import router from './route';
 
 const queryClient = new QueryClient();

@@ -1,9 +1,10 @@
 import { FcGoogle } from 'react-icons/fc';
-import { IoMail } from 'react-icons/io5';
 import { useGoogleLogin } from '@react-oauth/google';
+import { MaterialSymbol } from 'react-material-symbols';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-type LoginButtonProps = {
+interface LoginButtonProps {
   loginType: 'email' | 'google';
 };
 
@@ -20,21 +21,27 @@ const LoginButton = ({ loginType }: LoginButtonProps) => {
     onError: (errorResponse) => console.log(errorResponse),
   });
 
-  const emailLogin = () => {
-    console.log('email login');
-  };
-
-  return (
+  return loginType === 'google' ? (
     <button
       type="button"
       className="flex justify-center items-center gap-1 bg-[#646464] w-[283px] h-[48px] text-white font-black text-[20px]"
-      onClick={loginType === 'google' ? googleLogin : emailLogin}
+      onClick={googleLogin}
     >
       <span className="flex justify-center">
-        {loginType === 'google' ? <FcGoogle /> : <IoMail />}
+        <FcGoogle />
       </span>
-      <span>{loginType === 'google' ? '구글로 로그인 하기' : '이메일로 시작하기'}</span>
+      <span>구글로 로그인 하기</span>
     </button>
+  ) : (
+    <Link
+      to="/login/email"
+      className="flex justify-center items-center gap-1 bg-[#646464] w-[283px] h-[48px] text-white font-black text-[20px]"
+    >
+      <span className="flex justify-center">
+       <MaterialSymbol icon='mail' fill size={22}/>
+      </span>
+      <span>이메일로 시작하기</span>
+    </Link>
   );
 };
 
