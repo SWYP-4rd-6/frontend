@@ -6,7 +6,6 @@ import '../src/index.css';
 import 'react-material-symbols/rounded';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { withRouter } from 'storybook-addon-remix-react-router';
-import Container from '../src/components/Container';
 
 const preview: Preview = {
   decorators: [
