@@ -4,6 +4,7 @@ import { Login } from '@/pages/login-page';
 const meta: Meta<typeof Login> = {
   title: 'Pages/Login',
   component: Login,
+  tags: ['autodocs'],
 };
 
 export default meta;
