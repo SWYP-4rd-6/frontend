@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MaterialSymbol } from 'react-material-symbols';
 import { useNavigate } from 'react-router-dom';
+import BasicInput from './BasicInput';
 
 const EmailLoginForm = () => {
   const [pwVisible, setPwVisible] = useState(false);
@@ -21,11 +22,11 @@ const EmailLoginForm = () => {
     onSuccess(data) {
       if (data?.data.success) {
         console.log(data);
-        const {token, refreshToken} = data.data;
+        const { token, refreshToken } = data.data;
         // 로그인 성공 시 토큰과 리프레시 토큰을 로컬 스토리지에 저장
         localStorage.setItem('token', token);
         localStorage.setItem('refreshToken', refreshToken);
-  
+
         // 로그인 성공 메시지
         alert('로그인 성공!');
         navigate(`/`);
@@ -38,7 +39,7 @@ const EmailLoginForm = () => {
   const onSubmit = async (data: any) => {
     // 중복 제출 방지용 타임아웃
     await new Promise((r) => setTimeout(r, 1_000));
-    emailLoginQuery.mutate(data); 
+    emailLoginQuery.mutate(data);
   };
 
   return (
@@ -52,13 +53,13 @@ const EmailLoginForm = () => {
           {errors.email.message as string}
         </small>
       )}
-      <input
+      <BasicInput
         id="email"
         type="email"
         placeholder="이메일 주소"
         className="login-input-style mb-[10px]"
-        autoComplete='username'
-        {...register('email', {
+        autoComplete="off"
+        register={register('email', {
           required: '이메일은 필수 입력입니다.',
           pattern: {
             value: /^\S+@\S+\.\S+$/,
@@ -72,14 +73,13 @@ const EmailLoginForm = () => {
         </small>
       )}
       <div className="relative flex justify-end items-center mb-12">
-        <input
+        <BasicInput
           id="password"
           type={pwVisible ? 'text' : 'password'}
           placeholder="비밀번호"
           className="login-input-style"
-          autoComplete='current-password'
-          aria-invalid={isSubmitted ? (errors.email ? 'true' : 'false') : undefined}
-          {...register('password', {
+          autoComplete="current-password"
+          register={register('password', {
             required: '비밀번호는 필수 입력입니다.',
             minLength: {
               value: 8,
