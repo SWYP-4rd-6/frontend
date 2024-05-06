@@ -1,9 +1,14 @@
+import { emailLogin } from '@/apis/login-page';
+import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MaterialSymbol } from 'react-material-symbols';
+import { useNavigate } from 'react-router-dom';
 
 const EmailLoginForm = () => {
   const [pwVisible, setPwVisible] = useState(false);
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -11,10 +16,29 @@ const EmailLoginForm = () => {
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm();
 
+  const emailLoginQuery = useMutation({
+    mutationFn: emailLogin,
+    onSuccess(data) {
+      if (data?.data.success) {
+        console.log(data);
+        const {token, refreshToken} = data.data;
+        // 로그인 성공 시 토큰과 리프레시 토큰을 로컬 스토리지에 저장
+        localStorage.setItem('token', token);
+        localStorage.setItem('refreshToken', refreshToken);
+  
+        // 로그인 성공 메시지
+        alert('로그인 성공!');
+        navigate(`/`);
+      } else {
+        alert('아이디와 비밀번호를 확인해주세요');
+      }
+    },
+  });
+
   const onSubmit = async (data: any) => {
     // 중복 제출 방지용 타임아웃
     await new Promise((r) => setTimeout(r, 1_000));
-    alert(JSON.stringify(data)); // 후에 요청보내는 코드로 대체
+    emailLoginQuery.mutate(data); 
   };
 
   return (
@@ -33,6 +57,7 @@ const EmailLoginForm = () => {
         type="email"
         placeholder="이메일 주소"
         className="login-input-style mb-[10px]"
+        autoComplete='username'
         {...register('email', {
           required: '이메일은 필수 입력입니다.',
           pattern: {
@@ -52,6 +77,7 @@ const EmailLoginForm = () => {
           type={pwVisible ? 'text' : 'password'}
           placeholder="비밀번호"
           className="login-input-style"
+          autoComplete='current-password'
           aria-invalid={isSubmitted ? (errors.email ? 'true' : 'false') : undefined}
           {...register('password', {
             required: '비밀번호는 필수 입력입니다.',

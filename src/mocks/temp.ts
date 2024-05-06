@@ -1,42 +1,34 @@
-/* 요청 처리 모음 (서버) */
-/* 임시코드입니다. */
-
 import { HttpResponse, http } from 'msw';
 
-export type Todo = {
-  id: number;
-  title: string;
+export type User = {
+  email: string;
+  password: string;
 };
 
-const todos: Todo[] = [
-  {
-    id: 1,
-    title: '할일 1',
-  },
-  {
-    id: 2,
-    title: '할일 2',
-  },
-  {
-    id: 3,
-    title: '할일 3',
-  },
-];
+const users: User[] = [{ email: 'test@naver.com', password: '12345678' }];
 
 export const todoMocks = [
-  http.get('/todos', () => HttpResponse.json(todos)),
+  http.post('/login', async ({ request }) => {
+    const userInfo = (await request.json()) as User;
 
-  http.post('/todos', async ({ request }) => {
-    const newTodo = await request.json();
+    // 요청으로 받은 이메일과 비밀번호가 존재하는지 확인
+    const user = users.find((u) => u.email === userInfo.email && u.password === userInfo.password);
+    if (user) {
+      // 인증 성공
+      const token =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAbmF2ZXIuY29tIiwibmFtZSI6Iu2ZjeyyoOybhSJ9.nTAXFok_lJXn6WeyZuVFzcr_PObuNWlD_RqFAgrb3MQ';
+      const refreshToken = 'refreshToken-test';
 
-    return HttpResponse.json(newTodo, { status: 201 });
+      return HttpResponse.json(
+        { success: true, message: 'Login successful', token, refreshToken },
+        { status: 200 },
+      );
+    } else {
+      // 인증 실패
+      return HttpResponse.json(
+        { success: false, message: 'Invalid email or password' },
+        { status: 401 },
+      );
+    }
   }),
-
-  http.patch('/todos', async ({ request }) => {
-    const req = await request.json();
-
-    return HttpResponse.json(req, { status: 200 });
-  }),
-
-  http.delete('/todos/:id', ({ params }) => HttpResponse.json({ id: params.id })),
 ];
