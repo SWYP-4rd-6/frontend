@@ -7,83 +7,152 @@ import CategoryButton from '@/components/CategoryButton';
 import SlideCard from '@/components/SlideCard';
 import FloatingButton from '@/components/FloatingButton';
 import BottomNav from '@/components/BottomNav';
+import DoubleLine from '@/components/DoubleLine';
 
 interface PropsType {
   slickSettings: {
-    dots: boolean;
+    className?: string;
+    centerMode?: boolean;
+    arrows: boolean;
+    centerPadding?: string;
+    rows?: number;
+    slidesPerRow?: number;
+    dots?: boolean;
+    initialSlide?: number;
     infinite: boolean;
     speed: number;
     slidesToShow: number;
-    slidesToScroll: number;
-    touchThreshold: number;
+    slidesToScroll?: number;
+    touchThreshold?: number;
     beforeChange: () => void;
     afterChange: (currentSlide: number) => void;
+    variableWidth?: boolean;
+  };
+  multiSlickSettings: {
+    className?: string;
+    centerMode?: boolean;
+    arrows: boolean;
+    centerPadding?: string;
+    rows?: number;
+    slidesPerRow?: number;
+    dots?: boolean;
+    initialSlide?: number;
+    infinite: boolean;
+    speed: number;
+    slidesToShow: number;
+    slidesToScroll?: number;
+    touchThreshold?: number;
+    beforeChange: () => void;
+    afterChange: (currentSlide: number) => void;
+    variableWidth?: boolean;
   };
   onClickTripImage: () => void;
 }
 
-const HomePageView = ({ slickSettings, onClickTripImage }: PropsType) => {
+const HomePageView = ({ slickSettings, multiSlickSettings, onClickTripImage }: PropsType) => {
   return (
     <div className=" ">
-      <div className="h-[172px] bg-slate-300">Nice to Matthew</div>
-      <div className="px-6 py-5">
-        <div className="relative flex items-center">
-          <MaterialSymbol icon="search" size={24} fill grade={-25} color="black" />
+      <div className="px-6 pt-4 pb-1">
+        <img src="main_logo.png" className="w-40" alt="logo" />
+      </div>
+      <DoubleLine />
+      <div className="px-6 pt-6">
+        <div className="relative  flex items-center *:flex *:items-center ">
           <input
-            className="border px-2 w-full  text-center"
+            className="border-2 py-1 w-full text-center text-base placeholder-[#636363]"
             type="text"
             placeholder="떠나고 싶은 곳이 있나요?"
           />
-          <a href="#" className="items-center absolute right-5">
-            <MaterialSymbol icon="filter_list_alt" size={24} fill grade={-25} color="black" />
+          <a href="#" className=" absolute left-4 ">
+            <MaterialSymbol icon="search" size={24} fill grade={-25} color="#d9d9d9" />
+          </a>
+          <a href="#" className="absolute right-4">
+            <MaterialSymbol icon="filter_list_alt" size={24} fill grade={-25} color="#d9d9d9" />
           </a>
         </div>
       </div>
-      <div>
-        <CategoryButton text="카테고리" />
-        <CategoryButton text="카테고리" />
-        <CategoryButton text="카테고리" />
-        <CategoryButton text="카테고리" />
-        <CategoryButton text="카테고리" />
+      <div className="pl-6 py-5  whitespace-nowrap *: mr-3">
+        <Slider {...multiSlickSettings}>
+          <CategoryButton text="전체" active={true} />
+          <CategoryButton text="근처" />
+          <CategoryButton text="추천" />
+          <CategoryButton text="먹거리" />
+          <CategoryButton text="관광" />
+          <CategoryButton text="야외 활동" />
+          <CategoryButton text="놀거리" />
+          <CategoryButton text="문화예술" />
+          <CategoryButton text="스포츠/운동" />
+          <div className="w-60"></div>
+        </Slider>
       </div>
-      <section>
-        <div className="flex justify-between">
-          <div>근처</div>
-          <div>Seoul, South Korea</div>
+
+      <section className="px-6 border-t-2 border-signature">
+        <div className="flex justify-between items-center pr-9">
+          <div className="sub-tiltle  ">근처</div>
+          <div className="flex items-center text-sub-bu text-base">
+            Seoul, South Korea
+            <MaterialSymbol icon="fmd_good" size={21} fill grade={-25} color="#d9d9d9" />
+          </div>
         </div>
         <div className="w-full max-w-xl mx-auto"></div>
-        <Slider {...slickSettings}>
+        <Slider {...slickSettings} className="pb-3">
           <SlideCard
+            fromDate="2024.08.08"
+            toDate="2024.08.08"
+            tags={['먹거리', '야외활동']}
+            title="한강 치맥파티"
+            src="trip_package_sample.png"
+            onClick={onClickTripImage}
+          />
+          <SlideCard
+            fromDate="2024.08.08"
+            toDate="2024.08.08"
+            tags={['먹거리', '야외활동']}
             title="한강 치맥파티"
             src="trip_image_sample1.png"
             onClick={onClickTripImage}
           />
           <SlideCard
-            title="한강 치맥파티2"
+            fromDate="2024.08.08"
+            toDate="2024.08.08"
+            tags={['먹거리', '야외활동']}
+            title="한강 치맥파티"
             src="trip_image_sample1.png"
             onClick={onClickTripImage}
           />
         </Slider>
       </section>
-      <section>
-        <div>추천하는 여행</div>
-        <div className="grid grid-cols-2 gap-4  place-items-center">
+      <section className="px-6 border-t-2 border-signature">
+        <div className="sub-tiltle">추천하는 여행</div>
+        <div className="grid grid-cols-2 gap-5  place-items-center *:w-full">
           <img src="trip_image_sample1.png" />
           <img src="trip_image_sample2.png" />
           <img src="trip_image_sample1.png" />
           <img src="trip_image_sample2.png" />
         </div>
+        <button
+          type="button"
+          className="border-2 border-sub-non w-full text-xl font-black text-sub-non py-1.5 my-5"
+        >
+          더보기
+        </button>
       </section>
-      <section>
-        <div>전체</div>
-        <div className="grid grid-cols-2 gap-4  place-items-center">
+      <section className="px-6 border-t-2 border-signature">
+        <div className="sub-tiltle">전체</div>
+        <div className="grid grid-cols-2 gap-5  place-items-center *:w-full">
           <img src="trip_image_sample1.png" />
           <img src="trip_image_sample2.png" />
           <img src="trip_image_sample1.png" />
           <img src="trip_image_sample2.png" />
         </div>
+        <button
+          type="button"
+          className="border-2 border-sub-non w-full text-xl font-black text-sub-non py-1.5 my-5"
+        >
+          더보기
+        </button>
       </section>
-      <button type="button">더보기</button>
+
       <FloatingButton />
       <BottomNav />
     </div>

@@ -9,21 +9,29 @@ function Home() {
   const navigateTo = useNavigate();
 
   interface SlickSettingsType {
-    dots: boolean;
+    className?: string;
+    centerMode?: boolean;
+    arrows: boolean;
+    centerPadding?: string;
+    rows?: number;
+    slidesPerRow?: number;
+    dots?: boolean;
+    initialSlide?: number;
     infinite: boolean;
     speed: number;
     slidesToShow: number;
-    slidesToScroll: number;
-    touchThreshold: number;
+    slidesToScroll?: number;
+    touchThreshold?: number;
     beforeChange: () => void;
     afterChange: (currentSlide: number) => void;
+    variableWidth?: boolean;
   }
 
   const slickSettings: SlickSettingsType = {
-    dots: true,
     infinite: false,
+    arrows: false,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 1.05,
     slidesToScroll: 1,
     touchThreshold: 100,
     beforeChange: () => {
@@ -35,10 +43,31 @@ function Home() {
     },
   };
 
+  const multiSlickSettings: SlickSettingsType = {
+    className: 'slider variable-width',
+    centerPadding: '20px',
+    arrows: false,
+    infinite: false,
+    speed: 400,
+    slidesToShow: 5.2,
+    beforeChange: () => {
+      setDragging(true);
+    },
+    afterChange: (currentSlide) => {
+      setDragging(false);
+    },
+  };
+
   const onClickTripImage = () => {
     if (!dragging) navigateTo('/tour/detail');
   };
 
-  return <HomePageView slickSettings={slickSettings} onClickTripImage={onClickTripImage} />;
+  return (
+    <HomePageView
+      slickSettings={slickSettings}
+      multiSlickSettings={multiSlickSettings}
+      onClickTripImage={onClickTripImage}
+    />
+  );
 }
 export default Home;
