@@ -102,7 +102,7 @@ const EmailLoginForm = () => {
       <button
         type="submit"
         className={`flex justify-center items-center w-full h-12 border-2 border-[#D9D9D9] text-xl font-[900] text-[#E7E7E7] transition
-          ${watch('email') && watch('password') && 'text-white bg-[#646464] border-none'}`}
+          ${watch('email') && watch('password') && 'text-white bg-signature border-none'}`}
         disabled={isSubmitting}
       >
         로그인

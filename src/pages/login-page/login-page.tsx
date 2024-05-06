@@ -10,7 +10,7 @@ const LoginPageView = () => {
       <div className="flex flex-col items-center gap-[20px] mt-48 ">
         <LoginButton loginType="google" />
         <LoginButton loginType="email" />
-        <Link to="/" className="font-extralight">
+        <Link to="/" className="font-extralight text-signature">
           로그인 하지 않고 둘러보기
         </Link>
       </div>

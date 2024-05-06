@@ -5,7 +5,7 @@
 /* 중복되는 스타일 저장 */
 @layer utilities {
   .login-input-style {
-    @apply w-full h-[2.5rem] border-2 border-[#D9D9D9] px-[20px] focus:outline-none text-base font-[900] text-[#636363] placeholder-[#D9D9D9] placeholder-normal;
+    @apply w-full h-[2.5rem] border-2 border-signature px-[20px] focus:outline-none text-base font-[900] text-signature placeholder-signature placeholder-normal;
   }
 }
 /* placeholder의 글자두께를 기본으로 */

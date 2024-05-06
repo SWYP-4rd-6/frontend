@@ -2,7 +2,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { useGoogleLogin } from '@react-oauth/google';
 import { MaterialSymbol } from 'react-material-symbols';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginButtonProps {
   loginType: 'email' | 'google';
@@ -14,11 +14,11 @@ const LoginButton = ({ loginType }: LoginButtonProps) => {
   const googleLogin = useGoogleLogin({
     flow: 'auth-code',
     onSuccess: async (codeResponse) => {
-      console.log('codeResponse', codeResponse);
-      const tokens = await axios.post('http://localhost:3001/auth/google', {
-        code: codeResponse.code,
-      });
-      console.log(tokens);
+      // console.log('codeResponse', codeResponse);
+      // const tokens = await axios.post('http://localhost:3001/auth/google', {
+      //   code: codeResponse.code,
+      // });
+      // console.log(tokens);
     },
     onError: (errorResponse) => console.log(errorResponse),
   });
@@ -30,7 +30,7 @@ const LoginButton = ({ loginType }: LoginButtonProps) => {
   return (
     <button
       type="button"
-      className="flex justify-center items-center gap-1 bg-[#646464] w-[283px] h-[48px] text-white font-black text-[20px]"
+      className="flex justify-center items-center gap-1 w-[283px] h-[48px] border-2 border-signature text-signature font-black text-[20px]"
       onClick={loginType === 'google' ? googleLogin : emailLogin}
     >
       <span className="flex justify-center">
