@@ -1,20 +1,18 @@
 import { emailLogin } from '@/apis/login-page';
 import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { MaterialSymbol } from 'react-material-symbols';
 import { useNavigate } from 'react-router-dom';
-import BasicInput from './BasicInput';
+import BasicInput from '../Input/BasicInput';
+import PasswordInput from '../Input/PasswordInput';
 
 const EmailLoginForm = () => {
-  const [pwVisible, setPwVisible] = useState(false);
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     watch,
-    formState: { isSubmitting, isSubmitted, errors },
+    formState: { isSubmitting, errors },
   } = useForm();
 
   const emailLoginQuery = useMutation({
@@ -57,7 +55,7 @@ const EmailLoginForm = () => {
         id="email"
         type="email"
         placeholder="이메일 주소"
-        className="login-input-style mb-[10px]"
+        className="mb-[10px]"
         autoComplete="off"
         register={register('email', {
           required: '이메일은 필수 입력입니다.',
@@ -72,12 +70,10 @@ const EmailLoginForm = () => {
           {errors.password.message as string}
         </small>
       )}
-      <div className="relative flex justify-end items-center mb-12">
-        <BasicInput
+      <div className="mb-9">
+        <PasswordInput
           id="password"
-          type={pwVisible ? 'text' : 'password'}
           placeholder="비밀번호"
-          className="login-input-style"
           autoComplete="current-password"
           register={register('password', {
             required: '비밀번호는 필수 입력입니다.',
@@ -87,16 +83,6 @@ const EmailLoginForm = () => {
             },
           })}
         />
-        <span
-          className="absolute mr-[20px] flex cursor-pointer"
-          onClick={() => setPwVisible((prev) => !prev)}
-        >
-          <MaterialSymbol
-            icon={pwVisible ? 'visibility' : 'visibility_off'}
-            size={16}
-            color="#D9D9D9"
-          />
-        </span>
       </div>
 
       <button

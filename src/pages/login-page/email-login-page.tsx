@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import LoginHeader from '@/components/LoginHeader';
-import EmailLoginForm from '@/components/EmailLoginForm';
+import LoginHeader from '@/components/Header/LoginHeader';
+import EmailLoginForm from '@/components/Form/EmailLoginForm';
 
 const EmailLoginPageView = () => {
   return (

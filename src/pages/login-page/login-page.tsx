@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import LoginButton from '@/components/LoginButton';
-import LoginHeader from '@/components/LoginHeader';
+import LoginButton from '@/components/Button/LoginButton';
+import LoginHeader from '@/components/Header/LoginHeader';
 
 const LoginPageView = () => {
 
