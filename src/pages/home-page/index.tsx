@@ -49,6 +49,7 @@ function Home() {
     arrows: false,
     infinite: false,
     speed: 400,
+    slidesToScroll: 5,
     slidesToShow: 5.2,
     beforeChange: () => {
       setDragging(true);

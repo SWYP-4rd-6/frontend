@@ -21,7 +21,9 @@ const SlideCard = ({ title, fromDate, toDate, tags, onClick, src }: PropsType) =
           {fromDate}~{toDate}
         </div>
         {tags.map((item, index) => (
-          <span className="text-sm text-white font-right">#{item}</span>
+          <span key={index} className="text-sm text-white font-right">
+            #{item}
+          </span>
         ))}
       </div>
     </div>
