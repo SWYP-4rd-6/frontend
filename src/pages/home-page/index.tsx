@@ -2,30 +2,38 @@ import { useState } from 'react';
 
 import HomePageView from '@/pages/home-page/home-page';
 import { useNavigate } from 'react-router-dom';
+import { useGeoLocation } from '@/useGeoLocation';
+
+const geolocationOptions = {
+  enableHighAccuracy: true,
+  timeout: 1000 * 10,
+  maximumAge: 1000 * 3600 * 24,
+};
+
+interface SlickSettingsType {
+  className?: string;
+  centerMode?: boolean;
+  arrows: boolean;
+  centerPadding?: string;
+  rows?: number;
+  slidesPerRow?: number;
+  dots?: boolean;
+  initialSlide?: number;
+  infinite: boolean;
+  speed: number;
+  slidesToShow: number;
+  slidesToScroll?: number;
+  touchThreshold?: number;
+  beforeChange: () => void;
+  afterChange: (currentSlide: number) => void;
+  variableWidth?: boolean;
+}
 
 function Home() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [dragging, setDragging] = useState<boolean>(false);
+  const { location, error } = useGeoLocation(geolocationOptions);
   const navigateTo = useNavigate();
-
-  interface SlickSettingsType {
-    className?: string;
-    centerMode?: boolean;
-    arrows: boolean;
-    centerPadding?: string;
-    rows?: number;
-    slidesPerRow?: number;
-    dots?: boolean;
-    initialSlide?: number;
-    infinite: boolean;
-    speed: number;
-    slidesToShow: number;
-    slidesToScroll?: number;
-    touchThreshold?: number;
-    beforeChange: () => void;
-    afterChange: (currentSlide: number) => void;
-    variableWidth?: boolean;
-  }
 
   const slickSettings: SlickSettingsType = {
     infinite: false,
@@ -68,6 +76,7 @@ function Home() {
       slickSettings={slickSettings}
       multiSlickSettings={multiSlickSettings}
       onClickTripImage={onClickTripImage}
+      location={location}
     />
   );
 }
