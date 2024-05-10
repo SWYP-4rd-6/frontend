@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -8,53 +9,27 @@ import SlideCard from '@/components/SlideCard';
 import FloatingButton from '@/components/FloatingButton';
 import BottomNav from '@/components/BottomNav';
 import DoubleLine from '@/components/DoubleLine';
-import { ILocation } from '@/types/common';
+
+import { ILocation, SlickSettingsType } from '@/types/common';
+import { categories } from '@/constants/common';
 
 interface PropsType {
-  slickSettings: {
-    className?: string;
-    centerMode?: boolean;
-    arrows: boolean;
-    centerPadding?: string;
-    rows?: number;
-    slidesPerRow?: number;
-    dots?: boolean;
-    initialSlide?: number;
-    infinite: boolean;
-    speed: number;
-    slidesToShow: number;
-    slidesToScroll?: number;
-    touchThreshold?: number;
-    beforeChange: () => void;
-    afterChange: (currentSlide: number) => void;
-    variableWidth?: boolean;
-  };
-  multiSlickSettings: {
-    className?: string;
-    centerMode?: boolean;
-    arrows: boolean;
-    centerPadding?: string;
-    rows?: number;
-    slidesPerRow?: number;
-    dots?: boolean;
-    initialSlide?: number;
-    infinite: boolean;
-    speed: number;
-    slidesToShow: number;
-    slidesToScroll?: number;
-    touchThreshold?: number;
-    beforeChange: () => void;
-    afterChange: (currentSlide: number) => void;
-    variableWidth?: boolean;
-  };
+  slickSettings: SlickSettingsType;
+  multiSlickSettings: SlickSettingsType;
   onClickTripImage: () => void;
   location?: ILocation;
+  selectedCategory: string;
+  onCategoryClick: (category: string) => void;
+  onClickMore: () => void;
 }
 
 const HomePageView = ({
   slickSettings,
   multiSlickSettings,
   onClickTripImage,
+  selectedCategory,
+  onCategoryClick,
+  onClickMore,
   location,
 }: PropsType) => {
   return (
@@ -70,12 +45,12 @@ const HomePageView = ({
             type="text"
             placeholder="떠나고 싶은 곳이 있나요?"
           />
-          <a href="#" className=" absolute left-4 ">
+          <Link to="#" className=" absolute left-4 ">
             <MaterialSymbol icon="search" size={24} fill grade={-25} color="#d9d9d9" />
-          </a>
-          <a href="#" className="absolute right-4">
+          </Link>
+          <Link to="#" className="absolute right-4">
             <MaterialSymbol icon="filter_list_alt" size={24} fill grade={-25} color="#d9d9d9" />
-          </a>
+          </Link>
         </div>
       </div>
       <div className="category-wrap">
@@ -85,14 +60,14 @@ const HomePageView = ({
               key={index}
               text={category}
               active={selectedCategory === category}
-              onClick={() => handleCategoryClick(category)}
+              onClick={() => onCategoryClick(category)}
             />
           ))}
           <div className="w-60"></div>
         </Slider>
       </div>
 
-      <section className="content-section">
+      <section className="pl-6 border-t-2 border-signature;">
         <div className="flex justify-between items-center pr-9">
           <div className="sub-tiltle  ">근처</div>
           <div className="flex items-center text-sub-bu text-base">
@@ -140,6 +115,7 @@ const HomePageView = ({
         <button
           type="button"
           className="border-2 border-sub-non w-full text-xl font-black text-sub-non py-1.5 my-5"
+          onClick={onClickMore}
         >
           더보기
         </button>
