@@ -8,6 +8,7 @@ import SlideCard from '@/components/SlideCard';
 import FloatingButton from '@/components/FloatingButton';
 import BottomNav from '@/components/BottomNav';
 import DoubleLine from '@/components/DoubleLine';
+import { ILocation } from '@/types/common';
 
 interface PropsType {
   slickSettings: {
@@ -47,9 +48,15 @@ interface PropsType {
     variableWidth?: boolean;
   };
   onClickTripImage: () => void;
+  location?: ILocation;
 }
 
-const HomePageView = ({ slickSettings, multiSlickSettings, onClickTripImage }: PropsType) => {
+const HomePageView = ({
+  slickSettings,
+  multiSlickSettings,
+  onClickTripImage,
+  location,
+}: PropsType) => {
   return (
     <div className=" ">
       <div className="px-6 pt-4 pb-1">
@@ -71,26 +78,26 @@ const HomePageView = ({ slickSettings, multiSlickSettings, onClickTripImage }: P
           </a>
         </div>
       </div>
-      <div className="pl-6 py-5  whitespace-nowrap *: mr-3">
+      <div className="category-wrap">
         <Slider {...multiSlickSettings}>
-          <CategoryButton text="전체" active={true} />
-          <CategoryButton text="근처" />
-          <CategoryButton text="추천" />
-          <CategoryButton text="먹거리" />
-          <CategoryButton text="관광" />
-          <CategoryButton text="야외 활동" />
-          <CategoryButton text="놀거리" />
-          <CategoryButton text="문화예술" />
-          <CategoryButton text="스포츠/운동" />
+          {categories.map((category, index) => (
+            <CategoryButton
+              key={index}
+              text={category}
+              active={selectedCategory === category}
+              onClick={() => handleCategoryClick(category)}
+            />
+          ))}
           <div className="w-60"></div>
         </Slider>
       </div>
 
-      <section className="px-6 border-t-2 border-signature">
+      <section className="content-section">
         <div className="flex justify-between items-center pr-9">
           <div className="sub-tiltle  ">근처</div>
           <div className="flex items-center text-sub-bu text-base">
             Seoul, South Korea
+            {/* {location && location.latitude} */}
             <MaterialSymbol icon="fmd_good" size={21} fill grade={-25} color="#d9d9d9" />
           </div>
         </div>
@@ -122,9 +129,9 @@ const HomePageView = ({ slickSettings, multiSlickSettings, onClickTripImage }: P
           />
         </Slider>
       </section>
-      <section className="px-6 border-t-2 border-signature">
+      <section className="content-section">
         <div className="sub-tiltle">추천하는 여행</div>
-        <div className="grid grid-cols-2 gap-5  place-items-center *:w-full">
+        <div className="grid-img-wrap">
           <img src="trip_image_sample1.png" />
           <img src="trip_image_sample2.png" />
           <img src="trip_image_sample1.png" />
@@ -137,9 +144,9 @@ const HomePageView = ({ slickSettings, multiSlickSettings, onClickTripImage }: P
           더보기
         </button>
       </section>
-      <section className="px-6 border-t-2 border-signature">
+      <section className="content-section">
         <div className="sub-tiltle">전체</div>
-        <div className="grid grid-cols-2 gap-5  place-items-center *:w-full">
+        <div className="grid-img-wrap">
           <img src="trip_image_sample1.png" />
           <img src="trip_image_sample2.png" />
           <img src="trip_image_sample1.png" />
