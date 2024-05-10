@@ -1,19 +1,6 @@
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+interface PropsType {}
 
-interface PropsType {
-  slickSettings: {
-    dots: boolean;
-    infinite: boolean;
-    speed: number;
-    slidesToShow: number;
-    slidesToScroll: number;
-    afterChange: (currentSlide: number) => void;
-  };
-}
-
-const TourDetailPageView = ({ slickSettings }: PropsType) => {
+const TourDetailPageView = ({}: PropsType) => {
   return (
     <div className="overflow-hidden">
       {' '}
