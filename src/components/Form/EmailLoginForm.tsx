@@ -1,4 +1,4 @@
-import { emailLogin } from '@/apis/login-page';
+import { emailLogin } from '@/apis/login';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -55,7 +55,7 @@ const EmailLoginForm = () => {
         id="email"
         type="email"
         placeholder="이메일 주소"
-        className="mb-[10px]"
+        className="mb-[10px] border-signature"
         autoComplete="off"
         register={register('email', {
           required: '이메일은 필수 입력입니다.',
@@ -75,6 +75,7 @@ const EmailLoginForm = () => {
           id="password"
           placeholder="비밀번호"
           autoComplete="current-password"
+          className='border-signature'
           register={register('password', {
             required: '비밀번호는 필수 입력입니다.',
             minLength: {

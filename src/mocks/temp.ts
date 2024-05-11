@@ -7,7 +7,7 @@ export type User = {
 
 const users: User[] = [{ email: 'test@naver.com', password: '12345678' }];
 
-export const todoMocks = [
+export const userMocks = [
   http.post('/login', async ({ request }) => {
     const userInfo = (await request.json()) as User;
 

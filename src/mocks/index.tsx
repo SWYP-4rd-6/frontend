@@ -1,6 +1,6 @@
 import { SharedOptions, delay, http } from 'msw';
 import { setupWorker } from 'msw/browser';
-import { todoMocks } from './temp';
+import { userMocks } from './temp';
 
 type OnUnHandledRequest = SharedOptions['onUnhandledRequest'];
 
@@ -23,7 +23,7 @@ export const ignoreDevResources: OnUnHandledRequest = (req, print) => {
 // MSW 설정 및 시작
 export const enableMocking = () => {
   // 여기에 mock API 들을 추가합니다.
-  const handlers = [globalDelay, ...todoMocks];
+  const handlers = [globalDelay, ...userMocks];
   const worker = setupWorker(...handlers);
 
   return worker.start({

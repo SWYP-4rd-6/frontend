@@ -1,9 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Home from './pages/home-page';
 import Error from './pages/error-page';
-import {Login, EmailLogin} from './pages/login-page';
+import { Login, EmailLogin } from './pages/login-page';
 import TourDetail from './pages/tour-detail-page';
 import App from './App';
+import SignUp from './pages/signup-page';
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,8 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: 'login', element: <Login /> },
       { path: 'login/email', element: <EmailLogin /> },
-      { path: 'tour/detail', element: <TourDetail />},
+      { path: 'tour/detail', element: <TourDetail /> },
+      { path: 'signup', element: <SignUp /> },
     ],
   },
 ]);
