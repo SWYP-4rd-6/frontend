@@ -1,3 +1,31 @@
 .slick-dots {
-    @apply static;
+  @apply static;
+}
+
+.sub-tiltle {
+  @apply text-signature font-black text-xl py-2;
+}
+
+.category-wrap {
+  @apply pl-6 py-5  whitespace-nowrap;
+}
+
+.content-section {
+  @apply px-6 border-t-2 border-signature;
+}
+
+.grid-img-wrap {
+  @apply grid grid-cols-2 gap-5  place-items-center *:w-full;
+}
+
+.no-scroll-bar::-webkit-scrollbar {
+  /* for Chrome, Safari, and Opera */
+  display: none;
+}
+
+.no-scroll-bar {
+  /* for Internet Explorer, Edge */
+  -ms-overflow-style: none;
+  /* for Firefox */
+  scrollbar-width: none;
 }
