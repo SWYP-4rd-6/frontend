@@ -4,7 +4,7 @@ import ValidateCheck from './ValidateCheck';
 import { useEffect, useState } from 'react';
 import { useActivateStore } from '@/store/ActivateStore';
 import ButtonInput from '../Input/ButtonInput';
-import { checkEmail } from '@/apis/signup';
+import { checkEmail } from '@/pages/signup-page';
 
 const SignupForm = () => {
   const toggleActivateButton = useActivateStore((state) => state.toggleActivateButton);
@@ -75,15 +75,9 @@ const SignupForm = () => {
     }
   };
 
-  const onSubmit = async (data: any) => {
-    // 중복 제출 방지용 타임아웃
-    await new Promise((r) => setTimeout(r, 1_000));
-    // emailLoginQuery.mutate(data);
-  };
-
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={(e) => e.preventDefault()}
       className="flex flex-col justify-start w-full"
       noValidate
     >
