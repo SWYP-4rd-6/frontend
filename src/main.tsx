@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { enableMocking } from './mocks';
 import App from './App';
-import './index.css';
+import '@/index.css';
 
 const queryClient = new QueryClient();
 
