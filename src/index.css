@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  * {
+    @apply font-sans;
+  }
+}
+
+.slick-dots {
+  @apply static;
+}
+
+.sub-tiltle {
+  @apply text-signature font-black text-xl py-2;
+}
+
+.category-wrap {
+  @apply pl-6 py-5  whitespace-nowrap;
+}
+
+.content-section {
+  @apply px-6 border-t-2 border-signature;
+}
+
+.grid-img-wrap {
+  @apply grid grid-cols-2 gap-5  place-items-center *:w-full;
+}
