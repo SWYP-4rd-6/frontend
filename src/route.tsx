@@ -4,6 +4,7 @@ import Error from './pages/error-page';
 import Login from './pages/login-page';
 import TourDetail from './pages/tour-detail-page';
 import App from './App';
+import HomeMore from './pages/home-more-page';
 
 const router = createBrowserRouter([
   {
@@ -14,7 +15,8 @@ const router = createBrowserRouter([
       // 여기에 경로를 추가해주세요.
       { index: true, element: <Home /> },
       { path: 'login', element: <Login /> },
-      { path: 'tour/detail', element: <TourDetail />}
+      { path: 'tour/detail', element: <TourDetail /> },
+      { path: 'more', element: <HomeMore /> },
     ],
   },
 ]);
