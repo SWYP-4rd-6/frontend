@@ -25,7 +25,6 @@ const HostDetailView = ({ onClickTripImage }: PropsType) => {
 
           <div className="mx-3">
             <p className="font-black text-signature text-base">Proeatparty</p>
-
             <p className="font-black text-signature text-base">
               <span>10</span>개의 리뷰
             </p>

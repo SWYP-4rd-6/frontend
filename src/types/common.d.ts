@@ -23,3 +23,22 @@ export interface SlickSettingsType {
   prevArrow?: any;
   nextArrow?: any;
 }
+export interface reviewType {
+  user: string;
+  point: number;
+  desc: string;
+}
+export interface guideProductType {
+  id: number;
+  title: string;
+  description?: string;
+  price?: number;
+  longitude?: number;
+  latitude?: number;
+  guideStart: string;
+  guideEnd: string;
+  categories?: Array<string>;
+  thumb?: string;
+  images?: Array<string>;
+  review?: Array<reviewType>;
+}
