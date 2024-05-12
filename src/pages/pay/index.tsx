@@ -13,7 +13,7 @@ function Pay() {
       pg: `${pg}.${storeId}`, // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
       pay_method: payMethod, // 결제수단
       merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
-      amount: 5000, // 결제금액
+      amount: 100, // 결제금액
       name: '서울 여행', // 주문명
       buyer_name: '홍길동', // 구매자 이름
       buyer_tel: '01012345678', // 구매자 전화번호
