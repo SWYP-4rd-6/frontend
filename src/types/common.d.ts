@@ -20,4 +20,6 @@ export interface SlickSettingsType {
   beforeChange: () => void;
   afterChange: (currentSlide: number) => void;
   variableWidth?: boolean;
+  prevArrow?: any;
+  nextArrow?: any;
 }

@@ -1,5 +1,5 @@
 import React, { FC, ReactNode, useState, useEffect, useRef } from 'react';
-import FloatingButton from '@/components/FloatingButton';
+import FloatingButton from '@/components/Button/FloatingButton';
 import useScrollStore from '@/scrollStore';
 
 const Container: FC<{ children: ReactNode }> = ({ children }) => {
