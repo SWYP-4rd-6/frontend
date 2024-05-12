@@ -7,8 +7,8 @@ import SlideArrow from '@/components/Slide/SlideArrow';
 function TourDetail() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [currentReviewSlide, setCurrentReviewSlide] = useState<number>(0);
-
   const [dragging, setDragging] = useState<boolean>(false);
+  const navigateTo = useNavigate();
 
   const arrowSlickSettings: SlickSettingsType = {
     infinite: false,
@@ -27,7 +27,6 @@ function TourDetail() {
     prevArrow: <SlideArrow direction="prev" />,
     nextArrow: <SlideArrow direction="next" />,
   };
-
   const reviewSlickSettings: SlickSettingsType = {
     infinite: false,
     arrows: false,
@@ -43,11 +42,16 @@ function TourDetail() {
     },
   };
 
+  const onClickHost = () => {
+    navigateTo('/host/detail');
+  };
+
   return (
     <TourDetailPageView
       arrowSlickSettings={arrowSlickSettings}
       currentSlide={currentSlide}
       reviewSlickSettings={reviewSlickSettings}
+      onClickHost={onClickHost}
     />
   );
 }

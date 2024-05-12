@@ -17,12 +17,14 @@ interface PropsType {
   arrowSlickSettings: SlickSettingsType;
   currentSlide: number;
   reviewSlickSettings: SlickSettingsType;
+  onClickHost: () => void;
 }
 
 const TourDetailPageView = ({
   arrowSlickSettings,
   currentSlide,
   reviewSlickSettings,
+  onClickHost,
 }: PropsType) => {
   return (
     <div className="">
@@ -45,7 +47,10 @@ const TourDetailPageView = ({
           <IconList icon="fmd_good" text="한강 공원" />
           <IconList icon="payments" text="40000 원" />
           <IconList icon="person" text="플레이어">
-            <div className="absolute items-end font-light right-6 text-sub-bu">
+            <button
+              onClick={onClickHost}
+              className="absolute items-end font-light right-6 text-sub-bu"
+            >
               호스트 정보 더보기{' '}
               <MaterialSymbol
                 className="align-middle text-sub-bu"
@@ -54,7 +59,7 @@ const TourDetailPageView = ({
                 fill
                 grade={80}
               />
-            </div>
+            </button>
           </IconList>
         </ul>
         <div className="line-content">
