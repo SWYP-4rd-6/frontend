@@ -8,20 +8,37 @@
   }
 }
 
+/**/
+.title {
+  @apply text-signature font-black py-2  text-3xl;
+}
+
+.sub-title {
+  @apply text-signature py-2 font-black text-xl;
+}
+
+.sub-title-2 {
+  @apply text-signature py-2 font-black text-base;
+}
+
 .slick-dots {
   @apply static;
 }
 
-.sub-tiltle {
-  @apply text-signature font-black text-xl py-2;
-}
-
+/* layout */
 .category-wrap {
   @apply pl-6 py-5  whitespace-nowrap;
 }
 
 .content-section {
   @apply px-6 border-t-2 border-signature;
+}
+
+.line-content {
+  @apply border-t-2 border-signature my-5;
+}
+.border-content {
+  @apply border-2 border-signature font-light;
 }
 
 .grid-img-wrap {

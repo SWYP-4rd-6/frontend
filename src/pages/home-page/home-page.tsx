@@ -4,11 +4,11 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { MaterialSymbol } from 'react-material-symbols';
 
-import CategoryButton from '@/components/CategoryButton';
-import SlideCard from '@/components/SlideCard';
-import FloatingButton from '@/components/FloatingButton';
+import CategoryButton from '@/components/Button/CategoryButton';
+import SlideCard from '@/components/Slide/SlideCard';
+import FloatingButton from '@/components/Button/FloatingButton';
 import BottomNav from '@/components/BottomNav';
-import DoubleLine from '@/components/DoubleLine';
+import DoubleLine from '@/components/DoubleLIne';
 
 import { ILocation, SlickSettingsType } from '@/types/common';
 import { categories } from '@/constants/common';

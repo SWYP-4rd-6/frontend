@@ -1,8 +1,8 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import CategoryButton from '@/components/CategoryButton';
-import DoubleLine from '@/components/DoubleLine';
+import CategoryButton from '@/components/Button/CategoryButton';
+import DoubleLine from '@/components/DoubleLIne';
 import { categories } from '@/constants/common';
 import { SlickSettingsType } from '@/types/common';
 
@@ -36,7 +36,7 @@ const HomeMorePageView = ({ multiSlickSettings, selectedCategory, onCategoryClic
         </Slider>
       </div>
 
-      <section className="content-section p-5">
+      <section className="content-section p-5 ">
         <div className="grid-img-wrap">
           <img src="trip_image_sample1.png" />
           <img src="trip_image_sample2.png" />
