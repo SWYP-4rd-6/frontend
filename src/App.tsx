@@ -1,15 +1,17 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import HomePage from '@/pages/home';
 import './App.css';
-import PayPage from '@/pages/pay';
+import { Outlet } from 'react-router-dom';
+import BackGround from './components/Common/BackGround';
+import Container from './components/Common/Container';
+import 'react-material-symbols/outlined';
 
 function App() {
   return (
-    <Routes>
-      <Route path="*" element={<HomePage />} />
-      <Route path="/pay" element={<PayPage />} />
-    </Routes>
+    <BackGround>
+      <Container>
+        <Outlet />
+      </Container>
+    </BackGround>
+
   );
 }
 
