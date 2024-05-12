@@ -3,7 +3,7 @@ import Header from '@/components/Header/Header';
 import SignupForm from '@/components/Form/SignupForm';
 import { useActivateStore } from '@/store/ActivateStore';
 import { useNavigate } from 'react-router-dom';
-import SignupForm2 from '@/components/Form/SignupForm2';
+//import SignupForm2 from '@/components/Form/SignupForm2';
 import { useState } from 'react';
 
 const SignUpPageView = () => {
@@ -36,7 +36,7 @@ const SignUpPageView = () => {
           </div>
           <div>입력해주세요.</div>
         </div>
-        {signupStage === 1 ? <SignupForm /> : <SignupForm2 />}
+        {/*signupStage === 1 ? <SignupForm /> : <SignupForm2 />*/}
         <ArrowButton activate={readyToNext} moveFunc={moveStep} />
       </div>
     </div>
