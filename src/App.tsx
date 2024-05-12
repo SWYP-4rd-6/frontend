@@ -1,7 +1,7 @@
 import './App.css';
 import { Outlet } from 'react-router-dom';
-import BackGround from './components/BackGround';
-import Container from './components/Container';
+import BackGround from './components/Common/BackGround';
+import Container from './components/Common/Container';
 import 'react-material-symbols/outlined';
 
 function App() {
@@ -11,6 +11,7 @@ function App() {
         <Outlet />
       </Container>
     </BackGround>
+
   );
 }
 

@@ -26,6 +26,6 @@ dist-ssr
 *storybook.log
 
 /yarn.lock
-
 .env
-.yarn/install-state.gz 
+.yarn
+

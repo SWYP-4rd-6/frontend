@@ -1,5 +1,6 @@
+import EmailLoginPageView from './email-login-page';
 import LoginPageView from './login-page';
 
-const Login = () => <LoginPageView />;
+export const Login = () => <LoginPageView />;
 
-export default Login;
+export const EmailLogin = () => <EmailLoginPageView />;

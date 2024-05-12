@@ -8,7 +8,18 @@
   }
 }
 
-/**/
+/* 중복되는 스타일 저장 */
+@layer utilities {
+  .input-style {
+    @apply w-full h-[2.5rem] border-2 px-[20px] focus:outline-none text-base font-[900] text-signature placeholder-signature placeholder-normal caret-black;
+  }
+}
+/* placeholder의 글자두께를 기본으로 */
+.placeholder-normal::placeholder {
+  font-weight: normal;
+}
+
+/* typo */
 .title {
   @apply text-signature font-black py-2  text-3xl;
 }
