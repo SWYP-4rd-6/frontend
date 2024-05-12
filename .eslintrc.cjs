@@ -25,18 +25,15 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react-hooks/rules-of-hooks': 'off',
     'default-case': 'off',
-    'consistent-return':'off',
-    'arrow-body-style': ["error", "as-needed"],
-    'react/function-component-definition':[2,   { "namedComponents": [
-      "arrow-function", 
-      "function-declaration",
-      "function-expression",
+    'consistent-return': 'off',
+    'no-unused-vars': 'off',
+    'arrow-body-style': ['error', 'as-needed'],
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: ['arrow-function', 'function-declaration', 'function-expression'],
+        unnamedComponents: ['arrow-function', 'function-declaration', 'function-expression'],
+      },
     ],
-    "unnamedComponents":[
-      "arrow-function", 
-      "function-declaration",
-      "function-expression",
-    ] }
-  ]
   },
 };
