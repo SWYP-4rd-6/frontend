@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import PasswordInput from '../Input/PasswordInput';
 import ValidateCheck from './ValidateCheck';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useActivateStore } from '@/store/ActivateStore';
 import ButtonInput from '../Input/ButtonInput';
 import { checkEmail } from '@/pages/signup-page';
@@ -52,7 +52,7 @@ const SignupForm = () => {
       toggleActivateButton(false);
     }
   }, [pwValid, checkDuplication]);
-  
+
   // useQuery로 변경 예정
   const checkEmailQuery = async () => {
     const email = watch('email');
@@ -76,49 +76,69 @@ const SignupForm = () => {
   };
 
   return (
-    <form
-      onSubmit={(e) => e.preventDefault()}
-      className="flex flex-col justify-start w-full"
-      noValidate
-    >
-      <label htmlFor="email">이메일 주소</label>
-      <ButtonInput
-        id="email"
-        type="email"
-        className=""
-        autoComplete="off"
-        register={register('email')}
-        value={watch('email')}
-        clickFunc={() => checkEmailQuery()}
-      />
-      <div className="flex items-center mt-[8px] mb-[10px]">
-        <ValidateCheck content="중복 확인" isChecked={checkDuplication} />
+    <Fragment>
+      <div className="text-[#646464] font-[300] text-4xl flex flex-col gap-2 mb-6">
+        <div>
+          <span className="text-signature font-[900]">로그인</span>에 사용할
+        </div>
+        <div>
+          <span className="text-signature font-[900]">아이디</span>와{' '}
+          <span className="text-signature font-[900]">비밀번호</span>를
+        </div>
+        <div>입력해주세요.</div>
       </div>
 
-      <label htmlFor="password">비밀번호</label>
-      <PasswordInput
-        id="password"
-        autoComplete="current-password"
-        register={register('password')}
-        value={watch('password')}
-      />
-      <div className="flex items-center gap-3 mb-[10px] mt-[8px]">
-        <ValidateCheck content="영문포함" isChecked={pwValid.containEng} />
-        <ValidateCheck content="숫자포함" isChecked={pwValid.containNum} />
-        <ValidateCheck content="8~20자 이내" isChecked={pwValid.pwLength} />
-      </div>
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="flex flex-col justify-start w-full"
+        noValidate
+      >
+        <label htmlFor="email" className="label-style">
+          이메일 주소
+        </label>
+        <ButtonInput
+          id="email"
+          type="email"
+          className=""
+          autoComplete="off"
+          register={register('email')}
+          value={watch('email')}
+          clickFunc={() => checkEmailQuery()}
+          buttonText="중복확인"
+        />
+        <div className="flex items-center mt-[8px] mb-[10px]">
+          <ValidateCheck content="중복 확인" isChecked={checkDuplication} />
+        </div>
 
-      <label htmlFor="passwordCheck">비밀번호 확인</label>
-      <PasswordInput
-        id="passwordCheck"
-        autoComplete="current-password"
-        register={register('passwordCheck')}
-        value={watch('passwordCheck')}
-      />
-      <div className="flex items-center mt-[8px]">
-        <ValidateCheck content="비밀번호 일치" isChecked={pwValid.check} />
-      </div>
-    </form>
+        <label htmlFor="password" className="label-style">
+          비밀번호
+        </label>
+        <PasswordInput
+          id="password"
+          autoComplete="current-password"
+          register={register('password')}
+          value={watch('password')}
+        />
+        <div className="flex items-center gap-3 mb-[10px] mt-[8px]">
+          <ValidateCheck content="영문포함" isChecked={pwValid.containEng} />
+          <ValidateCheck content="숫자포함" isChecked={pwValid.containNum} />
+          <ValidateCheck content="8~20자 이내" isChecked={pwValid.pwLength} />
+        </div>
+
+        <label htmlFor="passwordCheck" className="label-style">
+          비밀번호 확인
+        </label>
+        <PasswordInput
+          id="passwordCheck"
+          autoComplete="current-password"
+          register={register('passwordCheck')}
+          value={watch('passwordCheck')}
+        />
+        <div className="flex items-center mt-[8px]">
+          <ValidateCheck content="비밀번호 일치" isChecked={pwValid.check} />
+        </div>
+      </form>
+    </Fragment>
   );
 };
 

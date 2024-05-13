@@ -26,17 +26,8 @@ const SignUpPageView = () => {
     <div className="flex flex-col">
       <Header />
       <div className="mx-6">
-        <div className="text-[#646464] font-[300] text-4xl flex flex-col gap-2 mb-6">
-          <div>
-            <span className="text-signature font-[900]">로그인</span>에 사용할
-          </div>
-          <div>
-            <span className="text-signature font-[900]">아이디</span>와{' '}
-            <span className="text-signature font-[900]">비밀번호</span>를
-          </div>
-          <div>입력해주세요.</div>
-        </div>
-        {signupStage === 1 ? <SignupForm /> : <SignupForm2 />}
+        <SignupForm2 />
+        {/* {signupStage === 1 ? <SignupForm /> : <SignupForm2 />} */}
         <ArrowButton activate={readyToNext} moveFunc={moveStep} />
       </div>
     </div>
