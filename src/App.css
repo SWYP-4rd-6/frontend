@@ -10,3 +10,7 @@
   /* for Firefox */
   scrollbar-width: none;
 }
+
+textarea {
+  resize: none;
+}

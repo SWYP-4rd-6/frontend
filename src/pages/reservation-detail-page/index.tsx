@@ -4,7 +4,9 @@ import { useGeoLocation } from '@/useGeoLocation';
 import { SlickSettingsType, UserType } from '@/types/common';
 import ReservationDetailView from './reservation-detail-page';
 import axios from 'axios';
+import moment, { Moment } from 'moment';
 import { user } from '@/constants/test';
+import { FocusedInputShape } from 'react-dates';
 
 const geolocationOptions = {
   enableHighAccuracy: true,
@@ -17,6 +19,10 @@ function ReservationDetail() {
   const [dragging, setDragging] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
   const [content, setContent] = useState<UserType>(user);
+  const [startDate, setStartDate] = useState<Moment | null>(null);
+  const [endDate, setEndDate] = useState<Moment | null>(null);
+  const [focusedInput, setFocusedInput] = useState<'startDate' | 'endDate'>('startDate');
+
   const { location, error } = useGeoLocation(geolocationOptions);
   const navigateTo = useNavigate();
   const pageLocation = useLocation();
@@ -53,6 +59,21 @@ function ReservationDetail() {
     },
   };
 
+  const handleDatesChange = ({
+    startDate,
+    endDate,
+  }: {
+    startDate: Moment | null;
+    endDate: Moment | null;
+  }) => {
+    setStartDate(startDate);
+    setEndDate(endDate);
+  };
+
+  const handleFocusChange = (focusedInput: FocusedInputShape) => {
+    setFocusedInput(focusedInput);
+  };
+
   const onCategoryClick = (category: string) => {
     setSelectedCategory(category);
   };
@@ -85,10 +106,16 @@ function ReservationDetail() {
   useEffect(() => {
     // getReservationDetail();
   }, []);
+
   return (
     <ReservationDetailView
       slickSettings={slickSettings}
       multiSlickSettings={multiSlickSettings}
+      startDate={startDate}
+      endDate={endDate}
+      focusedInput={focusedInput}
+      handleDatesChange={handleDatesChange}
+      handleFocusChange={handleFocusChange}
       content={content}
       onClickTripImage={onClickTripImage}
       location={location}
