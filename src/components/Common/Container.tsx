@@ -1,6 +1,8 @@
 import React, { FC, ReactNode, useState, useEffect, useRef } from 'react';
 import FloatingButton from '@/components/Button/FloatingButton';
 import useScrollStore from '@/scrollStore';
+import 'react-dates/lib/css/_datepicker.css';
+import 'react-dates/initialize';
 
 const Container: FC<{ children: ReactNode }> = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,6 +17,21 @@ const Container: FC<{ children: ReactNode }> = ({ children }) => {
     setScrolling(false);
   };
 
+  useEffect(() => {
+    const originalConsoleError = console.error;
+
+    console.error = (...args: any[]) => {
+      if (typeof args[0] === 'string' && /defaultProps/.test(args[0])) {
+        return;
+      }
+
+      originalConsoleError(...args);
+    };
+
+    return () => {
+      console.error = originalConsoleError;
+    };
+  }, []);
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
