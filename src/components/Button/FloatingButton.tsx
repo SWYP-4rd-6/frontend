@@ -1,5 +1,5 @@
 import { MaterialSymbol } from 'react-material-symbols';
-import useScrollStore from '@/scrollStore';
+import useScrollStore from '@/store/scrollStore';
 
 const FloatingButton = () => {
   const { scrolling } = useScrollStore();

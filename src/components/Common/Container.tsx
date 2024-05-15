@@ -1,6 +1,6 @@
 import React, { FC, ReactNode, useState, useEffect, useRef } from 'react';
 import FloatingButton from '@/components/Button/FloatingButton';
-import useScrollStore from '@/scrollStore';
+import useScrollStore from '@/store/scrollStore';
 
 const Container: FC<{ children: ReactNode }> = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);

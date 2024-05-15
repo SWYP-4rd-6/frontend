@@ -3,11 +3,11 @@ import PasswordInput from '../Input/PasswordInput';
 import ValidateCheck from './ValidateCheck';
 import { Fragment, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useActivateStore } from '@/store/ActivateStore';
+import { useActivateStore } from '@/store/activateStore';
 import ButtonInput from '../Input/ButtonInput';
 import { checkEmail } from '@/pages/signup-page';
 import ArrowButton from '../Button/ArrowButton';
-import { useUserInfoStore } from '@/store/UserInfoStore';
+import { useUserInfoStore } from '@/store/userInfoStore';
 
 interface PropsType {
   setSignupStage: React.Dispatch<React.SetStateAction<number>>;

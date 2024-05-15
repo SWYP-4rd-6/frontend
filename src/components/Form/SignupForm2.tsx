@@ -9,9 +9,9 @@ import { getLocation } from '@/\butils/getLocation';
 import PhoneAuth from '../Input/PhoneAuth';
 import { countryList } from '@/constants/common';
 import ArrowButton from '../Button/ArrowButton';
-import { useActivateStore } from '@/store/ActivateStore';
+import { useActivateStore } from '@/store/activateStore';
 import { checkNickname, signup } from '@/pages/signup-page';
-import { useUserInfoStore } from '@/store/UserInfoStore';
+import { useUserInfoStore } from '@/store/userInfoStore';
 import { useNavigate } from 'react-router-dom';
 
 interface PropsType {

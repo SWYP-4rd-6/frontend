@@ -6,7 +6,7 @@ import { ConfirmationResult, RecaptchaVerifier, signInWithPhoneNumber } from 'fi
 import ReactModal from 'react-modal';
 import { countryCode } from '@/constants/common';
 import { checkPhone } from '@/pages/signup-page';
-import { useUserInfoStore } from '@/store/UserInfoStore';
+import { useUserInfoStore } from '@/store/userInfoStore';
 interface PropsType {
   setCheckDuplication: React.Dispatch<React.SetStateAction<any>>;
 }
