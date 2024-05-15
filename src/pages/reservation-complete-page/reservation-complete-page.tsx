@@ -13,11 +13,13 @@ import Payment from '@/components/Payment';
 import BottomButton from '@/components/Button/BottomButton';
 
 interface PropsType {
+  slickSettings: SlickSettingsType;
+  multiSlickSettings: SlickSettingsType;
   onClickTripImage: () => void;
   location?: ILocation;
   selectedCategory: string;
   onCategoryClick: (category: string) => void;
-  onClickComplete: () => void;
+  onClickMore: () => void;
   content: UserType;
   startDate: Moment | null;
   endDate: Moment | null;
@@ -26,7 +28,7 @@ interface PropsType {
   handleDatesChange: any;
 }
 
-const ReservationDetailView = ({
+const ReservationCompleteView = ({
   onClickTripImage,
   content,
   startDate,
@@ -34,7 +36,6 @@ const ReservationDetailView = ({
   focusedInput,
   handleFocusChange,
   handleDatesChange,
-  onClickComplete,
 }: PropsType) => {
   return (
     <div className=" ">
@@ -46,25 +47,7 @@ const ReservationDetailView = ({
         </div>
         <div className="line-content">
           <div className="sub-title-2">날짜</div>
-          <div className="px-5 py-4 border-content text-base text-light my-3">
-            <DateRangePicker
-              verticalHeight={400}
-              disableScroll={false}
-              keepOpenOnDateSelect={true}
-              startDate={startDate}
-              startDateId="your_unique_start_date_id" // PropTypes.string.isRequired,
-              endDate={endDate}
-              endDateId="your_unique_end_date_id" // PropTypes.string.isRequired,
-              onDatesChange={({ startDate, endDate }) => {
-                handleDatesChange({ startDate, endDate });
-              }}
-              onFocusChange={(focusedInput) => {
-                handleFocusChange(focusedInput);
-              }}
-              focusedInput={focusedInput}
-              orientation="vertical"
-            />
-          </div>
+          <div className="px-5 py-4 border-content text-base text-light my-3">컴플리</div>
           <div className="sub-title-2">시간</div>
           <div className="px-5  border-content text-base text-light my-3 parent">
             <TimePicker text="시작 시간" value="17:00" onChange={(value) => console.log(value)} />{' '}
@@ -88,14 +71,8 @@ const ReservationDetailView = ({
           </div>
         </div>
       </section>
-      <BottomButton
-        num={1}
-        text={['예약 요청']}
-        icons={['local_activity']}
-        onClickOne={onClickComplete}
-      />
     </div>
   );
 };
 
-export default ReservationDetailView;
+export default ReservationCompleteView;

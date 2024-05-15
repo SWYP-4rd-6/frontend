@@ -2,19 +2,13 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useGeoLocation } from '@/useGeoLocation';
 import { SlickSettingsType, UserType } from '@/types/common';
-import ReservationDetailView from './reservation-detail-page';
+import ReservationCompleteView from '@/pages/reservation-complete-page/reservation-complete-page';
 import axios from 'axios';
 import moment, { Moment } from 'moment';
 import { user } from '@/constants/test';
 import { FocusedInputShape } from 'react-dates';
 
-const geolocationOptions = {
-  enableHighAccuracy: true,
-  timeout: 1000 * 10,
-  maximumAge: 1000 * 3600 * 24,
-};
-
-function ReservationDetail() {
+function ReservationComplete() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [dragging, setDragging] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
@@ -23,10 +17,40 @@ function ReservationDetail() {
   const [endDate, setEndDate] = useState<Moment | null>(null);
   const [focusedInput, setFocusedInput] = useState<'startDate' | 'endDate'>('startDate');
 
-  const { location, error } = useGeoLocation(geolocationOptions);
   const navigateTo = useNavigate();
   const pageLocation = useLocation();
   const userId = new URLSearchParams(pageLocation.search).get('id');
+
+  const slickSettings: SlickSettingsType = {
+    infinite: false,
+    arrows: false,
+    speed: 500,
+    slidesToShow: 1.09,
+    slidesToScroll: 1,
+    touchThreshold: 100,
+    beforeChange: () => {
+      setDragging(true);
+    },
+    afterChange: (currentSlide) => {
+      setDragging(false);
+      setCurrentSlide(currentSlide);
+    },
+  };
+  const multiSlickSettings: SlickSettingsType = {
+    className: 'slider variable-width',
+    centerPadding: '20px',
+    arrows: false,
+    infinite: false,
+    speed: 400,
+    slidesToScroll: 5,
+    slidesToShow: 5.2,
+    beforeChange: () => {
+      setDragging(true);
+    },
+    afterChange: (currentSlide) => {
+      setDragging(false);
+    },
+  };
 
   const handleDatesChange = ({
     startDate,
@@ -48,14 +72,14 @@ function ReservationDetail() {
   };
 
   const onClickTripImage = () => {
-    if (!dragging) navigateTo('/tour/detail');
+    if (!dragging) navigateTo('/tour/complete');
   };
 
-  const onClickComplete = () => {
-    navigateTo('/tour/reservation/complete');
+  const onClickMore = () => {
+    navigateTo('/more');
   };
 
-  const getReservationDetail = async () => {
+  const getReservationComplete = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/users/${userId}`);
       if (response.status === 200) {
@@ -73,11 +97,13 @@ function ReservationDetail() {
   };
 
   useEffect(() => {
-    // getReservationDetail();
+    // getReservationComplete();
   }, []);
 
   return (
-    <ReservationDetailView
+    <ReservationCompleteView
+      slickSettings={slickSettings}
+      multiSlickSettings={multiSlickSettings}
       startDate={startDate}
       endDate={endDate}
       focusedInput={focusedInput}
@@ -85,11 +111,10 @@ function ReservationDetail() {
       handleFocusChange={handleFocusChange}
       content={content}
       onClickTripImage={onClickTripImage}
-      location={location}
       selectedCategory={selectedCategory}
       onCategoryClick={onCategoryClick}
-      onClickComplete={onClickComplete}
+      onClickMore={onClickMore}
     />
   );
 }
-export default ReservationDetail;
+export default ReservationComplete;

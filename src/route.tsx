@@ -9,6 +9,7 @@ import HomeMore from './pages/home-more-page';
 import Pay from './pages/pay';
 import HostDetail from './pages/host-detail-page';
 import ReservationDetail from './pages/reservation-detail-page';
+import ReservationComplete from './pages/reservation-complete-page';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: 'pay', element: <Pay /> },
       { path: 'host/detail', element: <HostDetail /> },
       { path: 'tour/reservation', element: <ReservationDetail /> },
+      { path: 'tour/reservation/complete', element: <ReservationComplete /> },
     ],
   },
 ]);
