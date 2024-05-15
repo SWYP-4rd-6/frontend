@@ -24,9 +24,8 @@ const ButtonInput = ({
   clickFunc,
   value,
   buttonText,
-  readonly
+  readonly,
 }: ButtonInputProps) => {
-
   return (
     <div className="relative">
       <input

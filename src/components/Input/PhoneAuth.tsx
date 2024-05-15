@@ -1,15 +1,22 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { auth } from '../../firebase/setup';
 import { ConfirmationResult, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import ReactModal from 'react-modal';
 import { countryCode } from '@/constants/common';
+import { checkPhone } from '@/pages/signup-page';
+import { useUserInfoStore } from '@/store/UserInfoStore';
+interface PropsType {
+  setCheckDuplication: React.Dispatch<React.SetStateAction<any>>;
+}
 
-const PhoneAuth = () => {
+const PhoneAuth = ({ setCheckDuplication }: PropsType) => {
+  const saveState = useUserInfoStore((state) => state.saveState);
   const [phone, setPhone] = useState('');
   const [user, setUser] = useState<ConfirmationResult | null>(null);
   const [otp, setOtp] = useState('');
+  const [recaptcha, setRecaptcha] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const countryNumbers = countryCode;
 
@@ -39,6 +46,10 @@ const PhoneAuth = () => {
     },
   };
 
+  useEffect(() => {
+    ReactModal.setAppElement('#root'); // 앱 요소 설정
+  }, []);
+
   const sendOtp = async () => {
     try {
       const recaptcha = new RecaptchaVerifier(auth, 'recaptcha', {});
@@ -53,13 +64,27 @@ const PhoneAuth = () => {
   const verifyOtp = async () => {
     try {
       const data = await user?.confirm(otp);
-      if (data?.operationType === 'signIn') {
-        setModalIsOpen(false);
-        return true;
+      if (data) {
+        const phoneNum = data.user.phoneNumber as string;
+        if (data.operationType === 'signIn') {
+          const res = await checkPhone(phoneNum);
+          if (!res) {
+            alert('중복된 전화번호입니다.');
+          } else {
+            setModalIsOpen(false);
+            setRecaptcha(false);
+            setCheckDuplication((prev: any) => ({ ...prev, phone: true }));
+            saveState({
+              phone,
+            });
+            return true;
+          }
+        }
       }
     } catch (error) {
       alert('인증코드가 올바르지 않습니다.');
     }
+    setModalIsOpen(false);
     return false;
   };
 
@@ -97,9 +122,7 @@ const PhoneAuth = () => {
         </button>
       </div>
 
-      <div className="absolute bottom-32">
-        <div id="recaptcha"></div>
-      </div>
+      <div className="absolute bottom-32">{recaptcha && <div id="recaptcha"></div>}</div>
       <ReactModal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}

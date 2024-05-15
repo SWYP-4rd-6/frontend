@@ -1,29 +1,47 @@
 import { create } from 'zustand';
 
-type State = {
+export type UserState = {
   email: string;
-  password: string;
   nickname: string;
-  username: string;
-  birth: string;
-  gender: string;
-  country: string;
-  location: string;
+  name: string;
+  phone: string;
+  nationality?: string;
+  gender: 'Male' | 'Female' | null;
+  password: string;
+  passwordCheck: string;
+  birthdate: string;
+  location?: string;
 };
 
-type Action = {
-  saveState: (userInfo: Partial<State>) => void;
+type UserAction = {
+  saveState: (userInfo: Partial<UserState>) => void;
+  resetState: () => void;
 };
 
-export const useUserInfoStore = create<State & Action>((set) => ({
+export const useUserInfoStore = create<UserState & UserAction>((set) => ({
   email: '',
-  password: '',
   nickname: '',
-  username: '',
-  birth: '',
-  gender: '',
-  country: '',
+  name: '',
+  phone: '',
+  nationality: '',
+  gender: null,
+  password: '',
+  passwordCheck: '',
+  birthdate: '',
   location: '',
 
   saveState: (userInfo) => set((state) => ({ ...state, ...userInfo })),
+  resetState: () =>
+    set({
+      email: '',
+      nickname: '',
+      name: '',
+      phone: '',
+      nationality: '',
+      gender: null,
+      password: '',
+      passwordCheck: '',
+      birthdate: '',
+      location: '',
+    }),
 }));

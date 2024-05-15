@@ -2,13 +2,23 @@ import { useForm } from 'react-hook-form';
 import PasswordInput from '../Input/PasswordInput';
 import ValidateCheck from './ValidateCheck';
 import { Fragment, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useActivateStore } from '@/store/ActivateStore';
 import ButtonInput from '../Input/ButtonInput';
 import { checkEmail } from '@/pages/signup-page';
+import ArrowButton from '../Button/ArrowButton';
+import { useUserInfoStore } from '@/store/UserInfoStore';
 
-const SignupForm = () => {
+interface PropsType {
+  setSignupStage: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const SignupForm = ({ setSignupStage }: PropsType) => {
+  const readyToNext = useActivateStore((state) => state.readyToNext);
   const toggleActivateButton = useActivateStore((state) => state.toggleActivateButton);
-  const { register, handleSubmit, watch } = useForm();
+  const saveState = useUserInfoStore((state) => state.saveState);
+  const navigate = useNavigate();
+  const { register, watch } = useForm();
   const [checkDuplication, setCheckDuplication] = useState(false);
   const [pwValid, setPwValid] = useState({
     containEng: false,
@@ -35,7 +45,6 @@ const SignupForm = () => {
     const password = watch('password');
     const pwCheck = watch('passwordCheck');
     checkPasswordValidity(password, pwCheck);
-    console.log(pwValid);
   }, [watch('password'), watch('passwordCheck')]);
 
   // 다음단계로 가기위해 모든 입력값이 유효성을 충족하는지 관찰
@@ -53,26 +62,29 @@ const SignupForm = () => {
     }
   }, [pwValid, checkDuplication]);
 
-  // useQuery로 변경 예정
   const checkEmailQuery = async () => {
     const email = watch('email');
-    const emailRegex = /^\S+@\S+\.\S+$/;
-
-    // 입력된 이메일이 정규식에 부합하는지 확인
-    if (!emailRegex.test(email)) {
-      alert('유효하지 않은 이메일 형식입니다.');
-      return;
-    }
-
-    // 이메일이 정규식에 부합하면 중복 확인 수행
-    const res: boolean = await checkEmail(email);
-
+    const res = await checkEmail(email);
     if (res) {
       alert('사용 가능한 이메일입니다.');
       setCheckDuplication(true);
     } else {
       alert('이미 존재하는 이메일입니다.');
     }
+  };
+
+  const moveForward = () => {
+    toggleActivateButton(false);
+    setSignupStage(2);
+    saveState({
+      email: watch('email'),
+      password: watch('password'),
+      passwordCheck: watch('passwordCheck'),
+    });
+  };
+  const moveBack = () => {
+    toggleActivateButton(false);
+    navigate('/login/email');
   };
 
   return (
@@ -104,7 +116,7 @@ const SignupForm = () => {
           register={register('email')}
           value={watch('email')}
           clickFunc={() => checkEmailQuery()}
-          buttonText="중복확인"
+          buttonText={!checkDuplication ? '중복확인' : '확인완료'}
         />
         <div className="flex items-center mt-[8px] mb-[10px]">
           <ValidateCheck content="중복 확인" isChecked={checkDuplication} />
@@ -138,6 +150,7 @@ const SignupForm = () => {
           <ValidateCheck content="비밀번호 일치" isChecked={pwValid.check} />
         </div>
       </form>
+      <ArrowButton activate={readyToNext} moveForward={moveForward} moveBack={moveBack} />
     </Fragment>
   );
 };

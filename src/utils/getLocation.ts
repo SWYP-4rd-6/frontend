@@ -1,4 +1,3 @@
-import { ILocation } from '@/types/userInfo';
 import axios from 'axios';
 
 const geolocationOptions = {
@@ -24,15 +23,8 @@ export const getLocation = async () => {
           const response = await axios.get(url);
           const { results } = response.data;
           if (results && results.length > 0) {
-            // 주소 정보 배열에서 필요한 정보만 선택하여 사용
-            const addressComponents = results[0].address_components;
-            const filteredAddressComponents = addressComponents.filter(
-              (component: any) => !component.types.includes('premise'),
-            );
-            const address = filteredAddressComponents
-              .map((component: any) => component.long_name) 
-              .reverse()
-              .join(' '); 
+            const addressComponents = results[5].formatted_address;
+            const address = addressComponents.split(' ').slice(1).join(' ');
             const locationInfo = {
               latitude,
               longitude,

@@ -2,17 +2,38 @@ import { Fragment } from 'react/jsx-runtime';
 import BasicInput from '../Input/BasicInput';
 import ButtonInput from '../Input/ButtonInput';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Country } from '@/types/userInfo';
 import Select, { StylesConfig } from 'react-select';
 import { getLocation } from '@/\butils/getLocation';
 import PhoneAuth from '../Input/PhoneAuth';
 import { countryList } from '@/constants/common';
+import ArrowButton from '../Button/ArrowButton';
+import { useActivateStore } from '@/store/ActivateStore';
+import { checkNickname, signup } from '@/pages/signup-page';
+import { useUserInfoStore } from '@/store/UserInfoStore';
+import { useNavigate } from 'react-router-dom';
 
-const SignupForm2 = () => {
+interface PropsType {
+  setSignupStage: React.Dispatch<React.SetStateAction<number>>;
+}
+
+type Gender = 'Male' | 'Female' | null;
+
+const SignupForm2 = ({ setSignupStage }: PropsType) => {
+  const readyToNext = useActivateStore((state) => state.readyToNext);
+  const toggleActivateButton = useActivateStore((state) => state.toggleActivateButton);
+  const saveState = useUserInfoStore((state) => state.saveState);
+  const resetState = useUserInfoStore((state) => state.resetState);
   const { register, watch, setValue } = useForm();
-  const [gender, setGender] = useState<string | null>(null);
+  const [gender, setGender] = useState<Gender>(null);
+  const [location, setLocation] = useState('');
+  const [checkDuplication, setCheckDuplication] = useState({
+    nickname: false,
+    phone: false,
+  });
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
+  const navigate = useNavigate();
   const GENDER_BUTTON_STYLE = `w-20 p-2 px-[20px] border-2 border-[#D9D9D9] text-[#D9D9D9] focus:outline-none transition`;
   const countries: Country[] = countryList;
 
@@ -41,7 +62,7 @@ const SignupForm2 = () => {
     }),
   };
 
-  const handleGenderSelect = (selectedGender: string) => {
+  const handleGenderSelect = (selectedGender: Gender) => {
     setGender(selectedGender);
   };
 
@@ -52,10 +73,62 @@ const SignupForm2 = () => {
   const getUserLocation = async () => {
     try {
       const location = await getLocation();
-      setValue('location', location.address);
+      setValue('location', `${location.address}의 Matthew`);
+      setLocation(location.address);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const checkNicknameQuery = async () => {
+    const nickname = watch('nickname');
+    const res = await checkNickname(nickname);
+    if (res) {
+      alert('사용 가능한 닉네임입니다.');
+      setCheckDuplication({ ...checkDuplication, nickname: true });
+    } else {
+      alert('이미 존재하는 닉네임입니다.');
+    }
+  };
+
+  useEffect(() => {
+    if (checkDuplication.nickname && watch('username') && gender && watch('birth')) {
+      toggleActivateButton(true);
+    } else {
+      toggleActivateButton(false);
+    }
+  }, [
+    checkDuplication.nickname,
+    checkDuplication.phone,
+    watch('username'),
+    gender,
+    watch('location'),
+    watch('birth'),
+  ]);
+
+  const moveForward = async () => {
+    toggleActivateButton(false);
+    saveState({
+      nickname: watch('nickname'),
+      name: watch('username'),
+      gender,
+      birthdate: watch('birth'),
+      location,
+      nationality: selectedCountry?.value,
+    });
+
+    const res = await signup();
+    if (res) {
+      resetState();
+      navigate('/');
+    } else {
+      alert('가입 실패');
+    }
+  };
+
+  const moveBack = () => {
+    toggleActivateButton(false);
+    setSignupStage(1);
   };
 
   return (
@@ -90,7 +163,8 @@ const SignupForm2 = () => {
               autoComplete="off"
               register={register('nickname')}
               value={watch('nickname')}
-              buttonText="중복확인"
+              buttonText={checkDuplication.nickname ? '확인완료' : '중복확인'}
+              clickFunc={() => checkNicknameQuery()}
             />
           </div>
 
@@ -116,7 +190,7 @@ const SignupForm2 = () => {
             </label>
             <BasicInput
               id="birth"
-              type="birth"
+              type="text"
               className=""
               autoComplete="off"
               register={register('birth')}
@@ -131,15 +205,15 @@ const SignupForm2 = () => {
             <div className="flex gap-[20px]">
               <button
                 type="button"
-                className={`${GENDER_BUTTON_STYLE} ${gender === 'male' ? 'bg-signature text-white font-[900] border-none' : 'bg-white'}`}
-                onClick={() => handleGenderSelect('male')}
+                className={`${GENDER_BUTTON_STYLE} ${gender === 'Male' ? 'bg-signature text-white font-[900] border-none' : 'bg-white'}`}
+                onClick={() => handleGenderSelect('Male')}
               >
                 남성
               </button>
               <button
                 type="button"
-                className={`${GENDER_BUTTON_STYLE} ${gender === 'female' ? 'bg-signature text-white font-[900] border-none' : 'bg-white'}`}
-                onClick={() => handleGenderSelect('female')}
+                className={`${GENDER_BUTTON_STYLE} ${gender === 'Female' ? 'bg-signature text-white font-[900] border-none' : 'bg-white'}`}
+                onClick={() => handleGenderSelect('Female')}
               >
                 여성
               </button>
@@ -194,10 +268,11 @@ const SignupForm2 = () => {
             가이드인 <span className="font-[700]">Matthew</span>가 되기 위해서는 인증이 필요하며,
           </div>
           <div className="mb-[5px] text-[#646464] text-[12px]">번호는 공개되지 않습니다.</div>
-          <PhoneAuth />
+          <PhoneAuth setCheckDuplication={setCheckDuplication} />
         </div>
-        
       </form>
+
+      <ArrowButton activate={readyToNext} moveForward={moveForward} moveBack={moveBack} />
     </Fragment>
   );
 };
