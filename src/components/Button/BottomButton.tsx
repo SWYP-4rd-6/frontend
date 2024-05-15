@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom';
-import { MaterialSymbol } from 'react-material-symbols';
+import { MaterialSymbol, MaterialSymbolProps } from 'react-material-symbols';
 interface PropsType {
+  num: number;
+  text: Array<string>;
+  icons: Array<any>;
   onClickOne?: () => void;
   onClickTwo?: () => void;
 }
 
-const BottomButton = ({ onClickOne, onClickTwo }: PropsType) => {
+const BottomButton = ({ onClickOne, onClickTwo, num, text, icons }: PropsType) => {
   return (
     <div
       className=" sticky justify-between
@@ -14,18 +17,20 @@ const BottomButton = ({ onClickOne, onClickTwo }: PropsType) => {
     >
       <button onClick={onClickOne} className=" ">
         <MaterialSymbol
-          icon="chat"
+          icon={icons[0]}
           size={24}
           fill
           grade={-25}
           className="text-sub-bu inline-block "
         />
-        <div className="text-xl text-sub-bu font-light ml-1 ">1:1 Message</div>
+        <div className="text-xl text-sub-bu font-light ml-1 ">{text[0]}</div>
       </button>
-      <button onClick={onClickTwo} className=" ">
-        <MaterialSymbol icon="local_activity" size={24} fill grade={-25} className="text-sub-bu" />
-        <span className="text-xl text-sub-bu font-light ml-1">예약하기</span>
-      </button>
+      {num > 1 && (
+        <button onClick={onClickTwo} className=" ">
+          <MaterialSymbol icon={icons[1]} size={24} fill grade={-25} className="text-sub-bu" />
+          <span className="text-xl text-sub-bu font-light ml-1">{text[1]}</span>
+        </button>
+      )}
     </div>
   );
 };

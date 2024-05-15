@@ -114,7 +114,12 @@ const TourDetailPageView = ({
             </Slider>
           </section>
 
-          <BottomButton onClickTwo={onClickReservation} />
+          <BottomButton
+            num={2}
+            onClickTwo={onClickReservation}
+            text={['1:1 Message', '예약하기']}
+            icons={['chat', 'local_activity']}
+          />
         </>
       )}
     </div>
