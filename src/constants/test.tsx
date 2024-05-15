@@ -28,22 +28,14 @@ export const guideProduct = {
       rating: 3,
       createdAt: '2024-05-05 00:00:00',
       profileImageUrl: '/man_sample.png',
-      imgs: [
-        '/trip_package_sample.png',
-        '/trip_image_sample1.png',
-        '/trip_image_sample2.png',
-        '/trip_package_sample.png',
-        '/trip_package_sample.png',
-
-        '/trip_package_sample.png',
-      ],
+      imgs: ['/trip_package_sample.png', '/trip_image_sample1.png', '/trip_image_sample2.png'],
     },
     {
       reviewId: 1,
       reviewer: 'nickname01',
       guideProductId: 1,
       content:
-        '정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.',
+        '정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.정말 좋은 여행입니다.',
       rating: 5,
       createdAt: '2024-05-05 00:00:00',
       profile: '안녕하세요!',
