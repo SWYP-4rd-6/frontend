@@ -19,6 +19,7 @@ interface PropsType {
   content?: guideProductType;
   formatDate: (dateString: string) => string;
   formatTimeRange: (start: string, end: string) => string;
+  onClickReservation: () => void;
 }
 
 const TourDetailPageView = ({
@@ -26,6 +27,7 @@ const TourDetailPageView = ({
   currentSlide,
   reviewSlickSettings,
   onClickHost,
+  onClickReservation,
   content,
   formatDate,
   formatTimeRange,
@@ -55,7 +57,7 @@ const TourDetailPageView = ({
               <IconList icon="fmd_good" text={content.title} />
               {/* ToDo:지역 불러오기 */}
               <IconList icon="payments" text={`${content.price}원`} />
-              <IconList icon="person" text={content.nickname}>
+              <IconList icon="person" text={content.nickname || ''}>
                 <button
                   onClick={onClickHost}
                   className="absolute items-end font-light right-6 text-sub-bu"
@@ -112,7 +114,7 @@ const TourDetailPageView = ({
             </Slider>
           </section>
 
-          <BottomButton />
+          <BottomButton onClickTwo={onClickReservation} />
         </>
       )}
     </div>

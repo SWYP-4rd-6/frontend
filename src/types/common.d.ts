@@ -43,14 +43,14 @@ export interface reviewType {
   profileImageUrl: string;
   imgs: Array<string>;
 }
-export interface hostGuideProductType {
-  id: number;
-  title: string;
-  description: string;
-  guideStart: string;
-  guideEnd: string;
-  thumb: string;
-}
+// export interface hostGuideProductType {
+//   id: number;
+//   title: string;
+//   description: string;
+//   guideStart: string;
+//   guideEnd: string;
+//   thumb: string;
+// }
 
 export interface guideProductType {
   id: number;

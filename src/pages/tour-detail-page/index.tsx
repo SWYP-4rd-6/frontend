@@ -51,6 +51,10 @@ function TourDetail() {
     navigateTo('/host/detail?id=' + userId);
   };
 
+  const onClickReservation = () => {
+    navigateTo('/tour/reservation?id=' + userId);
+  };
+
   const getTourDetail = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/products/${10}`);
@@ -77,6 +81,7 @@ function TourDetail() {
       currentSlide={currentSlide}
       reviewSlickSettings={reviewSlickSettings}
       onClickHost={onClickHost}
+      onClickReservation={onClickReservation}
       content={content}
       formatDate={formatDate}
       formatTimeRange={formatTimeRange}
