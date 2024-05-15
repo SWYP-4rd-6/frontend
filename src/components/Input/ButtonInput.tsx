@@ -1,4 +1,4 @@
-import { MouseEventHandler, useState } from 'react';
+import { MouseEventHandler } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface ButtonInputProps {
@@ -7,9 +7,11 @@ interface ButtonInputProps {
   placeholder?: string;
   className?: string;
   autoComplete?: string;
-  register: UseFormRegisterReturn<string>;
+  register?: UseFormRegisterReturn<string>;
   clickFunc?: MouseEventHandler<HTMLButtonElement>;
   value?: string;
+  buttonText: string;
+  readonly?: boolean;
 }
 
 const ButtonInput = ({
@@ -21,8 +23,9 @@ const ButtonInput = ({
   register,
   clickFunc,
   value,
+  buttonText,
+  readonly,
 }: ButtonInputProps) => {
-
   return (
     <div className="relative">
       <input
@@ -32,12 +35,13 @@ const ButtonInput = ({
         className={`input-style ${className} ${value ? 'border-signature' : 'border-[#D9D9D9]'}`}
         autoComplete={autoComplete}
         {...register}
+        readOnly={readonly}
       />
       <button
         onClick={clickFunc}
         className={`absolute top-1/2 transform -translate-y-1/2 right-0 text-[16px] px-3 py-[8px] ${value ? `text-white bg-signature font-[900]` : `text-[#646464] bg-[#D9D9D9] font-[300]`} `}
       >
-        중복 확인
+        {buttonText}
       </button>
     </div>
   );

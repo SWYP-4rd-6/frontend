@@ -11,9 +11,9 @@ import router from './route';
 const queryClient = new QueryClient();
 
 (async () => {
-  if (process.env.NODE_ENV === 'development') {
-    await enableMocking();
-  }
+  // if (process.env.NODE_ENV === 'development') {
+  //   await enableMocking();
+  // }
 
   ReactDOM.createRoot(document.getElementById('root')!).render(
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID}>

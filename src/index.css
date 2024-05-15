@@ -13,6 +13,9 @@
   .input-style {
     @apply w-full h-[2.5rem] border-2 px-[20px] focus:outline-none text-base font-[900] text-signature placeholder-signature placeholder-normal caret-black;
   }
+  .label-style {
+    @apply text-signature font-[900]
+  }
 }
 /* placeholder의 글자두께를 기본으로 */
 .placeholder-normal::placeholder {

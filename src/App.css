@@ -10,3 +10,9 @@
   /* for Firefox */
   scrollbar-width: none;
 }
+
+/* placeholder의 글자두께를 기본으로 */
+.placeholder-normal::placeholder {
+  font-weight: normal;
+}
+
