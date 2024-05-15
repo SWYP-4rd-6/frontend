@@ -14,7 +14,7 @@
     @apply w-full h-[2.5rem] border-2 px-[20px] focus:outline-none text-base font-[900] text-signature placeholder-signature placeholder-normal caret-black;
   }
   .label-style {
-    @apply text-signature font-[900]
+    @apply text-signature font-[900];
   }
 }
 /* placeholder의 글자두께를 기본으로 */
@@ -61,4 +61,10 @@
 
 .opacity-blue-filter {
   @apply absolute inset-0 bg-[#0173FA] bg-opacity-20;
+}
+
+.container-shadow {
+  box-shadow: -10px 10px 6px -4px rgba(217, 217, 217, 1);
+  -webkit-box-shadow: -10px 10px 6px -4px rgba(217, 217, 217, 1);
+  -moz-box-shadow: -10px 10px 6px -4px rgba(217, 217, 217, 1);
 }

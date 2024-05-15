@@ -32,7 +32,7 @@ const Container: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div
       ref={containerRef}
-      className="relative bg-white max-w-md h-screen overflow-y-scroll overflow-x-hidden left-0 mx-auto translate-x-0 shadow-2xl lg:left-1/2 lg:mx-0 lg:translate-x-[50px] no-scroll-bar"
+      className="relative container-shadow shadow-2xl bg-white w-full sm:max-w-[26.875rem] h-screen sm:h-[58.25rem] overflow-y-scroll overflow-x-hidden left-0 mx-auto translate-x-0 lg:left-1/2 lg:mx-0 lg:translate-x-[50px] no-scroll-bar"
     >
       {children}
     </div>
