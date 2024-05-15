@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useGeoLocation } from '@/utils/useGeoLocation';
+import { useGeoLocation } from '@/utils/useGeoLocation';
 import { SlickSettingsType } from '@/types/common';
 import HomePageView from '@/pages/home-page/home-page';
 

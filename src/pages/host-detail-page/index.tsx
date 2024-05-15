@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useGeoLocation } from '@/utils/useGeoLocation';
+import { useGeoLocation } from '@/utils/useGeoLocation';
 import { SlickSettingsType, UserType } from '@/types/common';
 import HostDetailView from './host-detail-page';
 import axios from 'axios';

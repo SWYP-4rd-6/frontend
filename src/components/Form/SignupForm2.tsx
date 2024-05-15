@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { Country } from '@/types/userInfo';
 import Select, { StylesConfig } from 'react-select';
-import { getLocation } from '@/\butils/getLocation';
+import { getLocation } from '@/utils/getLocation';
 import PhoneAuth from '../Input/PhoneAuth';
 import { countryList } from '@/constants/common';
 import ArrowButton from '../Button/ArrowButton';
