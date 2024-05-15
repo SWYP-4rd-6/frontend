@@ -23,16 +23,42 @@ export interface SlickSettingsType {
   prevArrow?: any;
   nextArrow?: any;
 }
-export interface reviewType {
-  user: string;
-  point: number;
-  desc: string;
+
+export interface UserType {
+  email: string;
+  nickname: string;
+  name: string;
+  profile: string;
+  profileImageUrl: string;
+  guideProducts: Array<guideProductType>;
 }
+
+export interface reviewType {
+  reviewId: number;
+  reviewer: string;
+  guideProductId: number;
+  content: string;
+  rating: number;
+  createdAt: string;
+  profileImageUrl: string;
+  imgs: Array<string>;
+}
+export interface hostGuideProductType {
+  id: number;
+  title: string;
+  description: string;
+  guideStart: string;
+  guideEnd: string;
+  thumb: string;
+}
+
 export interface guideProductType {
   id: number;
   title: string;
-  description?: string;
+  nickname?: string;
+  description: string;
   price?: number;
+  guideTime?: number;
   longitude?: number;
   latitude?: number;
   guideStart: string;

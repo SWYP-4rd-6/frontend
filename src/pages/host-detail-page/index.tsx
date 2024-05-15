@@ -1,8 +1,10 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useGeoLocation } from '@/useGeoLocation';
-import { SlickSettingsType } from '@/types/common';
+import { SlickSettingsType, UserType } from '@/types/common';
 import HostDetailView from './host-detail-page';
+import axios from 'axios';
+import { user } from '@/constants/test';
 
 const geolocationOptions = {
   enableHighAccuracy: true,
@@ -14,12 +16,11 @@ function HostDetail() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [dragging, setDragging] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
+  const [content, setContent] = useState<UserType>(user);
   const { location, error } = useGeoLocation(geolocationOptions);
   const navigateTo = useNavigate();
-
-  const onCategoryClick = (category: string) => {
-    setSelectedCategory(category);
-  };
+  const pageLocation = useLocation();
+  const userId = new URLSearchParams(pageLocation.search).get('id');
 
   const slickSettings: SlickSettingsType = {
     infinite: false,
@@ -36,7 +37,6 @@ function HostDetail() {
       setCurrentSlide(currentSlide);
     },
   };
-
   const multiSlickSettings: SlickSettingsType = {
     className: 'slider variable-width',
     centerPadding: '20px',
@@ -53,6 +53,10 @@ function HostDetail() {
     },
   };
 
+  const onCategoryClick = (category: string) => {
+    setSelectedCategory(category);
+  };
+
   const onClickTripImage = () => {
     if (!dragging) navigateTo('/tour/detail');
   };
@@ -61,10 +65,31 @@ function HostDetail() {
     navigateTo('/more');
   };
 
+  const getHostDetail = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/users/${userId}`);
+      if (response.status === 200) {
+        console.log('success');
+        setContent(response.data);
+
+        return true;
+      }
+      console.log('fail');
+      return false;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    // getHostDetail();
+  }, []);
   return (
     <HostDetailView
       slickSettings={slickSettings}
       multiSlickSettings={multiSlickSettings}
+      content={content}
       onClickTripImage={onClickTripImage}
       location={location}
       selectedCategory={selectedCategory}

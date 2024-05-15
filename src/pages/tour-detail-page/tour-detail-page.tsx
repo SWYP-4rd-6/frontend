@@ -53,8 +53,9 @@ const TourDetailPageView = ({
             <div className="title">{content.title}</div>
             <ul className="*:mb-2">
               <IconList icon="fmd_good" text={content.title} />
+              {/* ToDo:지역 불러오기 */}
               <IconList icon="payments" text={`${content.price}원`} />
-              <IconList icon="person" text={content.title}>
+              <IconList icon="person" text={content.nickname}>
                 <button
                   onClick={onClickHost}
                   className="absolute items-end font-light right-6 text-sub-bu"
@@ -77,7 +78,7 @@ const TourDetailPageView = ({
             <div>
               <div className=" line-content">
                 <h2 className="sub-title-2">상세 설명</h2>
-                <div className="border-content text-sm p-2">{content.title}</div>
+                <div className="border-content text-sm p-2">{content.description}</div>
               </div>
             </div>
             <div className="line-content ">
@@ -92,6 +93,7 @@ const TourDetailPageView = ({
                     icon="schedule"
                     text={`${formatTimeRange(content.guideStart, content.guideEnd)}`}
                   />
+                  {/* (${content.guideTime}시간 소요)` */}
                 </ul>
                 <div className="*:mr-5">
                   {content.categories &&
