@@ -4,11 +4,11 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { MaterialSymbol } from 'react-material-symbols';
 
-import CategoryButton from '@/components/CategoryButton';
-import SlideCard from '@/components/SlideCard';
-import FloatingButton from '@/components/FloatingButton';
+import CategoryButton from '@/components/Button/CategoryButton';
+import SlideCard from '@/components/Slide/SlideCard';
+import FloatingButton from '@/components/Button/FloatingButton';
 import BottomNav from '@/components/BottomNav';
-import DoubleLine from '@/components/DoubleLine';
+import DoubleLine from '@/components/DoubleLIne';
 
 import { ILocation, SlickSettingsType } from '@/types/common';
 import { categories } from '@/constants/common';
@@ -67,9 +67,9 @@ const HomePageView = ({
         </Slider>
       </div>
 
-      <section className="pl-6 border-t-2 border-signature;">
+      <section className="pl-6 border-t-2 border-signature">
         <div className="flex justify-between items-center pr-9">
-          <div className="sub-tiltle  ">근처</div>
+          <div className="sub-title  ">근처</div>
           <div className="flex items-center text-sub-bu text-base">
             Seoul, South Korea
             {/* {location && location.latitude} */}
@@ -105,7 +105,7 @@ const HomePageView = ({
         </Slider>
       </section>
       <section className="content-section">
-        <div className="sub-tiltle">추천하는 여행</div>
+        <div className="sub-title">추천하는 여행</div>
         <div className="grid-img-wrap">
           <img src="trip_image_sample1.png" />
           <img src="trip_image_sample2.png" />
@@ -121,7 +121,7 @@ const HomePageView = ({
         </button>
       </section>
       <section className="content-section">
-        <div className="sub-tiltle">전체</div>
+        <div className="sub-title">전체</div>
         <div className="grid-img-wrap">
           <img src="trip_image_sample1.png" />
           <img src="trip_image_sample2.png" />

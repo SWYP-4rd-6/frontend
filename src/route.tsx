@@ -6,6 +6,8 @@ import TourDetail from './pages/tour-detail-page';
 import App from './App';
 import SignUp from './pages/signup-page';
 import HomeMore from './pages/home-more-page';
+import Pay from './pages/pay';
+import HostDetail from './pages/host-detail-page';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,8 @@ const router = createBrowserRouter([
       { path: 'signup', element: <SignUp /> },
       { path: 'tour/detail', element: <TourDetail /> },
       { path: 'more', element: <HomeMore /> },
+      { path: 'pay', element: <Pay /> },
+      { path: 'host/detail', element: <HostDetail /> },
     ],
   },
 ]);

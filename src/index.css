@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  * {
+    @apply font-sans;
+  }
+}
+
 /* 중복되는 스타일 저장 */
 @layer utilities {
   .input-style {
@@ -14,4 +20,45 @@
 /* placeholder의 글자두께를 기본으로 */
 .placeholder-normal::placeholder {
   font-weight: normal;
+}
+
+/* typo */
+.title {
+  @apply text-signature font-black py-2  text-3xl;
+}
+
+.sub-title {
+  @apply text-signature py-2 font-black text-xl;
+}
+
+.sub-title-2 {
+  @apply text-signature py-2 font-black text-base;
+}
+
+.slick-dots {
+  @apply static;
+}
+
+/* layout */
+.category-wrap {
+  @apply pl-6 py-5  whitespace-nowrap;
+}
+
+.content-section {
+  @apply px-6 border-t-2 border-signature;
+}
+
+.line-content {
+  @apply border-t-2 border-signature my-5;
+}
+.border-content {
+  @apply border-2 border-signature font-light;
+}
+
+.grid-img-wrap {
+  @apply grid grid-cols-2 gap-5  place-items-center *:w-full *:h-full;
+}
+
+.opacity-blue-filter {
+  @apply absolute inset-0 bg-[#0173FA] bg-opacity-20;
 }
