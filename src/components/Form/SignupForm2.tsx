@@ -37,6 +37,7 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
   const GENDER_BUTTON_STYLE = `w-20 p-2 px-[20px] border-2 border-[#D9D9D9] text-[#D9D9D9] focus:outline-none transition`;
   const countries: Country[] = countryList;
 
+  // 국적 input 스타일링 (라이브러리)
   const customStyles: StylesConfig = {
     control: (provided, state) => ({
       ...provided,
@@ -80,6 +81,7 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
     }
   };
 
+  // 닉네임 중복 확인
   const checkNicknameQuery = async () => {
     const nickname = watch('nickname');
     const res = await checkNickname(nickname);
