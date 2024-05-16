@@ -1,4 +1,4 @@
-import { UserState, useUserInfoStore } from '@/store/userInfoStore';
+import { UserState, useUserInfoStore } from '@/store/UserInfoStore';
 import SignUpPageView from './signup-page';
 import axios from 'axios';
 

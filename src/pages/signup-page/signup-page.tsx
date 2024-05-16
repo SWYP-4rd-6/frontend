@@ -1,6 +1,6 @@
 import Header from '@/components/Header/Header';
 import SignupForm from '@/components/Form/SignupForm';
-import { useActivateStore } from '@/store/activateStore';
+import { useActivateStore } from '@/store/ActivateStore';
 import { useNavigate } from 'react-router-dom';
 import SignupForm2 from '@/components/Form/SignupForm2';
 import { useState } from 'react';
