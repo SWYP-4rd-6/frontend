@@ -55,7 +55,7 @@ const TourDetailPageView = ({
               <IconList icon="fmd_good" text={content.title} />
               {/* ToDo:지역 불러오기 */}
               <IconList icon="payments" text={`${content.price}원`} />
-              <IconList icon="person" text={content.nickname}>
+              <IconList icon="person" text={content.nickname as string}>
                 <button
                   onClick={onClickHost}
                   className="absolute items-end font-light right-6 text-sub-bu"

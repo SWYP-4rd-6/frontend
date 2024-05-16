@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ILocation } from './types/common';
+import { ILocation } from '../types/common';
 
 export const useGeoLocation = (options = {}) => {
   const [location, setLocation] = useState<ILocation>();
