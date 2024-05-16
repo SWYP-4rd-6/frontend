@@ -10,7 +10,6 @@ import IconList from '@/components/IconList';
 import CategoryIcon from '@/components/CategoryIcon';
 import ReviewSlide from '@/components/Slide/ReviewSlide';
 import { getTagIcon, getTagName } from '../../../utils';
-import ArrowHeader from '@/components/Header/ArrowHeader';
 import Header from '@/components/Header/Header';
 
 interface PropsType {

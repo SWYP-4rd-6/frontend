@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGeoLocation } from '@/utils/useGeoLocation';
-import { SlickSettingsType } from '@/types/common';
+import { SlickSettingsType, mainContentType } from '@/types/common';
 import HomePageView from '@/pages/home-page/home-page';
+import { getLocation } from '@/utils/getLocation';
 
 const geolocationOptions = {
   enableHighAccuracy: true,
@@ -14,7 +15,8 @@ function Home() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [dragging, setDragging] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
-  const { location, error } = useGeoLocation(geolocationOptions);
+  const [content, setContent] = useState<mainContentType | null>(null);
+  //const { location, error } = useGeoLocation(geolocationOptions);
   const navigateTo = useNavigate();
 
   const onCategoryClick = (category: string) => {
@@ -61,12 +63,18 @@ function Home() {
     navigateTo('/more');
   };
 
+  const getMain = async () => {
+    const location = await getLocation();
+    const result = { location: location.address };
+    setContent(() => result);
+  };
+
   return (
     <HomePageView
       slickSettings={slickSettings}
       multiSlickSettings={multiSlickSettings}
       onClickTripImage={onClickTripImage}
-      location={location}
+      content={content}
       selectedCategory={selectedCategory}
       onCategoryClick={onCategoryClick}
       onClickMore={onClickMore}

@@ -68,3 +68,8 @@ export interface guideProductType {
   images?: Array<string>;
   review?: Array<reviewType>;
 }
+
+export interface mainContentType {
+  location: string;
+  title?: string;
+}

@@ -10,17 +10,18 @@ import FloatingButton from '@/components/Button/FloatingButton';
 import BottomNav from '@/components/BottomNav';
 import DoubleLine from '@/components/DoubleLIne';
 
-import { ILocation, SlickSettingsType } from '@/types/common';
+import { ILocation, SlickSettingsType, mainContentType } from '@/types/common';
 import { categories } from '@/constants/common';
 
 interface PropsType {
   slickSettings: SlickSettingsType;
   multiSlickSettings: SlickSettingsType;
   onClickTripImage: () => void;
-  location?: ILocation;
+  //location?: ILocation;
   selectedCategory: string;
   onCategoryClick: (category: string) => void;
   onClickMore: () => void;
+  content: mainContentType | null;
 }
 
 const HomePageView = ({
@@ -30,7 +31,7 @@ const HomePageView = ({
   selectedCategory,
   onCategoryClick,
   onClickMore,
-  location,
+  content,
 }: PropsType) => {
   return (
     <div className=" ">
@@ -72,7 +73,6 @@ const HomePageView = ({
           <div className="sub-title  ">근처</div>
           <div className="flex items-center text-sub-bu text-base">
             Seoul, South Korea
-            {/* {location && location.latitude} */}
             <MaterialSymbol icon="fmd_good" size={21} fill grade={-25} color="#d9d9d9" />
           </div>
         </div>
