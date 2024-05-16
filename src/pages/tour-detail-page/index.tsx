@@ -6,12 +6,16 @@ import SlideArrow from '@/components/Slide/SlideArrow';
 import axios from 'axios';
 import { guideProduct } from '@/constants/test';
 import { formatDate, formatTimeRange } from '../../../utils';
+import useLoadingStore from '@/store/LoadingStore';
 
 function TourDetail() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [currentReviewSlide, setCurrentReviewSlide] = useState<number>(0);
   const [dragging, setDragging] = useState<boolean>(false);
   const [content, setContent] = useState<guideProductType>(guideProduct);
+
+  const { loading, setLoading } = useLoadingStore();
+
   let userId: number | null = 1;
   const navigateTo = useNavigate();
 
@@ -52,12 +56,15 @@ function TourDetail() {
   };
 
   const getTourDetail = async () => {
+    setLoading(true);
+
     try {
       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/products/${10}`);
       if (response.status === 200) {
-        console.log('success');
+        console.log(response);
         setContent(response.data);
         userId = response.data.userId;
+        setLoading(false);
         return true;
       }
       console.log('fail');
@@ -80,6 +87,7 @@ function TourDetail() {
       content={content}
       formatDate={formatDate}
       formatTimeRange={formatTimeRange}
+      loading={loading}
     />
   );
 }
