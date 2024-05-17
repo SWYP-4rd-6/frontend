@@ -1,76 +1,47 @@
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-/** */
-import 'react-dates/lib/css/_datepicker.css';
-import { DateRangePicker, FocusedInputShape } from 'react-dates';
-
-/** */
-import { ILocation, SlickSettingsType, UserType } from '@/types/common';
 import Header from '@/components/Header/Header';
-import moment, { Moment } from 'moment';
-import TimePicker from '@/components/TimePicker';
-import Payment from '@/components/Payment';
-import BottomButton from '@/components/Button/BottomButton';
+import { useEffect, useState } from 'react';
 
 interface PropsType {
-  slickSettings: SlickSettingsType;
-  multiSlickSettings: SlickSettingsType;
-  onClickTripImage: () => void;
-  location?: ILocation;
-  selectedCategory: string;
-  onCategoryClick: (category: string) => void;
-  onClickMore: () => void;
-  content: UserType;
-  startDate: Moment | null;
-  endDate: Moment | null;
-  focusedInput: FocusedInputShape;
-  handleFocusChange: any;
-  handleDatesChange: any;
+  content: {};
 }
+const ReservationCompleteView = ({ content }: PropsType) => {
+  const [backgroundImage, setBackgroundImage] = useState('/default-background.jpg');
 
-const ReservationCompleteView = ({
-  onClickTripImage,
-  content,
-  startDate,
-  endDate,
-  focusedInput,
-  handleFocusChange,
-  handleDatesChange,
-}: PropsType) => {
+  const handleBackgroundImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setBackgroundImage(reader.result as string);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  };
+
   return (
     <div className=" ">
       <Header />
-      <section className="px-6 ">
-        <div className="title ">
-          <span className="title">타이틀</span>에 <br />
-          참여해볼까요?
-        </div>
-        <div className="line-content">
-          <div className="sub-title-2">날짜</div>
-          <div className="px-5 py-4 border-content text-base text-light my-3">컴플리</div>
-          <div className="sub-title-2">시간</div>
-          <div className="px-5  border-content text-base text-light my-3 parent">
-            <TimePicker text="시작 시간" value="17:00" onChange={(value) => console.log(value)} />{' '}
-            <TimePicker
-              text="마감 시간"
-              value="17:00"
-              lastChild
-              onChange={(value) => console.log(value)}
-            />{' '}
-          </div>
-          <div className="sub-title-2">호스트에게 할 메시지</div>
-          <textarea
-            className="px-5 py-4 border-content text-base text-light my-3 w-full"
-            placeholder="호스트에게 하고 싶은 메시지를 남겨주세요!"
-          >
-            {content.profile}
-          </textarea>
-          <div className="sub-title-2">결제수단</div>
-          <div className="px-5 py-4 border-content text-base text-light my-3">
-            <Payment />
+      <div className="relative">
+        <div className="flex justify-center">
+          <div className="w-80 h-48 rounded-lg overflow-hidden bg-gray-900">
+            <img src={backgroundImage} alt="Background" className="object-cover w-full h-full" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-white text-2xl font-bold">한강 치맥파티</div>
+              <div className="text-white">#무거리 #아웃횡돈</div>
+            </div>
           </div>
         </div>
-      </section>
+        <div className="flex justify-center mt-4">
+          <div className="bg-blue-500 text-white px-4 py-2 rounded-full">Nice to Matthew</div>
+        </div>
+        <div className="mt-4">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleBackgroundImageChange}
+            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          />
+        </div>
+      </div>
     </div>
   );
 };

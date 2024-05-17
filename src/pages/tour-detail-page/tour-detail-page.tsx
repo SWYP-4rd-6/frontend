@@ -115,10 +115,14 @@ const TourDetailPageView = ({
           </section>
 
           <BottomButton
-            num={2}
-            onClickTwo={onClickReservation}
-            text={['1:1 Message', '예약하기']}
-            icons={['chat', 'local_activity']}
+            buttons={[
+              { text: '1:1 Message', icon: 'chat' },
+              {
+                text: '예약하기',
+                onClick: onClickReservation,
+                icon: 'local_activity',
+              },
+            ]}
           />
         </>
       )}

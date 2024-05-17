@@ -1,7 +1,11 @@
 import type { RequestPayParams, RequestPayResponse, PG, PaymentMethod } from '@/types/portone';
-import PayView from './pay';
+import PaymentView from './payment';
 
-function Payment() {
+interface PropsType {
+  text: string;
+}
+
+const Payment = ({ text }: PropsType) => {
   const onClickPayment = (pg: PG, storeId: string, payMethod: PaymentMethod) => {
     if (!window.IMP) return;
     /* 1. 가맹점 식별하기 */
@@ -37,6 +41,6 @@ function Payment() {
     }
   }
 
-  return <PayView onClickPayment={onClickPayment} />;
-}
+  return <PaymentView text={text} onClickPayment={onClickPayment} />;
+};
 export default Payment;

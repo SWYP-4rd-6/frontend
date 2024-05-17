@@ -3,21 +3,22 @@ import type { PG, PaymentMethod } from '@/types/portone';
 
 interface PropsType {
   onClickPayment: (pg: PG, storeId: string, payMethod: PaymentMethod) => void;
+  text: string;
 }
 
-function PayView({ onClickPayment }: PropsType) {
+function PaymentView({ onClickPayment, text }: PropsType) {
   return (
     <div>
       <button
         id="cardPay"
-        className="border bg-yellow-300"
+        className="text-white"
         onClick={() =>
           onClickPayment('html5_inicis', `${import.meta.env.VITE_PORTONE_INI_MID}`, 'card')
         }
       >
-        카드 결제
+        {text}
       </button>
     </div>
   );
 }
-export default PayView;
+export default PaymentView;

@@ -8,22 +8,12 @@ import moment, { Moment } from 'moment';
 import { user } from '@/constants/test';
 import { FocusedInputShape } from 'react-dates';
 
-const geolocationOptions = {
-  enableHighAccuracy: true,
-  timeout: 1000 * 10,
-  maximumAge: 1000 * 3600 * 24,
-};
-
 function ReservationDetail() {
-  const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const [dragging, setDragging] = useState<boolean>(false);
-  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
   const [content, setContent] = useState<UserType>(user);
   const [startDate, setStartDate] = useState<Moment | null>(null);
   const [endDate, setEndDate] = useState<Moment | null>(null);
   const [focusedInput, setFocusedInput] = useState<'startDate' | 'endDate'>('startDate');
 
-  const { location, error } = useGeoLocation(geolocationOptions);
   const navigateTo = useNavigate();
   const pageLocation = useLocation();
   const userId = new URLSearchParams(pageLocation.search).get('id');
@@ -43,12 +33,8 @@ function ReservationDetail() {
     setFocusedInput(focusedInput);
   };
 
-  const onCategoryClick = (category: string) => {
-    setSelectedCategory(category);
-  };
-
-  const onClickTripImage = () => {
-    if (!dragging) navigateTo('/tour/detail');
+  const onClickPayment = () => {
+    navigateTo('/tour/reservation/Payment');
   };
 
   const onClickComplete = () => {
@@ -84,11 +70,7 @@ function ReservationDetail() {
       handleDatesChange={handleDatesChange}
       handleFocusChange={handleFocusChange}
       content={content}
-      onClickTripImage={onClickTripImage}
-      location={location}
-      selectedCategory={selectedCategory}
-      onCategoryClick={onCategoryClick}
-      onClickComplete={onClickComplete}
+      onClickPayment={onClickPayment}
     />
   );
 }
