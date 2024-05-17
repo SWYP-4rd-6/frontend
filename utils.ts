@@ -48,14 +48,30 @@ const formatDate = (dateString: string): string => {
   return date.toFormat('yyyy.LL.dd'); // 2024.05.12
 };
 
+const formatDateKor = (dateString: string): string => {
+  const date = DateTime.fromISO(dateString);
+  return date.toFormat('yyyy년 LL월 dd일'); // 2024년 5월 17일
+};
+
 const formatTimeRange = (start: string, end: string): string => {
   const startTime = DateTime.fromISO(start);
   const endTime = DateTime.fromISO(end);
   const startTimeString = startTime.toFormat('HH:mm');
   const endTimeString = endTime.toFormat('HH:mm');
 
-  const duration = endTime.diff(startTime, 'hours').hours;
-  return `${startTimeString}~${endTimeString} (${duration}시간 소요)`; //"17:00~19:00 (2시간 소요)
+  //const duration = endTime.diff(startTime, 'hours').hours; (${duration}시간 소요)
+  return `${startTimeString}~${endTimeString}`; //"17:00~19:00 (2시간 소요)
 };
 
-export { getTagIcon, getTagName, formatDate, formatTimeRange };
+const calculateDays = (startDateStr: string, endDateStr: string) => {
+  // 문자열을 Date 객체로 변환
+  const startDate: any = new Date(startDateStr);
+  const endDate: any = new Date(endDateStr);
+
+  const timeDifference = endDate - startDate;
+  const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+
+  return daysDifference;
+};
+
+export { getTagIcon, getTagName, formatDate, formatDateKor, formatTimeRange, calculateDays };

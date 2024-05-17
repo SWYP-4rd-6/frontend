@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import type { RequestPayParams, RequestPayResponse, PG, PaymentMethod } from '@/types/portone';
 import { useNavigate, useLocation } from 'react-router-dom';
-import PayView from './pay';
+import ReservationPayView from './reservation-pay-page';
 import axios from 'axios';
+import { RESERVATION_DATA } from '@/constants/test';
 
-const Pay = () => {
-  const [content, setContent] = useState();
+const ReservationPay = () => {
+  const [content, setContent] = useState(RESERVATION_DATA);
   const navigateTo = useNavigate();
 
   const onComplete = () => {
@@ -33,6 +34,6 @@ const Pay = () => {
     // getReservationDetail();
   }, []);
 
-  return <PayView onComplete={onComplete} />;
+  return <ReservationPayView onComplete={onComplete} content={content} />;
 };
-export default Pay;
+export default ReservationPay;

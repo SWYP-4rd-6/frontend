@@ -1,10 +1,10 @@
 import { imgs } from '@/constants/test';
 import StarGrade from '../StarGrade';
-import { reviewType } from '@/types/common';
+import { ReviewType } from '@/types/common';
 
 type PropsType = {
   onClick?: () => void;
-  content: reviewType;
+  content: ReviewType;
 };
 
 const ReviewSlide = ({ onClick, content }: PropsType) => {
@@ -22,7 +22,7 @@ const ReviewSlide = ({ onClick, content }: PropsType) => {
       </div>
 
       <div className="text-xs text-light h-14 my-3">{content.content}</div>
-      {content.imgs.map((item, index) => (
+      {content.reviewImages.map((item, index) => (
         <div key={index} className="size-10 inline-block bg-sub-non mr-3">
           <img className="size-full" src={item}></img>
         </div>

@@ -33,7 +33,14 @@ export interface UserType {
   guideProducts: Array<guideProductType>;
 }
 
-export interface reviewType {
+export interface GuideType extends UserType {
+  reviewCount: number;
+  reviewRating: number;
+  createdAt: string;
+  guideProducts: Array<guideProductType>;
+}
+
+export interface ReviewType {
   reviewId: number;
   reviewer: string;
   guideProductId: number;
@@ -41,7 +48,7 @@ export interface reviewType {
   rating: number;
   createdAt: string;
   profileImageUrl: string;
-  imgs: Array<string>;
+  reviewImages: Array<string>;
 }
 // export interface hostGuideProductType {
 //   id: number;
@@ -52,7 +59,7 @@ export interface reviewType {
 //   thumb: string;
 // }
 
-export interface guideProductType {
+export interface GuideProductType {
   id: number;
   title: string;
   nickname?: string;
@@ -66,5 +73,22 @@ export interface guideProductType {
   categories?: Array<string>;
   thumb?: string;
   images?: Array<string>;
-  review?: Array<reviewType>;
+  //review?: Array<reviewType>;
+  userId?: number; //
+  locationName?: string; //
+  categories?: Array<string>; //
+  reviews?: Array<reviewType>; //
+}
+
+export interface ReservationType {
+  guide: GuideType;
+  product: guideProductType;
+  guideStart: string;
+  guideEnd: string;
+  personnel: number;
+  message: string;
+  price: number;
+  paymentStatus: string;
+  reservationStatus: string;
+  merchantUid: string;
 }

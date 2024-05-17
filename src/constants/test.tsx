@@ -28,7 +28,11 @@ export const guideProduct = {
       rating: 3,
       createdAt: '2024-05-05 00:00:00',
       profileImageUrl: '/man_sample.png',
-      imgs: ['/trip_package_sample.png', '/trip_image_sample1.png', '/trip_image_sample2.png'],
+      reviewImages: [
+        '/trip_package_sample.png',
+        '/trip_image_sample1.png',
+        '/trip_image_sample2.png',
+      ],
     },
     {
       reviewId: 1,
@@ -40,9 +44,67 @@ export const guideProduct = {
       createdAt: '2024-05-05 00:00:00',
       profile: '안녕하세요!',
       profileImageUrl: '/man_sample.png',
-      imgs: ['/trip_package_sample.png', '/trip_image_sample1.png'],
+      reviewImages: ['/trip_package_sample.png', '/trip_image_sample1.png'],
     },
   ],
+};
+
+export const RESERVATION_DATA = {
+  guide: {
+    email: 'user01@test.com',
+    nickname: 'nickname01',
+    name: 'name01',
+    profile: '안녕하세요!',
+    profileImageUrl: '/trip_package_sample.png',
+    reviewCount: 10,
+    reviewRating: 4.6,
+    createdAt: '2024-05-05 00:00:00',
+    guideProducts: [
+      {
+        id: 1,
+        title: '상품 이름',
+        description: '설명',
+        thumb: '/trip_package_sample.png',
+        guideStart: '2024-05-17T13:13:31.658Z',
+        guideEnd: '2024-05-17T13:13:31.658Z',
+      },
+    ],
+  },
+  product: {
+    userId: 1,
+    nickname: 'nickname01',
+    id: 1,
+    title: '신나는 서울 투어',
+    description: '서울 *** 여행 가이드 합니다.',
+    price: 10000,
+    locationName: '한강 공원',
+    latitude: 37,
+    longitude: 127,
+    guideStart: '2024-05-17T13:13:31.658Z',
+    guideEnd: '2024-05-17T13:13:31.658Z',
+    guideTime: 3,
+    categories: ['DINING', 'OUTDOOR'],
+    thumb: '/trip_package_sample.png',
+    images: ['/trip_package_sample.png', '/trip_package_sample.png'],
+    reviews: [
+      {
+        reviewId: 1,
+        reviewer: 'nickname01',
+        content: '정말 좋은 여행입니다.',
+        rating: 5,
+        createdAt: '2024-05-05 00:00:00',
+        reviewImages: '이미지 url',
+      },
+    ],
+  },
+  guideStart: '2024-04-29T12:30:45Z',
+  guideEnd: '2024-04-30T12:30:45Z',
+  personnel: 1,
+  message: '안녕하세요',
+  price: 10000,
+  paymentStatus: 'COMPLETE',
+  reservationStatus: 'RESERVED',
+  merchantUid: '20240429-ad5eea',
 };
 
 export const user = {

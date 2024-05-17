@@ -12,33 +12,15 @@ function ReservationDetail() {
   const [content, setContent] = useState<UserType>(user);
   const [startDate, setStartDate] = useState<Moment | null>(null);
   const [endDate, setEndDate] = useState<Moment | null>(null);
-  const [focusedInput, setFocusedInput] = useState<'startDate' | 'endDate'>('startDate');
-
   const navigateTo = useNavigate();
   const pageLocation = useLocation();
   const userId = new URLSearchParams(pageLocation.search).get('id');
 
-  const handleDatesChange = ({
-    startDate,
-    endDate,
-  }: {
-    startDate: Moment | null;
-    endDate: Moment | null;
-  }) => {
-    setStartDate(startDate);
-    setEndDate(endDate);
-  };
-
-  const handleFocusChange = (focusedInput: FocusedInputShape) => {
-    setFocusedInput(focusedInput);
-  };
-
-  const onClickPayment = () => {
-    navigateTo('/tour/reservation/Payment');
-  };
-
   const onClickComplete = () => {
     navigateTo('/tour/reservation/complete');
+  };
+  const onClickPayment = () => {
+    navigateTo('/tour/reservation/Payment');
   };
 
   const getReservationDetail = async () => {
@@ -66,9 +48,6 @@ function ReservationDetail() {
     <ReservationDetailView
       startDate={startDate}
       endDate={endDate}
-      focusedInput={focusedInput}
-      handleDatesChange={handleDatesChange}
-      handleFocusChange={handleFocusChange}
       content={content}
       onClickPayment={onClickPayment}
     />

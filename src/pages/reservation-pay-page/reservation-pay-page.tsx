@@ -3,11 +3,14 @@ import type { PG, PaymentMethod } from '@/types/portone';
 import Payment from '@/components/Payment';
 import Header from '@/components/Header/Header';
 import { MaterialSymbol } from 'react-material-symbols';
+import { GuideProductType, ReservationType, ReviewType } from '@/types/common';
+import { calculateDays, formatDateKor, formatTimeRange, getTagName } from '../../../utils';
 interface PropsType {
   onComplete: () => void;
+  content: ReservationType;
 }
 
-const PayView = ({ onComplete }: PropsType) => {
+const ReservationPayView = ({ onComplete, content }: PropsType) => {
   return (
     <>
       <Header />
@@ -15,29 +18,36 @@ const PayView = ({ onComplete }: PropsType) => {
         <div className="text-2xl font-bold mb-4">예약을 위해서는 결제가 필요해요!</div>
         <div>
           <div>
-            <div className="text-lg font-bold mb-2">상품명</div>
+            <div className="text-lg font-bold mb-2">여행 상품</div>
 
             <div className="mb-4 border">
-              <img src="/trip_image_sample2.png" />
+              <img src={content.product.thumb} />
 
-              <div className="font-bold text-lg">경북궁의 밤</div>
-              <div className="text-gray-500">#가례국악 #가례대고리</div>
+              <div className="font-bold text-lg">{content.product.title}</div>
+              <div className="text-gray-500">
+                {content.product.categories.map((item: string, i: number) => (
+                  <span key={i}>#{getTagName(item)}</span>
+                ))}
+              </div>
               <MaterialSymbol icon="fmd_good" size={19} fill grade={-25} color="" />
-              <div>위치</div>
+              <div>{content.product.locationName}</div>
             </div>
             <div className="text-lg font-bold mb-2">예약 정보</div>
 
             <div>
               <div className="font-bold">날짜</div>
-              <div>2024년 5월 17일 (1일)</div>
+              <div>
+                {formatDateKor(content.guideStart)} (
+                {calculateDays(content.guideStart, content.guideEnd)}일)
+              </div>
             </div>
             <div>
               <div className="font-bold">예약 시간</div>
-              <div>10:00 - 12:00 (2시간)</div>
+              <div>{formatTimeRange(content.guideStart, content.guideEnd)}</div>
             </div>
             <div>
               <div className="font-bold">결제 금액</div>
-              <div className="text-lg font-bold">20,000원</div>
+              <div className="text-lg font-bold">{content.price.toLocaleString()}원</div>
             </div>
           </div>
         </div>
@@ -62,10 +72,10 @@ const PayView = ({ onComplete }: PropsType) => {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 w-full"
           onClick={onComplete}
         >
-          <Payment text="20000원 결제하기" />
+          <Payment text={`${content.price.toLocaleString()}원 결제하기`} />
         </div>
       </div>
     </>
   );
 };
-export default PayView;
+export default ReservationPayView;
