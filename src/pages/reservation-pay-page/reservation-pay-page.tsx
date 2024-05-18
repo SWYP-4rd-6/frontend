@@ -3,8 +3,9 @@ import type { PG, PaymentMethod } from '@/types/portone';
 import Payment from '@/components/Payment';
 import Header from '@/components/Header/Header';
 import { MaterialSymbol } from 'react-material-symbols';
-import { GuideProductType, ReservationType, ReviewType } from '@/types/common';
-import { calculateDays, formatDateKor, formatTimeRange, getTagName } from '@/utils';
+import { CategoryType, GuideProductType, ReservationType, ReviewType } from '@/types/common';
+import { calculateDays, formatDateKor, formatTimeRange, getTagNameKor } from '@/utils';
+import BottomButton from '@/components/Button/BottomButton';
 ('@/utils');
 interface PropsType {
   onComplete: () => void;
@@ -15,7 +16,7 @@ const ReservationPayView = ({ onComplete, content }: PropsType) => {
   return (
     <>
       <Header />
-      <div className="p-4">
+      <div className="px-4">
         <div className="text-2xl font-bold mb-4">예약을 위해서는 결제가 필요해요!</div>
         <div>
           <div>
@@ -26,8 +27,8 @@ const ReservationPayView = ({ onComplete, content }: PropsType) => {
 
               <div className="font-bold text-lg">{content.product.title}</div>
               <div className="text-gray-500">
-                {content.product.categories.map((item: string, i: number) => (
-                  <span key={i}>#{getTagName(item)}</span>
+                {content.product.categories.map((item: CategoryType, i: number) => (
+                  <span key={i}>#{getTagNameKor(item)}</span>
                 ))}
               </div>
               <MaterialSymbol icon="fmd_good" size={19} fill grade={-25} color="" />
@@ -68,14 +69,17 @@ const ReservationPayView = ({ onComplete, content }: PropsType) => {
         </div>
 
         <div className="text-sm mt-2">Nice to Matthew!</div>
-
-        <div
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 w-full"
-          onClick={onComplete}
-        >
-          <Payment text={`${content.price.toLocaleString()}원 결제하기`} />
-        </div>
       </div>
+      <BottomButton
+        buttons={[
+          {
+            onClick: onComplete,
+            active: true,
+          },
+        ]}
+      >
+        <Payment text={`${content.price.toLocaleString()}원 결제하기`} />
+      </BottomButton>
     </>
   );
 };

@@ -4,7 +4,7 @@ import { useGeoLocation } from '@/useGeoLocation';
 import { SlickSettingsType, UserType } from '@/types/common';
 import HostDetailView from './host-detail-page';
 import axios from 'axios';
-import { user } from '@/constants/test';
+import { USER_DATA } from '@/constants/test';
 
 const geolocationOptions = {
   enableHighAccuracy: true,
@@ -16,7 +16,7 @@ function HostDetail() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [dragging, setDragging] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
-  const [content, setContent] = useState<UserType>(user);
+  const [content, setContent] = useState<UserType>(USER_DATA);
   const { location, error } = useGeoLocation(geolocationOptions);
   const navigateTo = useNavigate();
   const pageLocation = useLocation();

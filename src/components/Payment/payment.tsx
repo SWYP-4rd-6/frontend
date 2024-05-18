@@ -8,17 +8,16 @@ interface PropsType {
 
 function PaymentView({ onClickPayment, text }: PropsType) {
   return (
-    <div>
-      <button
-        id="cardPay"
-        className="text-white"
-        onClick={() =>
-          onClickPayment('html5_inicis', `${import.meta.env.VITE_PORTONE_INI_MID}`, 'card')
-        }
-      >
-        {text}
-      </button>
-    </div>
+    <button
+      id="cardPay"
+      className="  text-signature text-xl font-black"
+      onClick={
+        () => {}
+        // onClickPayment('html5_inicis', `${import.meta.env.VITE_PORTONE_INI_MID}`, 'card')
+      }
+    >
+      {text}
+    </button>
   );
 }
 export default PaymentView;

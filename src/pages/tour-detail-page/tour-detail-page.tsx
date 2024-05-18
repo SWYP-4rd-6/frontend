@@ -9,7 +9,7 @@ import BottomButton from '@/components/Button/BottomButton';
 import IconList from '@/components/List/IconList';
 import CategoryIcon from '@/components/CategoryIcon';
 import ReviewSlide from '@/components/Slide/ReviewSlide';
-import { getTagIcon, getTagName } from '@/utils';
+import { getTagIcon, getTagNameKor } from '@/utils';
 
 interface PropsType {
   arrowSlickSettings: SlickSettingsType;
@@ -100,7 +100,11 @@ const TourDetailPageView = ({
                 <div className="*:mr-5">
                   {content.categories &&
                     content.categories.map((item, index) => (
-                      <CategoryIcon key={index} icon={getTagIcon(item)} text={getTagName(item)} />
+                      <CategoryIcon
+                        key={index}
+                        icon={getTagIcon(item)}
+                        text={getTagNameKor(item)}
+                      />
                     ))}
                 </div>
               </div>

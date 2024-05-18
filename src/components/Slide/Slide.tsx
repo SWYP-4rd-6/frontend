@@ -1,3 +1,5 @@
+import { GuideProductType } from '@/types/common';
+
 type PropsType = {
   src: string;
   onClick?: () => void;

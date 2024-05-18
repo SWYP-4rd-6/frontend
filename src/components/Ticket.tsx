@@ -1,5 +1,5 @@
 import { GuideProductType } from '@/types/common';
-import { formatDate, formatTimeRange, getTagName } from '@/utils';
+import { formatDate, formatTimeRange, getTagName, getTagNameKor } from '@/utils';
 import { MaterialSymbol } from 'react-material-symbols';
 
 type PropsType = {
@@ -50,7 +50,7 @@ const Ticket = ({ src, content }: PropsType) => {
           <div className="text-4xl font-black  py-2">{content.title}</div>
           {content.categories?.map((item, index) => (
             <span key={index} className="text-sm  font-light">
-              #{getTagName(item)}
+              #{getTagNameKor(item)}
             </span>
           ))}
         </div>
