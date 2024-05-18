@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const Header = () => {
   const navigate = useNavigate();
   return (
-    <div onClick={() => navigate(-1)} className="mb-[14px] cursor-pointer">
+    <div onClick={() => navigate(-1)} className="mb-[14px] cursor-pointer ">
       <MaterialSymbol
         icon="arrow_back"
         fill

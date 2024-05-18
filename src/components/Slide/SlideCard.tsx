@@ -7,6 +7,7 @@ type PropsType = {
   onClick: () => void;
 };
 
+/* 메인 근처 카드 */
 const SlideCard = ({ title, fromDate, toDate, tags, onClick, src }: PropsType) => {
   return (
     <div className=" h-[22.5rem] w-[22.5rem] relative " onClick={onClick}>

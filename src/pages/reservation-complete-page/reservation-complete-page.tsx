@@ -1,46 +1,36 @@
+import ArrowButton from '@/components/Button/ArrowButton';
+import TextArrowButton from '@/components/Button/TextArrowButton';
 import Header from '@/components/Header/Header';
+import Ticket from '@/components/Ticket';
+import { ReservationType } from '@/types/common';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface PropsType {
-  content: {};
+  content: ReservationType;
 }
 const ReservationCompleteView = ({ content }: PropsType) => {
-  const [backgroundImage, setBackgroundImage] = useState('/default-background.jpg');
-
-  const handleBackgroundImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setBackgroundImage(reader.result as string);
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
+  const navigate = useNavigate();
+  const onClick = () => {
+    navigate('/');
   };
 
   return (
-    <div className=" ">
+    <div>
       <Header />
-      <div className="relative">
-        <div className="flex justify-center">
-          <div className="w-80 h-48 rounded-lg overflow-hidden bg-gray-900">
-            <img src={backgroundImage} alt="Background" className="object-cover w-full h-full" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-white text-2xl font-bold">한강 치맥파티</div>
-              <div className="text-white">#무거리 #아웃횡돈</div>
-            </div>
-          </div>
+      <div className="px-6">
+        <div className="title">예약 요청 완료!</div>
+        <div className="">
+          가이드가 일정을 확인하고 있어요. <br />
+          예약을 확정하면 알려드릴게요!
         </div>
-        <div className="flex justify-center mt-4">
-          <div className="bg-blue-500 text-white px-4 py-2 rounded-full">Nice to Matthew</div>
+
+        <div className="">
+          <Ticket src={content.product.thumb} content={content.product} />
         </div>
-        <div className="mt-4">
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleBackgroundImageChange}
-            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-          />
-        </div>
+
+        <div className="mt-4"></div>
+        <TextArrowButton activate={true} onClick={onClick} />
       </div>
     </div>
   );
