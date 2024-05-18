@@ -7,46 +7,52 @@ import moment, { Moment } from 'moment';
 interface PropsType {
   startDate: Moment | null;
   endDate: Moment | null;
-}
-
-const DayPickerRange = (props: PropsType) => {
-  const [startDate, setStartDate] = useState<Moment | null>(null);
-  const [endDate, setEndDate] = useState<Moment | null>(null);
-  // const [focusedInput, setFocusedInput] = useState<'startDate' | 'endDate'>('startDate');
-
-  const [focusedInput, setFocusedInput] = useState<FocusedInputShape | null>(null);
-
-  const handleDatesChange = ({
+  handleDatesChange: ({
     startDate,
     endDate,
   }: {
     startDate: Moment | null;
     endDate: Moment | null;
-  }) => {
-    setStartDate(startDate);
-    setEndDate(endDate);
-  };
+  }) => void;
+}
+
+const DayPickerRange = (props: PropsType) => {
+  //const [startDate, setStartDate] = useState<Moment | null>(null);
+  // const [endDate, setEndDate] = useState<Moment | null>(null);
+  // const [focusedInput, setFocusedInput] = useState<'startDate' | 'endDate'>('startDate');
+
+  const [focusedInput, setFocusedInput] = useState<FocusedInputShape | null>(null);
 
   const handleFocusChange = (focusedInput: FocusedInputShape | null) => {
     setFocusedInput(focusedInput);
+    // setFocusedInput(!focusedInput ? 'startDate' : focusedInput);
+  };
+
+  const isOutsideRange = (day: Moment) => {
+    // 현재 날짜로부터 90일 내의 날짜만 선택 가능하도록 설정
+    const today = moment();
+    const maxDate = moment().add(90, 'days');
+    return day.isBefore(today, 'day') || day.isAfter(maxDate, 'day');
   };
 
   return (
-    <div>
+    <div className="">
       <DateRangePicker
-        startDate={startDate}
+        startDate={props.startDate}
         startDateId="start_date_id"
-        endDate={endDate}
+        endDate={props.endDate}
         endDateId="end_date_id"
-        onDatesChange={handleDatesChange}
+        onDatesChange={props.handleDatesChange}
         focusedInput={focusedInput}
-        onFocusChange={handleFocusChange || null}
+        onFocusChange={handleFocusChange}
         orientation="vertical"
         verticalHeight={400}
-        numberOfMonths={12}
+        numberOfMonths={3}
         disableScroll={false}
+        keepOpenOnDateSelect={false}
+        isOutsideRange={isOutsideRange} // 특정 날짜 범위 외의 날짜 비활성화
+
         /*
-        keepOpenOnDateSelect={true}
       onFocusChange={(focusedInput) => {
           handleFocusChange(focusedInput);
         }}

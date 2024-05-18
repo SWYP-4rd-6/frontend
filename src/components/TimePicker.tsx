@@ -5,16 +5,27 @@ interface TimePicker {
   text: string;
   lastChild?: boolean;
   onChange: (value: string) => void;
+  active?: boolean;
+  open?: boolean;
 }
 
-const TimePicker: React.FC<TimePicker> = ({ value, onChange, text, lastChild }) => {
+const TimePicker: React.FC<TimePicker> = ({
+  value,
+  onChange,
+  text,
+  lastChild,
+  active = true,
+  open = false,
+}) => {
   const [hours, setHours] = useState<number>(parseInt(value.split(':')[0], 10));
   const [minutes, setMinutes] = useState<number>(parseInt(value.split(':')[1], 10));
   const hourIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const minuteIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(open);
   const timePickerRef = useRef<HTMLDivElement>(null);
+
+  const formatTime = (time: number) => time.toString().padStart(2, '0');
+  const formattedTime = `${formatTime(hours)}:${formatTime(minutes)}`;
 
   const handleHourIncrement = () => {
     setHours((prevHours) => (prevHours === 23 ? 0 : prevHours + 1));
@@ -70,10 +81,6 @@ const TimePicker: React.FC<TimePicker> = ({ value, onChange, text, lastChild }) 
     clearInterval(minuteIntervalRef.current as NodeJS.Timeout);
   };
 
-  const formatTime = (time: number) => time.toString().padStart(2, '0');
-
-  const formattedTime = `${formatTime(hours)}:${formatTime(minutes)}`;
-
   useEffect(() => {
     onChange(formattedTime);
   }, [formattedTime, onChange]);
@@ -93,13 +100,16 @@ const TimePicker: React.FC<TimePicker> = ({ value, onChange, text, lastChild }) 
     }
   }, []);
 
+  useEffect(() => {}, []);
+
   return (
     <div className="relative mt-2.5 ">
       <button
         className={`flex items-center justify-between text-white  w-full  pb-3 
         ${lastChild ? '' : 'border-b border-signature'}
+        ${!active && 'cursor-default'}
         `}
-        onClick={() => setIsOpen(!isOpen)}
+        {...(active && { onClick: () => setIsOpen(!isOpen) })}
       >
         <span className="text-signature">{text}</span>
         <span className=" bg-signature p-1 ">{formattedTime}</span>
