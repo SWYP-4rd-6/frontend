@@ -1,12 +1,12 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { SlickSettingsType, guideProductType } from '@/types/common';
+import { SlickSettingsType, GuideProductType } from '@/types/common';
 import Slide from '@/components/Slide/Slide';
 import { MaterialSymbol } from 'react-material-symbols';
 import DoubleLine from '@/components/DoubleLIne';
 import BottomButton from '@/components/Button/BottomButton';
-import IconList from '@/components/IconList';
+import IconList from '@/components/List/IconList';
 import CategoryIcon from '@/components/CategoryIcon';
 import ReviewSlide from '@/components/Slide/ReviewSlide';
 import { getTagIcon, getTagName } from '../../../utils';
@@ -16,7 +16,7 @@ interface PropsType {
   currentSlide: number;
   reviewSlickSettings: SlickSettingsType;
   onClickHost: () => void;
-  content?: guideProductType;
+  content?: GuideProductType;
   formatDate: (dateString: string) => string;
   formatTimeRange: (start: string, end: string) => string;
   onClickReservation: () => void;
@@ -109,8 +109,8 @@ const TourDetailPageView = ({
           <section className="content-section ">
             <div className="sub-title-2">리뷰</div>
             <Slider {...reviewSlickSettings} className="pb-3">
-              {content.review &&
-                content.review.map((item, index) => <ReviewSlide key={index} content={item} />)}
+              {content.reviews &&
+                content.reviews.map((item, index) => <ReviewSlide key={index} content={item} />)}
             </Slider>
           </section>
 

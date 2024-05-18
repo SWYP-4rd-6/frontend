@@ -19,7 +19,7 @@ export const guideProduct = {
   images: ['/trip_package_sample.png', '/trip_package_sample.png', '/trip_package_sample.png'],
   guideTime: 3,
   nickname: 'nickname01',
-  review: [
+  reviews: [
     {
       reviewId: 1,
       reviewer: 'nickname01',

@@ -1,9 +1,9 @@
-import { guideProductType } from '@/types/common';
+import { GuideProductType } from '@/types/common';
 import { MaterialSymbol } from 'react-material-symbols';
-import { formatDate } from '../../utils';
+import { formatDate } from '../../../utils';
 
 type PropsType = {
-  content: guideProductType;
+  content: GuideProductType;
   onClick: () => void;
 };
 
