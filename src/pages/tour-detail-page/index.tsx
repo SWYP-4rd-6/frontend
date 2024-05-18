@@ -4,7 +4,7 @@ import TourDetailPageView from '@/pages/tour-detail-page/tour-detail-page';
 import { SlickSettingsType, GuideProductType } from '@/types/common';
 import SlideArrow from '@/components/Slide/SlideArrow';
 import axios from 'axios';
-import { guideProduct } from '@/constants/test';
+import { GUIDE_PRODUCT_DATA } from '@/constants/test';
 import { formatDate, formatTimeRange } from '@/utils';
 import useLoadingStore from '@/store/LoadingStore';
 
@@ -12,7 +12,7 @@ function TourDetail() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [currentReviewSlide, setCurrentReviewSlide] = useState<number>(0);
   const [dragging, setDragging] = useState<boolean>(false);
-  const [content, setContent] = useState<GuideProductType>(guideProduct);
+  const [content, setContent] = useState<GuideProductType>(GUIDE_PRODUCT_DATA);
   const { loading, setLoading } = useLoadingStore();
 
   let userId: number | null = 1;

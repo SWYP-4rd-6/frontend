@@ -27,7 +27,7 @@ const ReservationPayView = ({ onComplete, content }: PropsType) => {
 
               <div className="font-bold text-lg">{content.product.title}</div>
               <div className="text-gray-500">
-                {content.product.categories.map((item: CategoryType, i: number) => (
+                {content.product.categories?.map((item: CategoryType, i: number) => (
                   <span key={i}>#{getTagNameKor(item)}</span>
                 ))}
               </div>

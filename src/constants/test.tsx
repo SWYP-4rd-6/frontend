@@ -1,4 +1,4 @@
-import { MainContentType } from '@/types/common';
+import { GuideProductType, MainContentType, ReservationType } from '@/types/common';
 
 export const imgs = [
   '/trip_package_sample.png',
@@ -7,7 +7,7 @@ export const imgs = [
   '/trip_package_sample.png',
 ];
 
-export const guideProduct = {
+export const GUIDE_PRODUCT_DATA: GuideProductType = {
   id: 1,
   title: '신나는 더미 서울 투어',
   description: '서울 *** 여행 가이드 합니다.',
@@ -51,7 +51,7 @@ export const guideProduct = {
   ],
 };
 
-export const RESERVATION_DATA = {
+export const RESERVATION_DATA: ReservationType = {
   guide: {
     email: 'user01@test.com',
     nickname: 'nickname01',

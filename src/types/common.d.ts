@@ -127,7 +127,7 @@ export interface MainContentType {
 
 export interface ReservationType {
   guide: GuideType;
-  product: guideProductType;
+  product: GuideProductType;
   guideStart: string;
   guideEnd: string;
   personnel: number;
