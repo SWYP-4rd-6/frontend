@@ -8,7 +8,7 @@ interface PropsType {
 
 function PaymentView({ onClickPayment, text }: PropsType) {
   return (
-    <button
+    <div
       id="cardPay"
       className="  text-signature text-xl font-black"
       onClick={
@@ -17,7 +17,7 @@ function PaymentView({ onClickPayment, text }: PropsType) {
       }
     >
       {text}
-    </button>
+    </div>
   );
 }
 export default PaymentView;

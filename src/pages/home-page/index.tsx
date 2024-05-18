@@ -13,7 +13,6 @@ import { getTagName } from '@/utils';
 import { useGeoLocation } from '@/utils/useGeoLocation';
 import { getLocation } from '@/utils/getLocation';
 
-
 const geolocationOptions = {
   enableHighAccuracy: true,
   timeout: 1000 * 10,
@@ -151,9 +150,8 @@ function Home() {
   const getMain = async () => {
     const location = await getLocation();
     const result = { location: location.address };
-    setContent(() => result);
+    // setContent(() => result);
   };
-
 
   return (
     <HomePageView
@@ -161,7 +159,6 @@ function Home() {
       slickSettings={slickSettings}
       multiSlickSettings={multiSlickSettings}
       onClickTripImage={onClickTripImage}
-      content={content}
       selectedCategory={selectedCategory}
       onCategoryClick={onCategoryClick}
       onClickMore={onClickMore}

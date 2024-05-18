@@ -82,10 +82,6 @@ const ReservationDetailView = ({
           onChange={onChangeText}
           value={content}
         />
-        {/* <div className="sub-title-2">결제수단</div>
-            <div className="px-5 py-4 border-content text-base text-light my-3">
-              <Payment />
-            </div> */}
       </section>
       <BottomButton
         buttons={[

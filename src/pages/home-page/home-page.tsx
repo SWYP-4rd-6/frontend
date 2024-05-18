@@ -135,7 +135,7 @@ const HomePageView = ({
         </button>
       </section>
       <FloatingButton />
-      <BottomNav />
+      <BottomNav login={false} />
     </div>
   );
 };
