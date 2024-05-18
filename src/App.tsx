@@ -11,7 +11,6 @@ function App() {
         <Outlet />
       </Container>
     </BackGround>
-
   );
 }
 

@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TourDetailPageView from '@/pages/tour-detail-page/tour-detail-page';
-import { SlickSettingsType, guideProductType } from '@/types/common';
+import { SlickSettingsType, GuideProductType } from '@/types/common';
 import SlideArrow from '@/components/Slide/SlideArrow';
 import axios from 'axios';
 import { guideProduct } from '@/constants/test';
-import { formatDate, formatTimeRange } from '../../../utils';
+import { formatDate, formatTimeRange } from '@/utils';
 import useLoadingStore from '@/store/LoadingStore';
 
 function TourDetail() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [currentReviewSlide, setCurrentReviewSlide] = useState<number>(0);
   const [dragging, setDragging] = useState<boolean>(false);
-  const [content, setContent] = useState<guideProductType>(guideProduct);
-
+  const [content, setContent] = useState<GuideProductType>(guideProduct);
   const { loading, setLoading } = useLoadingStore();
 
   let userId: number | null = 1;
@@ -55,6 +54,10 @@ function TourDetail() {
     navigateTo('/host/detail?id=' + userId);
   };
 
+  const onClickReservation = () => {
+    navigateTo('/tour/reservation?id=' + userId);
+  };
+
   const getTourDetail = async () => {
     setLoading(true);
 
@@ -84,6 +87,7 @@ function TourDetail() {
       currentSlide={currentSlide}
       reviewSlickSettings={reviewSlickSettings}
       onClickHost={onClickHost}
+      onClickReservation={onClickReservation}
       content={content}
       formatDate={formatDate}
       formatTimeRange={formatTimeRange}
