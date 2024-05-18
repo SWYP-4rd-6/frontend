@@ -1,4 +1,3 @@
-import { emailLogin } from '@/apis/login';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -16,22 +15,22 @@ const EmailLoginForm = () => {
   } = useForm();
 
   const emailLoginQuery = useMutation({
-    mutationFn: emailLogin,
-    onSuccess(data) {
-      if (data?.data.success) {
-        console.log(data);
-        const { token, refreshToken } = data.data;
-        // 로그인 성공 시 토큰과 리프레시 토큰을 로컬 스토리지에 저장
-        localStorage.setItem('token', token);
-        localStorage.setItem('refreshToken', refreshToken);
+    // mutationFn: emailLogin,
+    // onSuccess(data) {
+    //   if (data?.data.success) {
+    //     console.log(data);
+    //     const { token, refreshToken } = data.data;
+    //     // 로그인 성공 시 토큰과 리프레시 토큰을 로컬 스토리지에 저장
+    //     localStorage.setItem('token', token);
+    //     localStorage.setItem('refreshToken', refreshToken);
 
-        // 로그인 성공 메시지
-        alert('로그인 성공!');
-        navigate(`/`);
-      } else {
-        alert('아이디와 비밀번호를 확인해주세요');
-      }
-    },
+    //     // 로그인 성공 메시지
+    //     alert('로그인 성공!');
+    //     navigate(`/`);
+    //   } else {
+    //     alert('아이디와 비밀번호를 확인해주세요');
+    //   }
+    // },
   });
 
   const onSubmit = async (data: any) => {

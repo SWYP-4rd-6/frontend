@@ -10,6 +10,8 @@ import IconList from '@/components/List/IconList';
 import CategoryIcon from '@/components/CategoryIcon';
 import ReviewSlide from '@/components/Slide/ReviewSlide';
 import { getTagIcon, getTagNameKor } from '@/utils';
+import Header from '@/components/Header/Header';
+
 
 interface PropsType {
   arrowSlickSettings: SlickSettingsType;
@@ -20,6 +22,8 @@ interface PropsType {
   formatDate: (dateString: string) => string;
   formatTimeRange: (start: string, end: string) => string;
   onClickReservation: () => void;
+  loading: boolean;
+
 }
 
 const TourDetailPageView = ({
@@ -31,9 +35,11 @@ const TourDetailPageView = ({
   content,
   formatDate,
   formatTimeRange,
+  loading,
 }: PropsType) => {
   return (
     <div className="relative">
+       <Header type="trans" />
       {content && (
         <>
           {content.images && (
@@ -129,6 +135,7 @@ const TourDetailPageView = ({
             ]}
           />
         </>
+
       )}
     </div>
   );

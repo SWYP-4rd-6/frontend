@@ -137,3 +137,8 @@ export interface ReservationType {
   reservationStatus: string;
   merchantUid: string;
 }
+
+export interface mainContentType {
+  location: string;
+  title?: string;
+}

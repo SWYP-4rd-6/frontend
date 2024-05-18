@@ -16,7 +16,9 @@
     "@googlemaps/react-wrapper": "^1.1.35",
     "@react-oauth/google": "^0.12.1",
     "@tanstack/react-query": "^5.29.2",
+    "@types/react-modal": "^3.16.3",
     "axios": "^1.6.8",
+    "firebase": "^10.11.1",
     "jwt-decode": "^4.0.0",
     "luxon": "^3.4.4",
     "react": "^18.2.0",
@@ -25,7 +27,10 @@
     "react-hook-form": "^7.51.3",
     "react-icons": "^5.1.0",
     "react-material-symbols": "^4.4.0",
+    "react-modal": "^3.16.1",
+    "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^6.22.3",
+    "react-select": "^5.8.0",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
     "zustand": "^4.5.2"
@@ -65,7 +70,6 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "eslint-plugin-storybook": "^0.8.0",
-    "msw": "^2.2.13",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "storybook": "^8.0.9",
@@ -75,11 +79,6 @@
     "vite": "^5.2.0",
     "vite-bundle-visualizer": "^1.1.0",
     "vite-tsconfig-paths": "^4.3.2"
-  },
-  "msw": {
-    "workerDirectory": [
-      "public"
-    ]
   },
   "packageManager": "yarn@4.1.1"
 }
