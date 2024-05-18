@@ -9,7 +9,7 @@ import BottomButton from '@/components/Button/BottomButton';
 import IconList from '@/components/List/IconList';
 import CategoryIcon from '@/components/CategoryIcon';
 import ReviewSlide from '@/components/Slide/ReviewSlide';
-import { getTagIcon, getTagName } from '../../../utils';
+import { getTagIcon, getTagName } from '@/utils';
 
 interface PropsType {
   arrowSlickSettings: SlickSettingsType;
@@ -33,7 +33,7 @@ const TourDetailPageView = ({
   formatTimeRange,
 }: PropsType) => {
   return (
-    <div className="">
+    <div className="relative">
       {content && (
         <>
           {content.images && (

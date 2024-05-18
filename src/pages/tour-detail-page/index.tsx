@@ -5,7 +5,7 @@ import { SlickSettingsType, GuideProductType } from '@/types/common';
 import SlideArrow from '@/components/Slide/SlideArrow';
 import axios from 'axios';
 import { guideProduct } from '@/constants/test';
-import { formatDate, formatTimeRange } from '../../../utils';
+import { formatDate, formatTimeRange } from '@/utils';
 
 function TourDetail() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);

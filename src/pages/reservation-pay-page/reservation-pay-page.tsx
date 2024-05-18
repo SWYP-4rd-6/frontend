@@ -4,7 +4,8 @@ import Payment from '@/components/Payment';
 import Header from '@/components/Header/Header';
 import { MaterialSymbol } from 'react-material-symbols';
 import { GuideProductType, ReservationType, ReviewType } from '@/types/common';
-import { calculateDays, formatDateKor, formatTimeRange, getTagName } from '../../../utils';
+import { calculateDays, formatDateKor, formatTimeRange, getTagName } from '@/utils';
+('@/utils');
 interface PropsType {
   onComplete: () => void;
   content: ReservationType;

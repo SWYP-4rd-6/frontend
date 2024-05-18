@@ -1,6 +1,6 @@
 import { GuideProductType } from '@/types/common';
 import { MaterialSymbol } from 'react-material-symbols';
-import { formatDate } from '../../../utils';
+import { formatDate } from '@/utils';
 
 type PropsType = {
   content: GuideProductType;
