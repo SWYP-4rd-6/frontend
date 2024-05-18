@@ -1,3 +1,25 @@
+export type CategoryKorType =
+  | '전체'
+  | '근처'
+  | '추천'
+  | '먹거리'
+  | '관광'
+  | '야외 활동'
+  | '놀거리'
+  | '문화예술'
+  | '스포츠/운동';
+
+export type CategoryType =
+  | 'ALL'
+  | 'NEAR'
+  | 'BEST'
+  | 'DINING'
+  | 'TOUR'
+  | 'OUTDOOR'
+  | 'ENTERTAINMENT'
+  | 'ART_CULTURE'
+  | 'SPORTS_FITNESS';
+
 export interface ILocation {
   latitude: number;
   longitude: number;
@@ -50,34 +72,57 @@ export interface ReviewType {
   profileImageUrl: string;
   reviewImages: Array<string>;
 }
-// export interface hostGuideProductType {
-//   id: number;
-//   title: string;
-//   description: string;
-//   guideStart: string;
-//   guideEnd: string;
-//   thumb: string;
-// }
 
 export interface GuideProductType {
   id: number;
   title: string;
   nickname?: string;
-  description: string;
+  description?: string;
   price?: number;
   guideTime?: number;
   longitude?: number;
   latitude?: number;
   guideStart: string;
   guideEnd: string;
-  categories?: Array<string>;
+  categories?: Array<CategoryType>;
   thumb?: string;
   images?: Array<string>;
-  //review?: Array<reviewType>;
-  userId?: number; //
-  locationName?: string; //
-  categories?: Array<string>; //
-  reviews?: Array<reviewType>; //
+  userId?: number;
+  locationName?: string;
+  reviews?: Array<reviewType>;
+}
+
+export interface SortType {
+  direction: string;
+  nullHandling: string;
+  ascending: true;
+  property: string;
+  ignoreCase: true;
+}
+
+export interface MainContentType {
+  bestGuideProducts: Array<GuideProductType>;
+  nearGuideProducts: Array<GuideProductType>;
+  allGuideProducts: {
+    totalPages: number;
+    totalElements: number;
+    size: number;
+    content: Array<GuideProductType>;
+    number: number;
+    sort: Array<SortType>;
+    numberOfElements: number;
+    pageable: {
+      offset: number;
+      sort: Array<SortType>;
+      pageNumber: number;
+      pageSize: number;
+      paged: boolean;
+      unpaged: boolean;
+    };
+    first: boolean;
+    last: boolean;
+    empty: boolean;
+  };
 }
 
 export interface ReservationType {

@@ -1,3 +1,5 @@
+import { MainContentType } from '@/types/common';
+
 export const imgs = [
   '/trip_package_sample.png',
   '/trip_image_sample1.png',
@@ -107,7 +109,7 @@ export const RESERVATION_DATA = {
   merchantUid: '20240429-ad5eea',
 };
 
-export const user = {
+export const USER_DATA = {
   email: 'user01@test.com',
   nickname: 'nickname01',
   name: 'name01',
@@ -139,4 +141,155 @@ export const user = {
       guideEnd: '2024-05-15T01:21:04.331Z',
     },
   ],
+};
+
+export const SEARCH_DATA = [
+  {
+    id: 1,
+    title: '신나는 서울 투어',
+    thumb: '/trip_image_sample1.png',
+    locationName: '한강 공원',
+    guideStart: '2024-05-18T06:11:04.136Z',
+    guideEnd: '2024-05-18T06:11:04.136Z',
+  },
+  {
+    id: 1,
+    title: '신나는 서울 투어',
+    thumb: '/trip_image_sample1.png',
+    locationName: '한강 공원',
+    guideStart: '2024-05-18T06:11:04.136Z',
+    guideEnd: '2024-05-18T06:11:04.136Z',
+  },
+  {
+    id: 1,
+    title: '신나는 서울 투어',
+    thumb: '/trip_image_sample1.png',
+    locationName: '한강 공원',
+    guideStart: '2024-05-18T06:11:04.136Z',
+    guideEnd: '2024-05-18T06:11:04.136Z',
+  },
+];
+export const MAIN_CONTENT_DATA: MainContentType = {
+  bestGuideProducts: [
+    {
+      id: 1,
+      title: '신나는 서울 투어',
+      thumb: '/trip_image_sample1.png',
+      locationName: '한강 공원',
+      guideStart: '2024-05-18T05:18:25.834Z',
+      guideEnd: '2024-05-18T05:18:25.834Z',
+    },
+    {
+      id: 2,
+      title: '신나는 서울 투어',
+      thumb: '/trip_image_sample1.png',
+      locationName: '한강 공원',
+      guideStart: '2024-05-18T05:18:25.834Z',
+      guideEnd: '2024-05-18T05:18:25.834Z',
+    },
+    {
+      id: 1,
+      title: '신나는 서울 투어',
+      thumb: '/trip_image_sample1.png',
+      locationName: '한강 공원',
+      guideStart: '2024-05-18T05:18:25.834Z',
+      guideEnd: '2024-05-18T05:18:25.834Z',
+    },
+  ],
+  nearGuideProducts: [
+    {
+      id: 1,
+      title: '신나는 서울 투어',
+      thumb: '/trip_image_sample1.png',
+      locationName: '한강 공원',
+      guideStart: '2024-05-18T05:18:25.834Z',
+      guideEnd: '2024-05-18T05:18:25.834Z',
+      categories: ['DINING', 'OUTDOOR', 'TOUR', 'SPORTS_FITNESS'],
+    },
+    {
+      id: 2,
+      title: '신나는 서울 투어',
+      thumb: '/trip_image_sample1.png',
+      locationName: '한강 공원',
+      guideStart: '2024-05-18T05:18:25.834Z',
+      guideEnd: '2024-05-18T05:18:25.834Z',
+    },
+    {
+      id: 1,
+      title: '신나는 서울 투어',
+      thumb: '/trip_image_sample1.png',
+      locationName: '한강 공원',
+      guideStart: '2024-05-18T05:18:25.834Z',
+      guideEnd: '2024-05-18T05:18:25.834Z',
+    },
+  ],
+  allGuideProducts: {
+    totalPages: 0,
+    totalElements: 0,
+    size: 0,
+    content: [
+      {
+        id: 1,
+        title: '신나는 서울 투어',
+        thumb: '/trip_image_sample1.png',
+        locationName: '한강 공원',
+        guideStart: '2024-05-18T05:18:25.834Z',
+        guideEnd: '2024-05-18T05:18:25.834Z',
+      },
+      {
+        id: 2,
+        title: '신나는 서울 투어',
+        thumb: '/trip_image_sample1.png',
+        locationName: '한강 공원',
+        guideStart: '2024-05-18T05:18:25.834Z',
+        guideEnd: '2024-05-18T05:18:25.834Z',
+      },
+      {
+        id: 1,
+        title: '신나는 서울 투어',
+        thumb: '/trip_image_sample1.png',
+        locationName: '한강 공원',
+        guideStart: '2024-05-18T05:18:25.834Z',
+        guideEnd: '2024-05-18T05:18:25.834Z',
+      },
+      {
+        id: 1,
+        title: '신나는 서울 투어',
+        thumb: '/trip_image_sample1.png',
+        locationName: '한강 공원',
+        guideStart: '2024-05-18T05:18:25.834Z',
+        guideEnd: '2024-05-18T05:18:25.834Z',
+      },
+    ],
+    number: 0,
+    sort: [
+      {
+        direction: 'string',
+        nullHandling: 'string',
+        ascending: true,
+        property: 'string',
+        ignoreCase: true,
+      },
+    ],
+    numberOfElements: 0,
+    pageable: {
+      offset: 0,
+      sort: [
+        {
+          direction: 'string',
+          nullHandling: 'string',
+          ascending: true,
+          property: 'string',
+          ignoreCase: true,
+        },
+      ],
+      pageNumber: 0,
+      pageSize: 0,
+      paged: true,
+      unpaged: true,
+    },
+    first: true,
+    last: true,
+    empty: true,
+  },
 };

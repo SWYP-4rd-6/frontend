@@ -10,17 +10,25 @@ import FloatingButton from '@/components/Button/FloatingButton';
 import BottomNav from '@/components/BottomNav';
 import DoubleLine from '@/components/DoubleLIne';
 
-import { ILocation, SlickSettingsType } from '@/types/common';
-import { categories } from '@/constants/common';
+import {
+  CategoryKorType,
+  CategoryType,
+  ILocation,
+  MainContentType,
+  SlickSettingsType,
+} from '@/types/common';
+import { CATEGORIES } from '@/constants/common';
+import ImgList from '@/components/List/ImgLIst';
 
 interface PropsType {
   slickSettings: SlickSettingsType;
   multiSlickSettings: SlickSettingsType;
   onClickTripImage: () => void;
   location?: ILocation;
-  selectedCategory: string;
-  onCategoryClick: (category: string) => void;
-  onClickMore: () => void;
+  selectedCategory: CategoryKorType;
+  onCategoryClick: (category: CategoryKorType) => void;
+  onClickMore: (cate: CategoryKorType) => void;
+  mainContent: MainContentType;
 }
 
 const HomePageView = ({
@@ -31,6 +39,7 @@ const HomePageView = ({
   onCategoryClick,
   onClickMore,
   location,
+  mainContent,
 }: PropsType) => {
   return (
     <div className=" ">
@@ -55,7 +64,7 @@ const HomePageView = ({
       </div>
       <div className="category-wrap">
         <Slider {...multiSlickSettings}>
-          {categories.map((category, index) => (
+          {CATEGORIES.map((category: CategoryKorType, index) => (
             <CategoryButton
               key={index}
               text={category}
@@ -66,67 +75,57 @@ const HomePageView = ({
           <div className="w-60"></div>
         </Slider>
       </div>
-
-      <section className="pl-6 border-t-2 border-signature">
-        <div className="flex justify-between items-center pr-9">
-          <div className="sub-title  ">근처</div>
-          <div className="flex items-center text-sub-bu text-base">
-            Seoul, South Korea
-            {/* {location && location.latitude} */}
-            <MaterialSymbol icon="fmd_good" size={21} fill grade={-25} color="#d9d9d9" />
-          </div>
-        </div>
-        <div className="w-full max-w-xl mx-auto"></div>
-        <Slider {...slickSettings} className="pb-3">
-          <SlideCard
-            fromDate="2024.08.08"
-            toDate="2024.08.08"
-            tags={['먹거리', '야외활동']}
-            title="한강 치맥파티"
-            src="trip_package_sample.png"
-            onClick={onClickTripImage}
-          />
-          <SlideCard
-            fromDate="2024.08.08"
-            toDate="2024.08.08"
-            tags={['먹거리', '야외활동']}
-            title="한강 치맥파티"
-            src="trip_image_sample1.png"
-            onClick={onClickTripImage}
-          />
-          <SlideCard
-            fromDate="2024.08.08"
-            toDate="2024.08.08"
-            tags={['먹거리', '야외활동']}
-            title="한강 치맥파티"
-            src="trip_image_sample1.png"
-            onClick={onClickTripImage}
-          />
-        </Slider>
-      </section>
+      {selectedCategory === '전체' ? (
+        <>
+          <section className="pl-6 border-t-2 border-signature">
+            <div className="flex justify-between items-center pr-9">
+              <div className="sub-title  ">근처</div>
+              <div className="flex items-center text-sub-bu text-base">
+                Seoul, South Korea
+                {/* {location && location.latitude} */}
+                <MaterialSymbol icon="fmd_good" size={21} fill grade={-25} color="#d9d9d9" />
+              </div>
+            </div>
+            <div className="w-full max-w-xl mx-auto"></div>
+            <Slider {...slickSettings} className="pb-3">
+              {mainContent.nearGuideProducts?.map((item, i) => (
+                <SlideCard key={i} content={item} onClick={onClickTripImage} />
+              ))}
+            </Slider>
+          </section>
+          <section className="content-section">
+            <div className="sub-title">추천하는 여행</div>
+            <div className="grid-img-wrap">
+              {mainContent.bestGuideProducts?.map((item, i) => (
+                <ImgList key={i} content={item} onClick={onClickTripImage} />
+              ))}
+            </div>
+            <button
+              type="button"
+              className="border-2 border-sub-non w-full text-xl font-black text-sub-non py-1.5 my-5"
+              onClick={() => onClickMore('추천')}
+            >
+              더보기
+            </button>
+          </section>
+        </>
+      ) : (
+        <></>
+      )}
       <section className="content-section">
-        <div className="sub-title">추천하는 여행</div>
-        <div className="grid-img-wrap">
-          <img src="trip_image_sample1.png" />
-          <img src="trip_image_sample2.png" />
-          <img src="trip_image_sample1.png" />
-          <img src="trip_image_sample2.png" />
+        <div className="flex justify-between items-center pr-3">
+          <div className="sub-title">{selectedCategory}</div>
+          {selectedCategory === '근처' && (
+            <div className="flex items-center text-sub-bu text-base">
+              Seoul, South Korea
+              <MaterialSymbol icon="fmd_good" size={21} fill grade={-25} color="#d9d9d9" />
+            </div>
+          )}
         </div>
-        <button
-          type="button"
-          className="border-2 border-sub-non w-full text-xl font-black text-sub-non py-1.5 my-5"
-          onClick={onClickMore}
-        >
-          더보기
-        </button>
-      </section>
-      <section className="content-section">
-        <div className="sub-title">전체</div>
         <div className="grid-img-wrap">
-          <img src="trip_image_sample1.png" />
-          <img src="trip_image_sample2.png" />
-          <img src="trip_image_sample1.png" />
-          <img src="trip_image_sample2.png" />
+          {mainContent.allGuideProducts.content?.map((item, i) => (
+            <ImgList key={i} content={item} onClick={onClickTripImage} />
+          ))}
         </div>
         <button
           type="button"
@@ -135,7 +134,6 @@ const HomePageView = ({
           더보기
         </button>
       </section>
-
       <FloatingButton />
       <BottomNav />
     </div>

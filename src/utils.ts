@@ -1,7 +1,8 @@
 import { SymbolCodepoints } from 'react-material-symbols';
 import { DateTime } from 'luxon';
+import { CategoryKorType, CategoryType } from './types/common';
 
-const getTagIcon = (tag: string): SymbolCodepoints => {
+const getTagIcon = (tag: CategoryType): SymbolCodepoints => {
   switch (tag) {
     case 'DINING':
       return 'restaurant';
@@ -20,8 +21,10 @@ const getTagIcon = (tag: string): SymbolCodepoints => {
   }
 };
 
-const getTagName = (tag: string) => {
+const getTagNameKor = (tag: CategoryType): CategoryKorType | null => {
   switch (tag) {
+    case 'ALL':
+      return '전체';
     case 'DINING':
       return '먹거리';
     case 'OUTDOOR':
@@ -39,7 +42,32 @@ const getTagName = (tag: string) => {
     case 'SPORTS_FITNESS':
       return '스포츠/운동';
     default:
-      return '/';
+      return null;
+  }
+};
+
+const getTagName = (tag: CategoryKorType): CategoryType | null => {
+  switch (tag) {
+    case '전체':
+      return 'ALL';
+    case '먹거리':
+      return 'DINING';
+    case '야외 활동':
+      return 'OUTDOOR';
+    case '근처':
+      return 'NEAR';
+    case '추천':
+      return 'BEST';
+    case '관광':
+      return 'TOUR';
+    case '놀거리':
+      return 'ENTERTAINMENT';
+    case '문화예술':
+      return 'ART_CULTURE';
+    case '스포츠/운동':
+      return 'SPORTS_FITNESS';
+    default:
+      return null;
   }
 };
 
@@ -74,4 +102,12 @@ const calculateDays = (startDateStr: string, endDateStr: string) => {
   return daysDifference;
 };
 
-export { getTagIcon, getTagName, formatDate, formatDateKor, formatTimeRange, calculateDays };
+export {
+  getTagIcon,
+  getTagName,
+  getTagNameKor,
+  formatDate,
+  formatDateKor,
+  formatTimeRange,
+  calculateDays,
+};

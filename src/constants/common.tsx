@@ -1,4 +1,6 @@
-export const categories = [
+import { CategoryKorType } from '@/types/common';
+
+export const CATEGORIES: Array<CategoryKorType> = [
   '전체',
   '근처',
   '추천',

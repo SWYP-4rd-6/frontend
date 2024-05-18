@@ -3,7 +3,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import CategoryButton from '@/components/Button/CategoryButton';
 import DoubleLine from '@/components/DoubleLIne';
-import { categories } from '@/constants/common';
+import { CATEGORIES } from '@/constants/common';
 import { SlickSettingsType } from '@/types/common';
 
 interface PropsType {
@@ -24,7 +24,7 @@ const HomeMorePageView = ({ multiSlickSettings, selectedCategory, onCategoryClic
       </div>
       <div className="category-wrap">
         <Slider {...multiSlickSettings}>
-          {categories.map((category, index) => (
+          {CATEGORIES.map((category, index) => (
             <CategoryButton
               key={index}
               text={category}

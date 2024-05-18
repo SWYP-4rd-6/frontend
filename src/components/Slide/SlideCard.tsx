@@ -1,29 +1,28 @@
+import { CategoryType, CategoryKorType, GuideProductType } from '@/types/common';
+import { formatDate, getTagNameKor } from '@/utils';
+
 type PropsType = {
-  title: string;
-  fromDate: string;
-  toDate: string;
-  tags: Array<string>;
-  src: string;
   onClick: () => void;
+  content: GuideProductType;
 };
 
 /* 메인 근처 카드 */
-const SlideCard = ({ title, fromDate, toDate, tags, onClick, src }: PropsType) => {
+const SlideCard = ({ content, onClick }: PropsType) => {
   return (
-    <div className=" h-[22.5rem] w-[22.5rem] relative " onClick={onClick}>
+    <div className=" h-[22.5rem] w-[22.5rem] relative cursor-pointer " onClick={onClick}>
       <div
         className="inset-0 size-full bg-contain bg-center bg-no-repeat  "
-        style={{ backgroundImage: `url(${src})` }}
+        style={{ backgroundImage: `url(${content.thumb})` }}
       ></div>
       <div className="absolute inset-0 bg-[#0173FA] bg-opacity-20"></div>
       <div className="px-8 absolute bottom-8">
-        <div className="font-black text-4xl text-white">{title}</div>
+        <div className="font-black text-4xl text-white">{content.title}</div>
         <div className="text-base text-white font-right">
-          {fromDate}~{toDate}
+          {formatDate(content.guideStart)}~{formatDate(content.guideEnd)}
         </div>
-        {tags.map((item, index) => (
+        {content.categories?.map((item: CategoryType, index) => (
           <span key={index} className="text-sm text-white font-right">
-            #{item}
+            #{getTagNameKor(item)}
           </span>
         ))}
       </div>
