@@ -22,6 +22,9 @@
   font-weight: normal;
 }
 
+.blue-filter {
+  @apply absolute inset-0 bg-[#0173FA] bg-opacity-20;
+}
 /* typo */
 .title {
   @apply text-signature font-black py-2  text-3xl;
