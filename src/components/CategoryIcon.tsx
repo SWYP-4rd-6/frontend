@@ -3,7 +3,7 @@ import { MaterialSymbol, SymbolCodepoints } from 'react-material-symbols';
 
 type PropsType = {
   icon: SymbolCodepoints;
-  text: string;
+  text: string | null;
   children?: ReactNode;
 };
 

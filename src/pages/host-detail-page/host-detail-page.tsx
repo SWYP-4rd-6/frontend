@@ -3,7 +3,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import { ILocation, SlickSettingsType, UserType } from '@/types/common';
 import Header from '@/components/Header/Header';
-import ImgList from '@/components/ImgLIst';
+import ImgList from '@/components/List/ImgLIst';
 
 interface PropsType {
   slickSettings: SlickSettingsType;
