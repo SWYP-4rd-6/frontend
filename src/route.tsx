@@ -7,6 +7,7 @@ import App from './App';
 import SignUp from './pages/signup-page';
 import HomeMore from './pages/home-more-page';
 import HostDetail from './pages/host-detail-page';
+import Register from './pages/register-page';
 import ReservationDetail from './pages/reservation-detail-page';
 import ReservationComplete from './pages/reservation-complete-page';
 import ReservationPay from './pages/reservation-pay-page';
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
       { path: 'more', element: <HomeMore /> },
       { path: 'tour/reservation/payment', element: <ReservationPay /> },
       { path: 'host/detail', element: <HostDetail /> },
+      { path: 'tour/register', element: <Register /> },
       { path: 'tour/reservation', element: <ReservationDetail /> },
       { path: 'tour/reservation/complete', element: <ReservationComplete /> },
     ],

@@ -9,7 +9,7 @@ const Header = ({ type }: headerProps) => {
   return (
     <div
       onClick={() => navigate(-1)}
-      className={`mb-[14px] cursor-pointer ${type === 'trans' && 'z-50 absolute top-0 left-0'}`}
+      className={`mb-[14px] cursor-pointer ${type === 'trans' && 'z-50 absolute top-0 left-0 box-border'}`}
     >
       <MaterialSymbol
         icon="arrow_back"
