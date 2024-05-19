@@ -1,15 +1,15 @@
-import { MouseEventHandler } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { ChangeEventHandler, MouseEventHandler } from 'react';
 
 interface ButtonInputProps {
   id: string;
   type: string;
+  name: string;
   placeholder?: string;
   className?: string;
   autoComplete?: string;
-  register?: UseFormRegisterReturn<string>;
-  clickFunc?: MouseEventHandler<HTMLButtonElement>;
-  value?: string;
+  clickFunc: MouseEventHandler<HTMLButtonElement>;
+  value: string;
+  handleChange?: ChangeEventHandler<HTMLInputElement>
   buttonText: string;
   readonly?: boolean;
 }
@@ -17,12 +17,13 @@ interface ButtonInputProps {
 const ButtonInput = ({
   id,
   type,
+  name,
   placeholder,
   className,
   autoComplete,
-  register,
   clickFunc,
   value,
+  handleChange,
   buttonText,
   readonly,
 }: ButtonInputProps) => {
@@ -31,10 +32,12 @@ const ButtonInput = ({
       <input
         id={id}
         type={type}
+        name={name}
         placeholder={placeholder}
         className={`input-style ${className} ${value ? 'border-signature' : 'border-[#D9D9D9]'}`}
         autoComplete={autoComplete}
-        {...register}
+        value={value}
+        onChange={handleChange}
         readOnly={readonly}
       />
       <button

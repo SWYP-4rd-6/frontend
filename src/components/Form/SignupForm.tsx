@@ -1,24 +1,20 @@
-import { useForm } from 'react-hook-form';
-import PasswordInput from '../Input/PasswordInput';
-import ValidateCheck from './ValidateCheck';
 import { Fragment, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useActivateStore } from '@/store/ActivateStore';
+import { UserState, useUserInfoStore } from '@/store/UserInfoStore';
+import PasswordInput from '../Input/PasswordInput';
 import ButtonInput from '../Input/ButtonInput';
-import { checkEmail } from '@/pages/signup-page';
 import ArrowButton from '../Button/ArrowButton';
-import { useUserInfoStore } from '@/store/UserInfoStore';
+import ValidateCheck from './ValidateCheck';
+import { useNavigate } from 'react-router-dom';
+import { checkEmail } from '@/pages/signup-page';
 
 interface PropsType {
   setSignupStage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const SignupForm = ({ setSignupStage }: PropsType) => {
-  const readyToNext = useActivateStore((state) => state.readyToNext);
-  const toggleActivateButton = useActivateStore((state) => state.toggleActivateButton);
-  const saveState = useUserInfoStore((state) => state.saveState);
+  const { user, changeState } = useUserInfoStore();
+  const [activate, setActivate] = useState(false);
   const navigate = useNavigate();
-  const { register, watch } = useForm();
   const [checkDuplication, setCheckDuplication] = useState(false);
   const [pwValid, setPwValid] = useState({
     containEng: false,
@@ -42,10 +38,10 @@ const SignupForm = ({ setSignupStage }: PropsType) => {
 
   // 비밀번호 입력 변화를 감지하여 유효성 검사
   useEffect(() => {
-    const password = watch('password');
-    const pwCheck = watch('passwordCheck');
+    const password = user.password;
+    const pwCheck = user.passwordCheck;
     checkPasswordValidity(password, pwCheck);
-  }, [watch('password'), watch('passwordCheck')]);
+  }, [user.password, user.passwordCheck]);
 
   // 다음단계로 가기위해 모든 입력값이 유효성을 충족하는지 관찰
   useEffect(() => {
@@ -56,14 +52,14 @@ const SignupForm = ({ setSignupStage }: PropsType) => {
       pwValid.check &&
       checkDuplication
     ) {
-      toggleActivateButton(true);
+      setActivate(true);
     } else {
-      toggleActivateButton(false);
+      setActivate(false);
     }
   }, [pwValid, checkDuplication]);
 
   const checkEmailQuery = async () => {
-    const email = watch('email');
+    const email = user.email;
     const res = await checkEmail(email);
     if (res) {
       alert('사용 가능한 이메일입니다.');
@@ -73,18 +69,9 @@ const SignupForm = ({ setSignupStage }: PropsType) => {
     }
   };
 
-  const moveForward = () => {
-    toggleActivateButton(false);
-    setSignupStage(2);
-    saveState({
-      email: watch('email'),
-      password: watch('password'),
-      passwordCheck: watch('passwordCheck'),
-    });
-  };
-  const moveBack = () => {
-    toggleActivateButton(false);
-    navigate('/login/email');
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    changeState(name as keyof UserState['user'], value);
   };
 
   return (
@@ -110,11 +97,11 @@ const SignupForm = ({ setSignupStage }: PropsType) => {
         </label>
         <ButtonInput
           id="email"
-          type="email"
-          className=""
+          type="text"
+          name="email"
           autoComplete="off"
-          register={register('email')}
-          value={watch('email')}
+          value={user.email}
+          handleChange={handleChange}
           clickFunc={() => checkEmailQuery()}
           buttonText={!checkDuplication ? '중복확인' : '확인완료'}
         />
@@ -127,9 +114,10 @@ const SignupForm = ({ setSignupStage }: PropsType) => {
         </label>
         <PasswordInput
           id="password"
+          name="password"
           autoComplete="current-password"
-          register={register('password')}
-          value={watch('password')}
+          value={user.password}
+          handleChange={handleChange}
         />
         <div className="flex items-center gap-3 mb-[10px] mt-[8px]">
           <ValidateCheck content="영문포함" isChecked={pwValid.containEng} />
@@ -142,15 +130,20 @@ const SignupForm = ({ setSignupStage }: PropsType) => {
         </label>
         <PasswordInput
           id="passwordCheck"
+          name="passwordCheck"
           autoComplete="current-password"
-          register={register('passwordCheck')}
-          value={watch('passwordCheck')}
+          value={user.passwordCheck}
+          handleChange={handleChange}
         />
         <div className="flex items-center mt-[8px]">
           <ValidateCheck content="비밀번호 일치" isChecked={pwValid.check} />
         </div>
       </form>
-      <ArrowButton activate={readyToNext} moveForward={moveForward} moveBack={moveBack} />
+      <ArrowButton
+        activate={activate}
+        moveForward={() => setSignupStage(2)}
+        moveBack={() => navigate('/login/email')}
+      />
     </Fragment>
   );
 };

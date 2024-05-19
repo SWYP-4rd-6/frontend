@@ -1,8 +1,7 @@
-import { Fragment } from 'react/jsx-runtime';
 import BasicInput from '../Input/BasicInput';
 import ButtonInput from '../Input/ButtonInput';
 import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Country } from '@/types/userInfo';
 import Select, { StylesConfig } from 'react-select';
 import { getLocation } from '@/utils/getLocation';
@@ -11,28 +10,23 @@ import { countryList } from '@/constants/common';
 import ArrowButton from '../Button/ArrowButton';
 import { useActivateStore } from '@/store/ActivateStore';
 import { checkNickname, signup } from '@/pages/signup-page';
-import { useUserInfoStore } from '@/store/UserInfoStore';
+import { UserState, useUserInfoStore } from '@/store/UserInfoStore';
 import { useNavigate } from 'react-router-dom';
 
 interface PropsType {
   setSignupStage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-type Gender = 'Male' | 'Female' | null;
+type Gender = 'Male' | 'Female'
 
 const SignupForm2 = ({ setSignupStage }: PropsType) => {
-  const readyToNext = useActivateStore((state) => state.readyToNext);
-  const toggleActivateButton = useActivateStore((state) => state.toggleActivateButton);
-  const saveState = useUserInfoStore((state) => state.saveState);
-  const resetState = useUserInfoStore((state) => state.resetState);
-  const { register, watch, setValue } = useForm();
-  const [gender, setGender] = useState<Gender>(null);
+  const { user, changeState } = useUserInfoStore();
+  const [activate, setActivate] = useState(false);
   const [location, setLocation] = useState('');
   const [checkDuplication, setCheckDuplication] = useState({
     nickname: false,
     phone: false,
   });
-  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
   const navigate = useNavigate();
   const GENDER_BUTTON_STYLE = `w-20 p-2 px-[20px] border-2 border-[#D9D9D9] text-[#D9D9D9] focus:outline-none transition`;
   const countries: Country[] = countryList;
@@ -63,19 +57,24 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
     }),
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    changeState(name as keyof UserState['user'], value);
+  };
+
   const handleGenderSelect = (selectedGender: Gender) => {
-    setGender(selectedGender);
+    changeState('gender', selectedGender);
   };
 
   const handleCountryChange = (selectedOption: any) => {
-    setSelectedCountry(selectedOption ? (selectedOption as Country) : null);
+    changeState('nationality', selectedOption.value);
   };
 
   const getUserLocation = async () => {
     try {
       const location = await getLocation();
-      setValue('location', `${location.address}의 Matthew`);
-      setLocation(location.address);
+      changeState('location', location.address);
+      setLocation(`${location.address}의 Matthew`);
     } catch (error) {
       console.error(error);
     }
@@ -83,7 +82,7 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
 
   // 닉네임 중복 확인
   const checkNicknameQuery = async () => {
-    const nickname = watch('nickname');
+    const nickname = user.nickname;
     const res = await checkNickname(nickname);
     if (res) {
       alert('사용 가능한 닉네임입니다.');
@@ -94,34 +93,23 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
   };
 
   useEffect(() => {
-    if (checkDuplication.nickname && watch('username') && gender && watch('birth')) {
-      toggleActivateButton(true);
+    if (checkDuplication.nickname && user.name && user.gender && user.birthdate) {
+      setActivate(true);
     } else {
-      toggleActivateButton(false);
+      setActivate(false);
     }
   }, [
     checkDuplication.nickname,
     checkDuplication.phone,
-    watch('username'),
-    gender,
-    watch('location'),
-    watch('birth'),
+    user.name,
+    user.gender,
+    user.location,
+    user.birthdate,
   ]);
 
   const moveForward = async () => {
-    toggleActivateButton(false);
-    saveState({
-      nickname: watch('nickname'),
-      name: watch('username'),
-      gender,
-      birthdate: watch('birth'),
-      location,
-      nationality: selectedCountry?.value,
-    });
-
     const res = await signup();
     if (res) {
-      resetState();
       navigate('/');
     } else {
       alert('가입 실패');
@@ -129,12 +117,11 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
   };
 
   const moveBack = () => {
-    toggleActivateButton(false);
     setSignupStage(1);
   };
 
   return (
-    <Fragment>
+    <div>
       <div className="text-[#646464] font-[300] text-4xl flex flex-col gap-2 mb-6">
         <div className="flex">
           <span className="text-signature font-[900] flex">
@@ -160,43 +147,44 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
             </label>
             <ButtonInput
               id="nickname"
-              type="nickname"
-              className=""
+              type="text"
+              name="nickname"
               autoComplete="off"
-              register={register('nickname')}
-              value={watch('nickname')}
+              value={user.nickname}
+              handleChange={handleChange}
               buttonText={checkDuplication.nickname ? '확인완료' : '중복확인'}
               clickFunc={() => checkNicknameQuery()}
             />
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="username" className="label-style">
+            <label htmlFor="name" className="label-style">
               이름
             </label>
             <BasicInput
-              id="username"
-              type="username"
+              id="name"
+              type="text"
+              name="name"
               className=""
               autoComplete="off"
-              register={register('username')}
-              value={watch('username')}
+              value={user.name}
+              handleChange={handleChange}
             />
           </div>
         </div>
 
         <div className="flex items-center gap-[40px] flex-1 mb-[10px]">
           <div className="flex flex-col flex-1">
-            <label htmlFor="nickname" className="label-style">
+            <label htmlFor="birthdate" className="label-style">
               생년월일
             </label>
             <BasicInput
-              id="birth"
+              id="birthdate"
               type="text"
-              className=""
+              name="birthdate"
               autoComplete="off"
-              register={register('birth')}
-              value={watch('birth')}
+              value={user.birthdate}
+              handleChange={handleChange}
             />
           </div>
 
@@ -207,14 +195,14 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
             <div className="flex gap-[20px]">
               <button
                 type="button"
-                className={`${GENDER_BUTTON_STYLE} ${gender === 'Male' ? 'bg-signature text-white font-[900] border-none' : 'bg-white'}`}
+                className={`${GENDER_BUTTON_STYLE} ${user.gender === 'Male' ? 'bg-signature text-white font-[900] border-none' : 'bg-white'}`}
                 onClick={() => handleGenderSelect('Male')}
               >
                 남성
               </button>
               <button
                 type="button"
-                className={`${GENDER_BUTTON_STYLE} ${gender === 'Female' ? 'bg-signature text-white font-[900] border-none' : 'bg-white'}`}
+                className={`${GENDER_BUTTON_STYLE} ${user.gender === 'Female' ? 'bg-signature text-white font-[900] border-none' : 'bg-white'}`}
                 onClick={() => handleGenderSelect('Female')}
               >
                 여성
@@ -224,14 +212,13 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
         </div>
 
         <div>
-          <label htmlFor="country" className="label-style">
+          <label htmlFor="nationally" className="label-style">
             국적
           </label>
           <Select
-            id="country"
-            name="country"
+            id="nationally"
+            name="nationally"
             options={countries}
-            value={selectedCountry}
             onChange={handleCountryChange}
             styles={customStyles}
             placeholder="국적을 선택해주세요"
@@ -242,7 +229,7 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
         <div className="my-5 border-t-2 border-signature w-full" />
 
         <div className="mb-[20px]">
-          <label htmlFor="country" className="label-style">
+          <label htmlFor="location" className="label-style">
             지역 인증 (선택)
           </label>
           <div className="mb-[5px] text-[#646464] text-[12px]">
@@ -251,19 +238,18 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
           </div>
           <ButtonInput
             id="location"
-            type="location"
-            className=""
+            type="text"
+            name="location"
             autoComplete="off"
-            register={register('location')}
-            value={watch('location')}
-            buttonText={watch('location') ? '인증완료' : '인증하기'}
+            value={location}
+            buttonText={location ? '인증완료' : '인증하기'}
             clickFunc={getUserLocation}
             readonly={true}
           />
         </div>
 
         <div>
-          <label htmlFor="country" className="label-style">
+          <label htmlFor="phone" className="label-style">
             휴대폰 인증 (선택)
           </label>
           <div className="text-[#646464] text-[12px]">
@@ -274,8 +260,8 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
         </div>
       </form>
 
-      <ArrowButton activate={readyToNext} moveForward={moveForward} moveBack={moveBack} />
-    </Fragment>
+      <ArrowButton activate={activate} moveForward={moveForward} moveBack={moveBack} />
+    </div>
   );
 };
 

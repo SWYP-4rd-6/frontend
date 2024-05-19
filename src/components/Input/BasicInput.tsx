@@ -1,42 +1,37 @@
-import { useState } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { ChangeEventHandler, useState } from 'react';
 
 interface BasicInputProps {
   id: string;
   type: string;
+  name: string;
   placeholder?: string;
   className?: string;
   autoComplete?: string;
-  register: UseFormRegisterReturn<string>;
-  value?: string;
+  value: string;
+  handleChange: ChangeEventHandler<HTMLInputElement>;
 }
 
 const BasicInput = ({
   id,
   type,
+  name,
   placeholder,
   className,
   autoComplete,
-  register,
+  value,
+  handleChange,
 }: BasicInputProps) => {
-  const [isEmpty, setIsEmpty] = useState(true);
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length !== 0) {
-      setIsEmpty(false);
-    } else {
-      setIsEmpty(true);
-    }
-  };
   return (
     <>
       <input
         id={id}
         type={type}
+        name={name}
         placeholder={placeholder}
-        className={`input-style ${className} ${!isEmpty ? 'border-signature' : 'border-[#D9D9D9]'}`}
+        className={`input-style ${className} ${value ? 'border-signature' : 'border-[#D9D9D9]'}`}
         autoComplete={autoComplete}
-        {...register}
-        onChange={handleInputChange}
+        value={value}
+        onChange={handleChange}
       />
     </>
   );
