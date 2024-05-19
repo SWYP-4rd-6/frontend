@@ -8,18 +8,35 @@
   }
 }
 
-/* 중복되는 스타일 저장 */
-@layer utilities {
-  .input-style {
-    @apply w-full h-[2.5rem] border-2 px-[20px] focus:outline-none text-base font-[900] text-signature placeholder-signature placeholder-normal caret-black;
-  }
-  .label-style {
-    @apply text-signature font-[900];
-  }
-}
 /* placeholder의 글자두께를 기본으로 */
 .placeholder-normal::placeholder {
   font-weight: normal;
+}
+
+/* number 타입 input의 숫자 조절버튼 비활성화 */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* signup */
+.input-style {
+  @apply w-full h-[2.5rem] border-2 px-[20px] focus:outline-none text-base font-[900] text-signature placeholder-signature placeholder-normal caret-black;
+}
+.label-style {
+  @apply text-signature font-[900];
+}
+
+/* register typo */
+.reg-title-blue {
+  @apply text-[2.25rem] text-signature font-[900];
+}
+.reg-title-black {
+  @apply text-[2.25rem] text-sub-bu font-[300];
+}
+.reg-subtitle {
+  @apply text-base text-sub-bu font-[300];
 }
 
 /* typo */
