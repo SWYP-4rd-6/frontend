@@ -24,10 +24,9 @@ const ReservationPayView = ({ onComplete, content }: PropsType) => {
               <div className="text-lg font-bold mb-2">여행 상품</div>
               <div className="mb-4 border">
                 <img src={content.product.thumb} />
-
                 <div className="font-bold text-lg">{content.product.title}</div>
                 <div className="text-gray-500">
-                  {content.product.categories.map((item: CategoryType, i: number) => (
+                  {content.product.categories?.map((item: CategoryType, i: number) => (
                     <span key={i}>#{getTagNameKor(item)}</span>
                   ))}
                 </div>

@@ -4,6 +4,7 @@ import {
   MainContentType,
   SearchContentType,
   UserType,
+    ReservationType
 } from '@/types/common';
 
 export const imgs = [
@@ -58,7 +59,7 @@ export const GUIDE_PRODUCT_DATA: GuideProductType = {
   ],
 };
 
-export const RESERVATION_DATA = {
+export const RESERVATION_DATA: ReservationType = {
   guide: {
     email: 'user01@test.com',
     nickname: 'nickname01',

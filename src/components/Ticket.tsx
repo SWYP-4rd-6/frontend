@@ -3,7 +3,7 @@ import { formatDate, formatTimeRange, getTagName, getTagNameKor } from '@/utils'
 import { MaterialSymbol } from 'react-material-symbols';
 
 type PropsType = {
-  src: string;
+  src?: string;
   content: GuideProductType;
 };
 
