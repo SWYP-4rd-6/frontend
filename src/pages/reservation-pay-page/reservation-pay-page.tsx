@@ -6,6 +6,7 @@ import { MaterialSymbol } from 'react-material-symbols';
 import { CategoryType, GuideProductType, ReservationType, ReviewType } from '@/types/common';
 import { calculateDays, formatDateKor, formatTimeRange, getTagNameKor } from '@/utils';
 import BottomButton from '@/components/Button/BottomButton';
+import Loading from '@/components/Loading';
 ('@/utils');
 interface PropsType {
   onComplete: () => void;
@@ -17,42 +18,54 @@ const ReservationPayView = ({ onComplete, content }: PropsType) => {
     <>
       <Header />
       <div className="px-4">
-        <div className="text-2xl font-bold mb-4">예약을 위해서는 결제가 필요해요!</div>
-        <div>
+        {content ? (
           <div>
-            <div className="text-lg font-bold mb-2">여행 상품</div>
-
-            <div className="mb-4 border">
-              <img src={content.product.thumb} />
-
-              <div className="font-bold text-lg">{content.product.title}</div>
-              <div className="text-gray-500">
-                {content.product.categories.map((item: CategoryType, i: number) => (
-                  <span key={i}>#{getTagNameKor(item)}</span>
-                ))}
-              </div>
-              <MaterialSymbol icon="fmd_good" size={19} fill grade={-25} color="" />
-              <div>{content.product.locationName}</div>
-            </div>
-            <div className="text-lg font-bold mb-2">예약 정보</div>
-
             <div>
-              <div className="font-bold">날짜</div>
+              <div className="text-lg font-bold mb-2">여행 상품</div>
+              <div className="mb-4 border">
+                <img src={content.product.thumb} />
+
+                <div className="font-bold text-lg">{content.product.title}</div>
+                <div className="text-gray-500">
+                  {content.product.categories.map((item: CategoryType, i: number) => (
+                    <span key={i}>#{getTagNameKor(item)}</span>
+                  ))}
+                </div>
+                <MaterialSymbol icon="fmd_good" size={19} fill grade={-25} color="" />
+                <div>{content.product.locationName}</div>
+              </div>
+              <div className="text-lg font-bold mb-2">예약 정보</div>
+
               <div>
-                {formatDateKor(content.guideStart)} (
-                {calculateDays(content.guideStart, content.guideEnd)}일)
+                <div className="font-bold">날짜</div>
+                <div>
+                  {content.guideStart && formatDateKor(content.guideStart)} (
+                  {content.guideStart &&
+                    content.guideEnd &&
+                    calculateDays(content.guideStart, content.guideEnd)}
+                  일)
+                </div>
               </div>
-            </div>
-            <div>
-              <div className="font-bold">예약 시간</div>
-              <div>{formatTimeRange(content.guideStart, content.guideEnd)}</div>
-            </div>
-            <div>
-              <div className="font-bold">결제 금액</div>
-              <div className="text-lg font-bold">{content.price.toLocaleString()}원</div>
+              <div>
+                <div className="font-bold">예약 시간</div>
+                <div>
+                  {content.guideStart &&
+                    content.guideEnd &&
+                    formatTimeRange(content.guideStart, content.guideEnd)}
+                </div>
+              </div>
+              <div>
+                <div className="font-bold">결제 금액</div>
+                <div className="text-lg font-bold">
+                  {content.price && content.price.toLocaleString()}원
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <Loading />
+        )}
+        <div className="text-2xl font-bold mb-4">예약을 위해서는 결제가 필요해요!</div>
 
         <div className="mt-4">
           <div className="font-bold mb-2">활동 정책</div>
@@ -78,7 +91,7 @@ const ReservationPayView = ({ onComplete, content }: PropsType) => {
           },
         ]}
       >
-        <Payment text={`${content.price.toLocaleString()}원 결제하기`} />
+        <Payment text={`${content.price && content.price.toLocaleString()}원 결제하기`} />
       </BottomButton>
     </>
   );

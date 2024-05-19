@@ -52,16 +52,15 @@ export interface UserType {
   name: string;
   profile: string;
   profileImageUrl: string;
-  guideProducts: Array<guideProductType>;
 }
 
 export interface GuideType extends UserType {
-  reviewCount: number;
-  reviewRating: number;
-  createdAt: string;
-  guideProducts: Array<guideProductType>;
+  reviewCount?: number;
+  reviewRating?: number;
+  createdAt?: string;
+  guideProducts?: Array<guideProductType>;
+  reviews?: ReviewType;
 }
-
 export interface ReviewType {
   reviewId: number;
   reviewer: string;
@@ -97,7 +96,17 @@ export interface SortType {
   nullHandling: string;
   ascending: true;
   property: string;
-  ignoreCase: true;
+  ignoreCase: boolean;
+  descending?: boolean;
+}
+
+export interface pageableType {
+  offset: number;
+  sort: Array<SortType>;
+  pageNumber: number;
+  pageSize: number;
+  paged: boolean;
+  unpaged: boolean;
 }
 
 export interface MainContentType {
@@ -111,31 +120,39 @@ export interface MainContentType {
     number: number;
     sort: Array<SortType>;
     numberOfElements: number;
-    pageable: {
-      offset: number;
-      sort: Array<SortType>;
-      pageNumber: number;
-      pageSize: number;
-      paged: boolean;
-      unpaged: boolean;
-    };
+    pageable: pageableType;
     first: boolean;
     last: boolean;
     empty: boolean;
   };
 }
 
+export interface SearchContentType {
+  content: Array<guideProductType>;
+  pageable: pageableType;
+  last: boolean;
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  number: number;
+  sort: Array<SortType>;
+  first: boolean;
+  numberOfElements: number;
+  empty: boolean;
+}
+
 export interface ReservationType {
-  guide: GuideType;
-  product: guideProductType;
-  guideStart: string;
-  guideEnd: string;
-  personnel: number;
-  message: string;
-  price: number;
-  paymentStatus: string;
-  reservationStatus: string;
-  merchantUid: string;
+  productId?: number;
+  guide?: GuideType;
+  product?: guideProductType;
+  guideStart?: string;
+  guideEnd?: string;
+  personnel?: number;
+  message?: string;
+  price?: number;
+  paymentStatus?: string;
+  reservationStatus?: string;
+  merchantUid?: string;
 }
 
 export interface mainContentType {

@@ -3,9 +3,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import ReservationDetailView from './reservation-detail-page';
 import axios from 'axios';
 import moment, { Moment } from 'moment';
+import { ReservationType } from '@/types/common';
 
 function ReservationDetail() {
+  const [reserveContent, seReserveContent] = useState<ReservationType>();
   const [content, setContent] = useState<string>('');
+
   const [startDate, setStartDate] = useState<Moment | null>(moment());
   const [endDate, setEndDate] = useState<Moment | null>(moment());
   const [startTime, setStartTime] = useState<string | null>();
@@ -13,7 +16,7 @@ function ReservationDetail() {
 
   const navigateTo = useNavigate();
   const pageLocation = useLocation();
-  const userId = new URLSearchParams(pageLocation.search).get('id');
+  const pId = new URLSearchParams(pageLocation.search).get('id');
   const MAX_LENGTH = 500;
 
   const onClickPayment = () => {
@@ -66,24 +69,21 @@ function ReservationDetail() {
     endTime && setEndTime(endTime);
   };
 
-  /*
-  const handleDatesChange = ({
-    startDate: start,
-    endDate: end,
-  }: {
-    startDate: Moment | null;
-    endDate: Moment | null;
-  }) => {
-    setStartDate(start ? DateTime.fromJSDate(start.toDate()) : null);
-    setEndDate(end ? DateTime.fromJSDate(end.toDate()) : null);
-  };
-*/
-  const getReservationDetail = async () => {
+  const postReservationSave = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/users/${userId}`);
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/v1/reservation/client/save`,
+        {
+          productId: pId,
+          guideStart: startDate,
+          guideEnd: endDate,
+          personnel: 1,
+          message: content,
+          //  price: 10000,
+        },
+      );
       if (response.status === 200) {
         console.log('success');
-        setContent(response.data);
 
         return true;
       }

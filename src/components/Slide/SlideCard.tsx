@@ -14,7 +14,7 @@ const SlideCard = ({ content, onClick }: PropsType) => {
         className="inset-0 size-full bg-contain bg-center bg-no-repeat  "
         style={{ backgroundImage: `url(${content.thumb})` }}
       ></div>
-      <div className="absolute inset-0 bg-[#0173FA] bg-opacity-20"></div>
+      <div className="blue-filter"></div>
       <div className="px-8 absolute bottom-8">
         <div className="font-black text-4xl text-white">{content.title}</div>
         <div className="text-base text-white font-right">

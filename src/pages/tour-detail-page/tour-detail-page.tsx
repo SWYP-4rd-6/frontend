@@ -11,7 +11,7 @@ import CategoryIcon from '@/components/CategoryIcon';
 import ReviewSlide from '@/components/Slide/ReviewSlide';
 import { getTagIcon, getTagNameKor } from '@/utils';
 import Header from '@/components/Header/Header';
-
+import Loading from '@/components/Loading';
 
 interface PropsType {
   arrowSlickSettings: SlickSettingsType;
@@ -23,7 +23,6 @@ interface PropsType {
   formatTimeRange: (start: string, end: string) => string;
   onClickReservation: () => void;
   loading: boolean;
-
 }
 
 const TourDetailPageView = ({
@@ -39,31 +38,32 @@ const TourDetailPageView = ({
 }: PropsType) => {
   return (
     <div className="relative">
-       <Header type="trans" />
-      {content && (
+      <Header type="trans" />
+      {content ? (
         <>
-          {content.images && (
-            <div className="relative">
-              <Slider {...arrowSlickSettings} className="">
-                {content.images.map((img, index) => (
-                  <Slide key={index} src={img} />
-                ))}
-              </Slider>
-              <div className="absolute bottom-5 w-full text-center ">
-                <div className="  text-white font-light text-base z-50 ">
-                  <span className="font-black">{currentSlide + 1}</span>/{content.images.length}
-                </div>
+          <div className="relative">
+            <Slider {...arrowSlickSettings} className="">
+              {content.images ? (
+                content.images.map((img, index) => <Slide key={index} src={img} />)
+              ) : (
+                <Slide src={''} />
+              )}
+            </Slider>
+            <div className="absolute bottom-5 w-full text-center ">
+              <div className="  text-white font-light text-base z-50 ">
+                <span className="font-black">{currentSlide + 1}</span>/{content.images?.length || 0}
               </div>
             </div>
-          )}
+          </div>
+
           <DoubleLine className="my-4" />
           <section className="px-6 ">
             <div className="title">{content.title}</div>
             <ul className="*:mb-2">
-              <IconList icon="fmd_good" text={content.title} />
+              <IconList icon="fmd_good" text={content.description} />
               {/* ToDo:지역 불러오기 */}
-              <IconList icon="payments" text={`${content.price}원`} />
-              <IconList icon="person" text={content.nickname || ''}>
+              <IconList icon="payments" text={`${content.price?.toLocaleString()}원`} />
+              <IconList icon="person" text={content.nickname}>
                 <button
                   onClick={onClickHost}
                   className="absolute items-end font-light right-6 text-sub-bu"
@@ -99,11 +99,11 @@ const TourDetailPageView = ({
                   />
                   <IconList
                     icon="schedule"
-                    text={`${formatTimeRange(content.guideStart, content.guideEnd)}`}
+                    text={`${formatTimeRange(content.guideStart, content.guideEnd)} (${content.guideTime}시간 소요)`}
                   />
-                  {/* (${content.guideTime}시간 소요)` */}
+                  <span> </span>
                 </ul>
-                <div className="*:mr-5">
+                <div className="*:mr-5 pt-3 ">
                   {content.categories &&
                     content.categories.map((item, index) => (
                       <CategoryIcon
@@ -135,7 +135,8 @@ const TourDetailPageView = ({
             ]}
           />
         </>
-
+      ) : (
+        <Loading />
       )}
     </div>
   );

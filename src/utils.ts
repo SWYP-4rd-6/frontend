@@ -71,9 +71,10 @@ const getTagName = (tag: CategoryKorType): CategoryType | null => {
   }
 };
 
+// 2025-04-02 20:31:55"-> 2024.05.12
 const formatDate = (dateString: string): string => {
-  const date = DateTime.fromISO(dateString);
-  return date.toFormat('yyyy.LL.dd'); // 2024.05.12
+  const date = DateTime.fromFormat(dateString, 'yyyy-MM-dd HH:mm:ss'); //.fromISO(start);
+  return date.toFormat('yyyy.LL.dd');
 };
 
 const formatDateKor = (dateString: string): string => {
@@ -82,8 +83,8 @@ const formatDateKor = (dateString: string): string => {
 };
 
 const formatTimeRange = (start: string, end: string): string => {
-  const startTime = DateTime.fromISO(start);
-  const endTime = DateTime.fromISO(end);
+  const startTime = DateTime.fromFormat(start, 'yyyy-MM-dd HH:mm:ss');
+  const endTime = DateTime.fromFormat(end, 'yyyy-MM-dd HH:mm:ss');
   const startTimeString = startTime.toFormat('HH:mm');
   const endTimeString = endTime.toFormat('HH:mm');
 

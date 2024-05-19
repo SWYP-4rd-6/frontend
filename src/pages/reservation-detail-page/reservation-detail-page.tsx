@@ -1,5 +1,5 @@
 import 'react-dates/lib/css/_datepicker.css';
-import { UserType } from '@/types/common';
+import { ReservationType, UserType } from '@/types/common';
 import Header from '@/components/Header/Header';
 import moment, { Moment } from 'moment';
 import TimePicker from '@/components/TimePicker';
@@ -11,7 +11,7 @@ import { ChangeEvent, ChangeEventHandler } from 'react';
 interface PropsType {
   onClickPayment: () => void;
   onChangeText: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-
+  reserveContent?: ReservationType;
   content: string;
   startDate: Moment | null;
   endDate: Moment | null;
@@ -33,6 +33,7 @@ interface PropsType {
 
 const ReservationDetailView = ({
   content,
+  reserveContent,
   startDate,
   endDate,
   onClickPayment,
