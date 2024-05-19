@@ -13,7 +13,9 @@ type PropsType = {
 const ImgList = ({ content, onClick }: PropsType) => {
   return (
     <div className="relative cursor-pointer" onClick={onClick}>
-      <img className="size-full" src={content.thumb}></img>
+      <div className="max-h-44 overflow-hidden">
+        <img className="size-full" src={content.thumb}></img>
+      </div>
       <div className="opacity-blue-filter" />
       <div className="px-4 absolute bottom-6">
         <div className="font-black text-base text-white">{content.title}</div>

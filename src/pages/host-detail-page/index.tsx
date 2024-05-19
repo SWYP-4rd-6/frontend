@@ -1,81 +1,35 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useGeoLocation } from '@/utils/useGeoLocation';
-import { SlickSettingsType, UserType } from '@/types/common';
+import { GuideType, SlickSettingsType, UserType } from '@/types/common';
 import HostDetailView from './host-detail-page';
 import axios from 'axios';
 import { USER_DATA } from '@/constants/test';
 
-const geolocationOptions = {
-  enableHighAccuracy: true,
-  timeout: 1000 * 10,
-  maximumAge: 1000 * 3600 * 24,
-};
-
 function HostDetail() {
-  const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const [dragging, setDragging] = useState<boolean>(false);
-  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
-  const [content, setContent] = useState<UserType>(USER_DATA);
-  const { location, error } = useGeoLocation(geolocationOptions);
+  const [content, setContent] = useState<GuideType>(); //USER_DATA
   const navigateTo = useNavigate();
   const pageLocation = useLocation();
-  const userId = new URLSearchParams(pageLocation.search).get('id');
+  const tourId = new URLSearchParams(pageLocation.search).get('id');
 
-  const slickSettings: SlickSettingsType = {
-    infinite: false,
-    arrows: false,
-    speed: 500,
-    slidesToShow: 1.09,
-    slidesToScroll: 1,
-    touchThreshold: 100,
-    beforeChange: () => {
-      setDragging(true);
-    },
-    afterChange: (currentSlide) => {
-      setDragging(false);
-      setCurrentSlide(currentSlide);
-    },
-  };
-  const multiSlickSettings: SlickSettingsType = {
-    className: 'slider variable-width',
-    centerPadding: '20px',
-    arrows: false,
-    infinite: false,
-    speed: 400,
-    slidesToScroll: 5,
-    slidesToShow: 5.2,
-    beforeChange: () => {
-      setDragging(true);
-    },
-    afterChange: (currentSlide) => {
-      setDragging(false);
-    },
-  };
-
-  const onCategoryClick = (category: string) => {
-    setSelectedCategory(category);
-  };
-
-  const onClickTripImage = () => {
-    if (!dragging) navigateTo('/tour/detail');
-  };
-
-  const onClickMore = () => {
-    navigateTo('/more');
+  const onClickTripImage = (index: number) => {
+    if (content?.guideProducts) navigateTo('/tour/detail?id=' + content.guideProducts[index].id);
   };
 
   const getHostDetail = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/users/${userId}`);
-      if (response.status === 200) {
-        console.log('success');
-        setContent(response.data);
+      if (tourId) {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/users/${tourId}`);
+        if (response.status === 200) {
+          console.log('success');
+          setContent(response.data);
 
-        return true;
+          return true;
+        }
+        console.log('fail');
+        return false;
       }
-      console.log('fail');
-      return false;
+      return;
     } catch (error) {
       console.error(error);
       throw error;
@@ -83,19 +37,8 @@ function HostDetail() {
   };
 
   useEffect(() => {
-    // getHostDetail();
+    getHostDetail();
   }, []);
-  return (
-    <HostDetailView
-      slickSettings={slickSettings}
-      multiSlickSettings={multiSlickSettings}
-      content={content}
-      onClickTripImage={onClickTripImage}
-      location={location}
-      selectedCategory={selectedCategory}
-      onCategoryClick={onCategoryClick}
-      onClickMore={onClickMore}
-    />
-  );
+  return <HostDetailView content={content} onClickTripImage={onClickTripImage} />;
 }
 export default HostDetail;

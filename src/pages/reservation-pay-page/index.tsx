@@ -8,17 +8,28 @@ import { RESERVATION_DATA } from '@/constants/test';
 const ReservationPay = () => {
   const [content, setContent] = useState(RESERVATION_DATA);
   const navigateTo = useNavigate();
+  const pageLocation = useLocation();
+  const pId = new URLSearchParams(pageLocation.search).get('id');
 
   const onComplete = () => {
     navigateTo('/tour/reservation/complete');
   };
 
-  const getReservationDetail = async () => {
+  const postReservationSave = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/`);
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/v1/reservation/client/save`,
+        {
+          productId: pId,
+          //guideStart: startDate,
+          // guideEnd: endDate,
+          personnel: 1,
+          message: content,
+          //  price: 10000,
+        },
+      );
       if (response.status === 200) {
         console.log('success');
-        setContent(response.data);
 
         return true;
       }
@@ -30,9 +41,7 @@ const ReservationPay = () => {
     }
   };
 
-  useEffect(() => {
-    // getReservationDetail();
-  }, []);
+  useEffect(() => {}, []);
 
   return <ReservationPayView onComplete={onComplete} content={content} />;
 };
