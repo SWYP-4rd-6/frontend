@@ -138,7 +138,6 @@ const HomePageView = ({
           더보기
         </button>
       </section>
-      <FloatingButton />
     </BottomNav>
   );
 };

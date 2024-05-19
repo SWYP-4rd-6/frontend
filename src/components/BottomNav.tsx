@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { MaterialSymbol } from 'react-material-symbols';
 import { ReactNode } from 'react';
+import FloatingButton from './Button/FloatingButton';
 
 type PropsType = {
   login: boolean;
@@ -9,8 +10,9 @@ type PropsType = {
 
 const BottomNav = ({ login, children }: PropsType) => {
   return (
-    <div className=" relative h-screen overflow-y-scroll no-scroll-bar">
+    <div className=" relative h-full overflow-y-scroll no-scroll-bar">
       {children}
+      <FloatingButton />
       <div
         className={`fixed bottom-0 justify-between w-full overflow-hidden
     bg-white px-5 py-7 flex gap-x-1 rounded-t-3xl shadow-top *:flex *: items-center *:justify-center`}
