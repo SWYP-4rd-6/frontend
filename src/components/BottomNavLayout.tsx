@@ -1,16 +1,42 @@
+import React, { FC, ReactNode, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { MaterialSymbol } from 'react-material-symbols';
-import { ReactNode } from 'react';
 import FloatingButton from './Button/FloatingButton';
+import useScrollStore from '@/store/scrollStore';
 
 type PropsType = {
   login: boolean;
   children?: ReactNode;
 };
 
-const BottomNav = ({ login, children }: PropsType) => {
+const BottomNavLayout = ({ login, children }: PropsType) => {
+  const { scrolling, setScrolling } = useScrollStore();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleScroll = () => {
+    setScrolling(true);
+  };
+
+  const handleScrollEnd = () => {
+    setScrolling(false);
+  };
+
+  useEffect(() => {
+    const container = containerRef?.current;
+
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      container.addEventListener('scrollend', handleScrollEnd);
+    }
+    return () => {
+      if (container) {
+        container.removeEventListener('scroll', handleScroll);
+        container.addEventListener('scrollend', handleScrollEnd);
+      }
+    };
+  }, []);
   return (
-    <div className=" relative h-full overflow-y-scroll no-scroll-bar">
+    <div className=" relative h-full overflow-y-scroll no-scroll-bar" ref={containerRef}>
       {children}
       <FloatingButton />
       <div
@@ -47,4 +73,4 @@ const BottomNav = ({ login, children }: PropsType) => {
   );
 };
 
-export default BottomNav;
+export default BottomNavLayout;

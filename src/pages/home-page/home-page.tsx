@@ -6,8 +6,7 @@ import { MaterialSymbol } from 'react-material-symbols';
 
 import CategoryButton from '@/components/Button/CategoryButton';
 import SlideCard from '@/components/Slide/SlideCard';
-import FloatingButton from '@/components/Button/FloatingButton';
-import BottomNav from '@/components/BottomNav';
+import BottomNavLayout from '@/components/BottomNavLayout';
 import DoubleLine from '@/components/DoubleLIne';
 
 import {
@@ -46,7 +45,7 @@ const HomePageView = ({
   location,
 }: PropsType) => {
   return (
-    <BottomNav login={false}>
+    <BottomNavLayout login={false}>
       <div className="px-6 pt-4 pb-1">
         <img src="main_logo.png" className="w-40" alt="logo" />
       </div>
@@ -138,7 +137,7 @@ const HomePageView = ({
           더보기
         </button>
       </section>
-    </BottomNav>
+    </BottomNavLayout>
   );
 };
 
