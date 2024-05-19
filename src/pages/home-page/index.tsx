@@ -29,10 +29,7 @@ function Home() {
   const [searchContent, setSearchContent] = useState<SearchContentType>(); //SEARCH_DATA
   //sconst { location, error } = useGeoLocation(geolocationOptions);
   const [location, setLocation] = useState('Seoul, South Korea');
-
   const navigateTo = useNavigate();
-  const { setHasScrolling } = useScrollStore();
-
   const onCategoryClick = (category: CategoryKorType) => {
     setSelectedCategory(category);
   };
@@ -102,6 +99,8 @@ function Home() {
       if (response.status === 200) {
         console.log('success');
         setMainContent(response.data);
+        setSearchContent(response.data.allGuideProducts);
+
         return true;
       }
       console.log('fail');
@@ -141,7 +140,6 @@ function Home() {
       });
 
       if (response.status === 200) {
-        console.log('success');
         setSearchContent(response.data);
         return true;
       }
@@ -153,23 +151,12 @@ function Home() {
     }
   };
 
-  useEffect(() => {
-    getSearchContent();
-  }, []);
+  useEffect(() => {}, []);
 
   useEffect(() => {
-    if (selectedCategory === '전체') {
-      getMainContent();
-      //  setHasScrolling(true);
-    }
-    getSearchContent();
+    if (selectedCategory === '전체') getMainContent();
+    else getSearchContent();
   }, [selectedCategory]);
-
-  const getMain = async () => {
-    const location = await getLocation();
-    const result = { location: location.address };
-    // setContent(() => result);
-  };
 
   /*
   const getUserLocation = async () => {
