@@ -7,6 +7,10 @@ export default {
       poppins: ['"Poppins"', 'sans-serif'],
     },
     extend: {
+      screens: {
+        xs: '440px', 
+        'h-md': { 'raw': '(min-height: 800px)' },
+      },
       colors: {
         signature: '#0173FA',
         'sub-y': '#F6AF19',
