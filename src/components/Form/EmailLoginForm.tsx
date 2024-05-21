@@ -1,95 +1,99 @@
-import { useMutation } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import BasicInput from '../Input/BasicInput';
 import PasswordInput from '../Input/PasswordInput';
+import { useState, FormEvent, useEffect } from 'react';
+import { emailLogin } from '@/pages/login-page/login-page';
+import { jwtDecode } from 'jwt-decode';
+import useLoginStore from '@/store/LoginStore';
 
 const EmailLoginForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { setIsLogin } = useLoginStore();
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { isSubmitting, errors },
-  } = useForm();
+  useEffect(() => {
+    if (email && password) {
+      setIsSubmitting(true);
+    } else {
+      setIsSubmitting(false);
+    }
+  }, [email, password]);
 
-  const emailLoginQuery = useMutation({
-    // mutationFn: emailLogin,
-    // onSuccess(data) {
-    //   if (data?.data.success) {
-    //     console.log(data);
-    //     const { token, refreshToken } = data.data;
-    //     // 로그인 성공 시 토큰과 리프레시 토큰을 로컬 스토리지에 저장
-    //     localStorage.setItem('token', token);
-    //     localStorage.setItem('refreshToken', refreshToken);
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-    //     // 로그인 성공 메시지
-    //     alert('로그인 성공!');
-    //     navigate(`/`);
-    //   } else {
-    //     alert('아이디와 비밀번호를 확인해주세요');
-    //   }
-    // },
-  });
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    if (!emailRegex.test(email)) {
+      alert('이메일 형식에 맞지 않습니다.');
+      return;
+    }
 
-  const onSubmit = async (data: any) => {
     // 중복 제출 방지용 타임아웃
-    await new Promise((r) => setTimeout(r, 1_000));
-    emailLoginQuery.mutate(data);
+    await new Promise((r) => setTimeout(r, 1000));
+
+    const res = await emailLogin({ email, password });
+
+    if (res) {
+      const { accessToken, refreshToken } = res.data;
+      // 토큰에서 만료 시간 추출
+      let expirationTime;
+      try {
+        const decodedToken = jwtDecode(accessToken);
+        expirationTime = decodedToken.exp ? decodedToken.exp * 1000 : null;
+
+        if (expirationTime) {
+          localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('refreshToken', refreshToken);
+          localStorage.setItem('tokenExpiration', expirationTime.toString());
+        }
+      } catch (error) {
+        console.error('토큰 디코딩 실패:', error);
+        alert('토큰 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
+        return;
+      }
+
+      setIsLogin(true);
+      navigate('/');
+    } else {
+      alert('로그인 실패');
+    }
   };
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={(e) => handleSubmit(e)}
       className="flex flex-col justify-center w-[21rem]"
       noValidate
     >
-      {errors.email && (
-        <small role="alert" className="text-red-600 mb-1">
-          {errors.email.message as string}
-        </small>
-      )}
       <BasicInput
         id="email"
-        type="email"
+        type="text"
+        name="email"
         placeholder="이메일 주소"
-        className="mb-[10px] border-signature"
+        className="mb-[10px] border-signature placeholder-signature"
         autoComplete="off"
-        register={register('email', {
-          required: '이메일은 필수 입력입니다.',
-          pattern: {
-            value: /^\S+@\S+\.\S+$/,
-            message: '이메일 형식에 맞지 않습니다.',
-          },
-        })}
+        value={email}
+        handleChange={(e) => setEmail(e.target.value)}
       />
-      {errors.password && (
-        <small role="alert" className="text-red-600 mb-1">
-          {errors.password.message as string}
-        </small>
-      )}
       <div className="mb-9">
         <PasswordInput
           id="password"
+          name="password"
           placeholder="비밀번호"
           autoComplete="current-password"
-          className='border-signature'
-          register={register('password', {
-            required: '비밀번호는 필수 입력입니다.',
-            minLength: {
-              value: 8,
-              message: '8자리 이상 비밀번호를 사용하세요.',
-            },
-          })}
+          className="border-signature"
+          value={password}
+          handleChange={(e) => setPassword(e.target.value)}
         />
       </div>
 
       <button
         type="submit"
         className={`flex justify-center items-center w-full h-12 border-2 border-[#D9D9D9] text-xl font-[900] text-[#E7E7E7] transition
-          ${watch('email') && watch('password') && 'text-white bg-signature border-none'}`}
-        disabled={isSubmitting}
+          ${email && password && 'text-white bg-signature border-none'}`}
+        disabled={!isSubmitting}
       >
         로그인
       </button>

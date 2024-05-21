@@ -19,6 +19,7 @@ import {
 } from '@/types/common';
 import { CATEGORIES } from '@/constants/common';
 import ImgList from '@/components/List/ImgLIst';
+import useLoginStore from '@/store/LoginStore';
 
 interface PropsType {
   slickSettings: SlickSettingsType;
@@ -44,8 +45,10 @@ const HomePageView = ({
   mainContent,
   location,
 }: PropsType) => {
+  const { isLogin } = useLoginStore();
+  console.log(isLogin);
   return (
-    <BottomNavLayout login={false}>
+    <BottomNavLayout login={isLogin}>
       <div className="px-6 pt-4 pb-1">
         <img src="main_logo.png" className="w-40" alt="logo" />
       </div>
