@@ -8,9 +8,9 @@ export default {
     },
     extend: {
       screens: {
-        xs: '440px', 
-        'csize': '1500px',
-        'h-md': { 'raw': '(min-height: 800px)' },
+        xs: '440px',
+        csize: '1600px',
+        'h-md': { raw: '(min-height: 800px)' },
       },
 
       colors: {
