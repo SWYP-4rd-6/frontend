@@ -1,14 +1,12 @@
 import BasicInput from '../Input/BasicInput';
 import ButtonInput from '../Input/ButtonInput';
-import { useForm } from 'react-hook-form';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Country } from '@/types/userInfo';
 import Select, { StylesConfig } from 'react-select';
 import { getLocation } from '@/utils/getLocation';
 import PhoneAuth from '../Input/PhoneAuth';
 import { countryList } from '@/constants/common';
 import ArrowButton from '../Button/ArrowButton';
-import { useActivateStore } from '@/store/ActivateStore';
 import { checkNickname, signup } from '@/pages/signup-page';
 import { UserState, useUserInfoStore } from '@/store/UserInfoStore';
 import { useNavigate } from 'react-router-dom';

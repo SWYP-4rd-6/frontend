@@ -1,5 +1,4 @@
 import { ChangeEventHandler, useState } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
 import { MaterialSymbol } from 'react-material-symbols';
 
 interface PasswordInputProps {
