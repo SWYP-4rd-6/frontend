@@ -11,6 +11,7 @@ import Register from './pages/register-page';
 import ReservationDetail from './pages/reservation-detail-page';
 import ReservationComplete from './pages/reservation-complete-page';
 import ReservationPay from './pages/reservation-pay-page';
+import ProtectedRoute from './ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -18,19 +19,24 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <Error />, // 404 에러시 보여지는 컴포넌트 입니다.
     children: [
-      // 여기에 경로를 추가해주세요.
       { index: true, element: <Home /> },
       { path: 'login', element: <Login /> },
       { path: 'login/email', element: <EmailLogin /> },
       { path: 'tour/detail', element: <TourDetail /> },
       { path: 'signup', element: <SignUp /> },
-      { path: 'tour/detail', element: <TourDetail /> },
-      { path: 'more', element: <HomeMore /> },
-      { path: 'tour/reservation/payment', element: <ReservationPay /> },
-      { path: 'host/detail', element: <HostDetail /> },
-      { path: 'tour/register', element: <Register /> },
-      { path: 'tour/reservation', element: <ReservationDetail /> },
-      { path: 'tour/reservation/complete', element: <ReservationComplete /> },
+      {
+        path: '/',
+        element: <ProtectedRoute />,
+        children: [
+          { path: 'tour/detail', element: <TourDetail /> },
+          { path: 'more', element: <HomeMore /> },
+          { path: 'tour/reservation/payment', element: <ReservationPay /> },
+          { path: 'host/detail', element: <HostDetail /> },
+          { path: 'tour/register', element: <Register /> },
+          { path: 'tour/reservation', element: <ReservationDetail /> },
+          { path: 'tour/reservation/complete', element: <ReservationComplete /> },
+        ],
+      },
     ],
   },
 ]);
