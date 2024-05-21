@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 
 const BackGround: FC<{ children: ReactNode }> = ({ children }) => (
-  <div className="bg-slate-100 w-screen h-screen relative items-center flex lg:block py-0 lg:py-8 2xl:py-20">
+  <div className="bg-slate-100 w-screen h-screen relative py-0 2xl:py-20">
     <div className="hidden lg:flex absolute left-36 xl:left-50 2xl:left-52 top-32 xl:top-24 flex-col">
       <div className="text-[4rem] xl:text-[5rem] 2xl:text-[6rem] text-signature font-[275]">
         Nice to

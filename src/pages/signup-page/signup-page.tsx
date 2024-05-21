@@ -10,7 +10,7 @@ const SignUpPageView = () => {
   return (
     <div className="flex flex-col h-full overflow-y-scroll">
       <Header />
-      <div className="mx-6 flex-grow relative">
+      <div className="mx-6 flex-grow relative h-full">
         {signupStage === 1 ? (
           <SignupForm setSignupStage={setSignupStage} />
         ) : (
