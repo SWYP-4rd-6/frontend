@@ -9,8 +9,10 @@ export default {
     extend: {
       screens: {
         xs: '440px', 
+        'csize': '1500px',
         'h-md': { 'raw': '(min-height: 800px)' },
       },
+
       colors: {
         signature: '#0173FA',
         'sub-y': '#F6AF19',
