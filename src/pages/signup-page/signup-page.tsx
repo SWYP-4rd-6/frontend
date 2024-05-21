@@ -1,17 +1,16 @@
+import { useState } from 'react';
 import Header from '@/components/Header/Header';
 import SignupForm from '@/components/Form/SignupForm';
-import { useActivateStore } from '@/store/ActivateStore';
-import { useNavigate } from 'react-router-dom';
 import SignupForm2 from '@/components/Form/SignupForm2';
-import { useState } from 'react';
+
 
 const SignUpPageView = () => {
   const [signupStage, setSignupStage] = useState(1);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full overflow-y-scroll">
       <Header />
-      <div className="mx-6">
+      <div className="mx-6 flex-grow relative h-full">
         {signupStage === 1 ? (
           <SignupForm setSignupStage={setSignupStage} />
         ) : (

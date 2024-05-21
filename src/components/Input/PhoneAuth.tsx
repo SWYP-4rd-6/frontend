@@ -12,7 +12,7 @@ interface PropsType {
 }
 
 const PhoneAuth = ({ setCheckDuplication }: PropsType) => {
-  const saveState = useUserInfoStore((state) => state.saveState);
+  const { user: userInfo, changeState } = useUserInfoStore();
   const [phone, setPhone] = useState('');
   const [user, setUser] = useState<ConfirmationResult | null>(null);
   const [otp, setOtp] = useState('');
@@ -74,9 +74,7 @@ const PhoneAuth = ({ setCheckDuplication }: PropsType) => {
             setModalIsOpen(false);
             setRecaptcha(false);
             setCheckDuplication((prev: any) => ({ ...prev, phone: true }));
-            saveState({
-              phone,
-            });
+            changeState('phone', phone)
             return true;
           }
         }

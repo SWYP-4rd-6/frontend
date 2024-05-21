@@ -1,23 +1,25 @@
-import { useState } from 'react';
+import { ChangeEventHandler, useState } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { MaterialSymbol } from 'react-material-symbols';
 
 interface PasswordInputProps {
   id: string;
+  name: string;
   placeholder?: string;
   className?: string;
   autoComplete?: string;
-  register: UseFormRegisterReturn<string>;
-  value?: string;
+  value: string;
+  handleChange: ChangeEventHandler<HTMLInputElement>;
 }
 
 const PasswordInput = ({
   id,
+  name,
   placeholder,
   className,
   autoComplete,
-  register,
   value,
+  handleChange,
 }: PasswordInputProps) => {
   const [pwVisible, setPwVisible] = useState(false);
 
@@ -25,11 +27,13 @@ const PasswordInput = ({
     <div className="relative flex justify-end items-center">
       <input
         id={id}
+        name={name}
         type={pwVisible ? 'text' : 'password'}
         placeholder={placeholder}
         className={`input-style ${className} ${value ? `border-signature` : 'border-[#D9D9D9]'}`}
         autoComplete={autoComplete}
-        {...register}
+        value={value}
+        onChange={handleChange}
       />
       <span
         className="absolute mr-[20px] flex cursor-pointer"
