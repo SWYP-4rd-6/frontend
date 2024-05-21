@@ -28,7 +28,8 @@ const BasicInput = ({
         type={type}
         name={name}
         placeholder={placeholder}
-        className={`input-style ${className} ${value ? 'border-signature' : 'border-[#D9D9D9]'}`}
+        className={`w-full h-[2.5rem] border-2 px-[20px] focus:outline-none text-base font-[900] text-signature placeholder-normal caret-black 
+        ${className} ${value ? 'border-signature' : 'border-[#D9D9D9]'}`}
         autoComplete={autoComplete}
         value={value}
         onChange={handleChange}

@@ -54,23 +54,40 @@ export const checkPhone = async (phone: string): Promise<boolean> => {
 
 // 회원가입
 export const signup = async () => {
-  const state = useUserInfoStore.getState();
-  const { saveState, resetState, ...data } = state;
+  const userData = useUserInfoStore.getState().user;
 
-  const response = await axios.post('/api/v1/auth/signup', {
-    data,
-  });
-  if (response.status === 200) {
-    console.log('success');
-    return true;
-  } else if (response.status === 409) {
-    console.log('중복 값 존재');
-  } else if (response.status === 400) {
-    console.log('입력 양식 오류');
+  const validData = await Object.entries(userData).reduce((acc: any, [key, value]) => {
+    if (value !== '' && value !== null) {
+      acc[key] = value;
+    }
+    return acc;
+  }, {});
+  console.log(validData);
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/v1/auth/signup`,
+      validData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    if (response.status === 200) {
+      console.log('Signup success');
+      return true;
+    } else if (response.status === 409) {
+      console.log('Duplicate entry exists');
+    } else if (response.status === 400) {
+      console.log('Form input error');
+    }
+  } catch (error) {
+    console.error('Signup failed:', error);
+    return false;
   }
   return false;
 };
-
 const SignUp = () => <SignUpPageView />;
 
 export default SignUp;

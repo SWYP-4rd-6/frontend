@@ -5,7 +5,7 @@ import ButtonInput from '../Input/ButtonInput';
 import ArrowButton from '../Button/ArrowButton';
 import ValidateCheck from './ValidateCheck';
 import { useNavigate } from 'react-router-dom';
-import { checkEmail } from '@/pages/signup-page';
+import { checkEmail, signup } from '@/pages/signup-page';
 
 interface PropsType {
   setSignupStage: React.Dispatch<React.SetStateAction<number>>;
@@ -75,7 +75,7 @@ const SignupForm = ({ setSignupStage }: PropsType) => {
   };
 
   return (
-    <Fragment>
+    <div className='flex flex-col h-full'>
       <div className="text-[#646464] font-[300] text-4xl flex flex-col gap-2 mb-6">
         <div>
           <span className="text-signature font-[900]">로그인</span>에 사용할
@@ -139,12 +139,14 @@ const SignupForm = ({ setSignupStage }: PropsType) => {
           <ValidateCheck content="비밀번호 일치" isChecked={pwValid.check} />
         </div>
       </form>
+      {/* 이 div가 남은 공간 다 차지하게 해줘 */}
+      <div className='flex-grow w-full h-full'></div>
       <ArrowButton
         activate={activate}
         moveForward={() => setSignupStage(2)}
-        moveBack={() => navigate('/login/email')}
+        moveBack={() => signup()}
       />
-    </Fragment>
+    </div>
   );
 };
 

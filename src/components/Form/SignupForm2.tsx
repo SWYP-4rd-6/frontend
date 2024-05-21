@@ -17,7 +17,7 @@ interface PropsType {
   setSignupStage: React.Dispatch<React.SetStateAction<number>>;
 }
 
-type Gender = 'Male' | 'Female'
+type Gender = 'Male' | 'Female';
 
 const SignupForm2 = ({ setSignupStage }: PropsType) => {
   const { user, changeState } = useUserInfoStore();
@@ -57,11 +57,32 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
     }),
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    changeState(name as keyof UserState['user'], value);
+  const formatDate = (date: string) => {
+    const numericDate = date.replace(/\D/g, '');
+
+    const year = numericDate.slice(0, 4);
+    const month = numericDate.slice(4, 6);
+    const day = numericDate.slice(6, 8);
+
+    let formattedDate = year;
+    if (month) {
+      formattedDate += `.${month}`;
+    }
+    if (day) {
+      formattedDate += `.${day}`;
+    }
+
+    return formattedDate;
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    let formattedValue = value;
+    if (name === 'birthdate') {
+      formattedValue = formatDate(value);
+    }
+    changeState(name as keyof UserState['user'], formattedValue);
+  };
   const handleGenderSelect = (selectedGender: Gender) => {
     changeState('gender', selectedGender);
   };
@@ -108,12 +129,16 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
   ]);
 
   const moveForward = async () => {
+    const formattedBirthdate = user.birthdate.replace(/\./g, '-');
+    changeState('birthdate', formattedBirthdate);
+
     const res = await signup();
-    if (res) {
+    if(res){
       navigate('/');
     } else {
-      alert('가입 실패');
+      alert('가입 오류!');
     }
+
   };
 
   const moveBack = () => {
@@ -183,6 +208,7 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
               type="text"
               name="birthdate"
               autoComplete="off"
+              placeholder="0000.00.00"
               value={user.birthdate}
               handleChange={handleChange}
             />
@@ -258,6 +284,8 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
           <div className="mb-[5px] text-[#646464] text-[12px]">번호는 공개되지 않습니다.</div>
           <PhoneAuth setCheckDuplication={setCheckDuplication} />
         </div>
+
+        <div className="h-32" />
       </form>
 
       <ArrowButton activate={activate} moveForward={moveForward} moveBack={moveBack} />
