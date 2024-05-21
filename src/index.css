@@ -13,6 +13,10 @@
   font-weight: normal;
 }
 
+.blue-filter {
+  @apply absolute inset-0 bg-[#0173FA] bg-opacity-20;
+}
+
 /* number 타입 input의 숫자 조절버튼 비활성화 */
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {

@@ -1,4 +1,11 @@
-import { GuideProductType, MainContentType, ReservationType } from '@/types/common';
+import {
+  GuideProductType,
+  GuideType,
+  MainContentType,
+  SearchContentType,
+  UserType,
+    ReservationType
+} from '@/types/common';
 
 export const imgs = [
   '/trip_package_sample.png',
@@ -9,6 +16,7 @@ export const imgs = [
 
 export const GUIDE_PRODUCT_DATA: GuideProductType = {
   id: 1,
+  userId: 43,
   title: '신나는 더미 서울 투어',
   description: '서울 *** 여행 가이드 합니다.',
   price: 10000,
@@ -109,12 +117,14 @@ export const RESERVATION_DATA: ReservationType = {
   merchantUid: '20240429-ad5eea',
 };
 
-export const USER_DATA = {
+export const USER_DATA: GuideType = {
   email: 'user01@test.com',
   nickname: 'nickname01',
   name: 'name01',
   profile: '안녕하세요!',
   profileImageUrl: '/man_sample.png',
+  reviewRating: 4.6,
+  createdAt: '2024-05-05 00:00:00',
   guideProducts: [
     {
       id: 1,
@@ -143,32 +153,53 @@ export const USER_DATA = {
   ],
 };
 
-export const SEARCH_DATA = [
-  {
-    id: 1,
-    title: '신나는 서울 투어',
-    thumb: '/trip_image_sample1.png',
-    locationName: '한강 공원',
-    guideStart: '2024-05-18T06:11:04.136Z',
-    guideEnd: '2024-05-18T06:11:04.136Z',
+export const SEARCH_DATA: SearchContentType = {
+  content: [
+    {
+      id: 2,
+      title: '가EHF타HY다라P다JJFAKCLGQYVXQLXYJF',
+      thumb: '/trip_image_sample1.png',
+      locationName: '여수 오동도',
+      guideStart: '2024-09-01 03:16:07',
+      guideEnd: '2024-09-06 03:16:07',
+    },
+  ],
+  pageable: {
+    pageNumber: 0,
+    pageSize: 1,
+    sort: [
+      {
+        direction: 'ASC',
+        property: 'string',
+        ignoreCase: false,
+        nullHandling: 'NATIVE',
+        ascending: true,
+        descending: false,
+      },
+    ],
+    offset: 0,
+    paged: true,
+    unpaged: false,
   },
-  {
-    id: 1,
-    title: '신나는 서울 투어',
-    thumb: '/trip_image_sample1.png',
-    locationName: '한강 공원',
-    guideStart: '2024-05-18T06:11:04.136Z',
-    guideEnd: '2024-05-18T06:11:04.136Z',
-  },
-  {
-    id: 1,
-    title: '신나는 서울 투어',
-    thumb: '/trip_image_sample1.png',
-    locationName: '한강 공원',
-    guideStart: '2024-05-18T06:11:04.136Z',
-    guideEnd: '2024-05-18T06:11:04.136Z',
-  },
-];
+  last: false,
+  totalPages: 11,
+  totalElements: 11,
+  size: 1,
+  number: 0,
+  sort: [
+    {
+      direction: 'ASC',
+      property: 'string',
+      ignoreCase: false,
+      nullHandling: 'NATIVE',
+      ascending: true,
+      descending: false,
+    },
+  ],
+  first: true,
+  numberOfElements: 1,
+  empty: false,
+};
 export const MAIN_CONTENT_DATA: MainContentType = {
   bestGuideProducts: [
     {

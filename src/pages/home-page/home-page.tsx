@@ -6,8 +6,7 @@ import { MaterialSymbol } from 'react-material-symbols';
 
 import CategoryButton from '@/components/Button/CategoryButton';
 import SlideCard from '@/components/Slide/SlideCard';
-import FloatingButton from '@/components/Button/FloatingButton';
-import BottomNav from '@/components/BottomNav';
+import BottomNavLayout from '@/components/BottomNavLayout';
 import DoubleLine from '@/components/DoubleLIne';
 
 import {
@@ -15,6 +14,7 @@ import {
   CategoryType,
   ILocation,
   MainContentType,
+  SearchContentType,
   SlickSettingsType,
 } from '@/types/common';
 import { CATEGORIES } from '@/constants/common';
@@ -23,12 +23,14 @@ import ImgList from '@/components/List/ImgLIst';
 interface PropsType {
   slickSettings: SlickSettingsType;
   multiSlickSettings: SlickSettingsType;
-  onClickTripImage: () => void;
-  location?: ILocation;
+  //location?: ILocation;
   selectedCategory: CategoryKorType;
   onCategoryClick: (category: CategoryKorType) => void;
   onClickMore: (cate: CategoryKorType) => void;
-  mainContent: MainContentType;
+  onClickTripImage: (index: number, cate: string) => void;
+  mainContent?: MainContentType;
+  searchContent?: SearchContentType;
+  location: string;
 }
 
 const HomePageView = ({
@@ -38,11 +40,12 @@ const HomePageView = ({
   selectedCategory,
   onCategoryClick,
   onClickMore,
-  location,
+  searchContent,
   mainContent,
+  location,
 }: PropsType) => {
   return (
-    <div className=" ">
+    <BottomNavLayout login={false}>
       <div className="px-6 pt-4 pb-1">
         <img src="main_logo.png" className="w-40" alt="logo" />
       </div>
@@ -81,23 +84,22 @@ const HomePageView = ({
             <div className="flex justify-between items-center pr-9">
               <div className="sub-title  ">근처</div>
               <div className="flex items-center text-sub-bu text-base">
-                Seoul, South Korea
-                {/* {location && location.latitude} */}
+                {location}
                 <MaterialSymbol icon="fmd_good" size={21} fill grade={-25} color="#d9d9d9" />
               </div>
             </div>
             <div className="w-full max-w-xl mx-auto"></div>
             <Slider {...slickSettings} className="pb-3">
-              {mainContent.nearGuideProducts?.map((item, i) => (
-                <SlideCard key={i} content={item} onClick={onClickTripImage} />
+              {mainContent?.nearGuideProducts?.map((item, i) => (
+                <SlideCard key={i} content={item} onClick={() => onClickTripImage(i, 'NEAR')} />
               ))}
             </Slider>
           </section>
           <section className="content-section">
             <div className="sub-title">추천하는 여행</div>
             <div className="grid-img-wrap">
-              {mainContent.bestGuideProducts?.map((item, i) => (
-                <ImgList key={i} content={item} onClick={onClickTripImage} />
+              {mainContent?.bestGuideProducts?.map((item, i) => (
+                <ImgList key={i} content={item} onClick={() => onClickTripImage(i, 'BEST')} />
               ))}
             </div>
             <button
@@ -112,7 +114,8 @@ const HomePageView = ({
       ) : (
         <></>
       )}
-      <section className="content-section">
+      {/* 카테고리 전체 결과 영역 */}
+      <section className="content-section ">
         <div className="flex justify-between items-center pr-3">
           <div className="sub-title">{selectedCategory}</div>
           {selectedCategory === '근처' && (
@@ -123,8 +126,8 @@ const HomePageView = ({
           )}
         </div>
         <div className="grid-img-wrap">
-          {mainContent.allGuideProducts.content?.map((item, i) => (
-            <ImgList key={i} content={item} onClick={onClickTripImage} />
+          {searchContent?.content.map((item, i) => (
+            <ImgList key={i} content={item} onClick={() => onClickTripImage(i, selectedCategory)} />
           ))}
         </div>
         <button
@@ -134,9 +137,7 @@ const HomePageView = ({
           더보기
         </button>
       </section>
-      <FloatingButton />
-      <BottomNav login={false} />
-    </div>
+    </BottomNavLayout>
   );
 };
 
