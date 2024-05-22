@@ -7,6 +7,7 @@ import axios from 'axios';
 import { GUIDE_PRODUCT_DATA } from '@/constants/test';
 import { formatDate, formatTimeRange } from '@/utils';
 import useLoadingStore from '@/store/LoadingStore';
+import moment, { Moment } from 'moment';
 
 function TourDetail() {
   const pageLocation = useLocation();
@@ -58,13 +59,13 @@ function TourDetail() {
 
   const onClickReservation = () => {
     if (content) {
-      navigateTo('/tour/reservation?id=' + content.id, {
+      navigateTo('/tour/reservation', {
         state: {
           id: content.id,
-          guideStart: '2024-05-12T15:59:35.598Z', ///ToDo
-          guideEnd: '2024-05-12T15:59:35.598Z',
-          price: 10000,
-          guideTime: 3,
+          guideStart: content.guideStart,
+          guideEnd: content.guideEnd,
+          price: content.price,
+          guideTime: content.guideTime,
         },
       });
     }

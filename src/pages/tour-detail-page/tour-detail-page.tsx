@@ -18,7 +18,7 @@ interface PropsType {
   reviewSlickSettings: SlickSettingsType;
   onClickHost: () => void;
   content?: GuideProductType;
-  formatDate: (dateString: string) => string;
+  formatDate: (dateString: string) => string | null;
   formatTimeRange: (start: string, end: string) => string;
   onClickReservation: () => void;
   loading: boolean;

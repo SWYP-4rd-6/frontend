@@ -40,6 +40,15 @@ const TimeRangePicker = ({}) => {
     }
   };
 
+  const handleInputChange =
+    (setter: React.Dispatch<React.SetStateAction<number>>, min: number, max: number) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = Number(e.target.value);
+      if (!isNaN(value) && value >= min && value <= max) {
+        setter(value);
+      }
+    };
+
   return (
     <div className="border-2 border-signature py-1 px-5">
       <div className="flex justify-between items-center py-4">
@@ -62,11 +71,12 @@ const TimeRangePicker = ({}) => {
             <input
               type="number"
               value={startHour}
-              onChange={(e) => setStartHour(Number(e.target.value))}
+              onChange={handleInputChange(setStartHour, 0, 23)}
               min="0"
               max="23"
               className="text-center text-3xl text-signature font-[700]"
             />
+
             <div onClick={() => handleTimeChange('start', 'hour', -1)}>
               <MdOutlineKeyboardArrowDown size={24} className="text-sub-non" />
             </div>
@@ -78,10 +88,11 @@ const TimeRangePicker = ({}) => {
             <div onClick={() => handleTimeChange('start', 'minute', 1)}>
               <MdOutlineKeyboardArrowUp size={24} className="text-sub-non" />
             </div>
+
             <input
               type="number"
               value={startMinute}
-              onChange={(e) => setStartMinute(Number(e.target.value))}
+              onChange={handleInputChange(setStartMinute, 0, 59)}
               min="0"
               max="59"
               className="text-center text-3xl text-signature font-[700]"
@@ -111,7 +122,7 @@ const TimeRangePicker = ({}) => {
             <input
               type="number"
               value={endHour}
-              onChange={(e) => setEndHour(Number(e.target.value))}
+              onChange={handleInputChange(setEndHour, 0, 23)}
               min="0"
               max="23"
               className="text-center text-3xl text-signature font-[700]"
@@ -130,7 +141,7 @@ const TimeRangePicker = ({}) => {
             <input
               type="number"
               value={endMinute}
-              onChange={(e) => setEndMinute(Number(e.target.value))}
+              onChange={handleInputChange(setEndMinute, 0, 59)}
               min="0"
               max="59"
               className="text-center text-3xl text-signature font-[700]"

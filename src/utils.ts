@@ -72,9 +72,23 @@ const getTagName = (tag: CategoryKorType): CategoryType | null => {
 };
 
 // 2025-04-02 20:31:55"-> 2024.05.12
-const formatDate = (dateString: string): string => {
+const formatDate = (dateString: string): string | null => {
   const date = DateTime.fromFormat(dateString, 'yyyy-MM-dd HH:mm:ss'); //.fromISO(start);
   return date.toFormat('yyyy.LL.dd');
+};
+const convertDateFormat = (isoString: string | null): string | null => {
+  if (isoString === null) {
+    return null;
+  }
+
+  // ISO 문자열을 Luxon DateTime 객체로 변환
+  const dateTime = DateTime.fromISO(isoString);
+  return dateTime.toFormat('yyyy-MM-dd HH:mm:ss');
+};
+
+const getNowUnixTimestamp = (): number => {
+  const milliseconds = new Date().getTime();
+  return Math.floor(milliseconds / 1000);
 };
 
 const formatDateKor = (dateString: string): string => {
@@ -111,4 +125,6 @@ export {
   formatDateKor,
   formatTimeRange,
   calculateDays,
+  convertDateFormat,
+  getNowUnixTimestamp,
 };

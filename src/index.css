@@ -13,10 +13,6 @@
   font-weight: normal;
 }
 
-.blue-filter {
-  @apply absolute inset-0 bg-[#0173FA] bg-opacity-20;
-}
-
 /* number 타입 input의 숫자 조절버튼 비활성화 */
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
@@ -44,18 +40,30 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 /* typo */
+.font-effect {
+  @apply text-signature py-2 font-black;
+}
 .title {
-  @apply text-signature font-black py-2  text-3xl;
+  @apply font-effect text-3xl;
 }
 
 .sub-title {
-  @apply text-signature py-2 font-black text-xl;
+  @apply font-effect text-xl;
 }
 
 .sub-title-2 {
-  @apply text-signature py-2 font-black text-base;
+  @apply font-effect  text-base;
 }
 
+.title-lg-bk {
+  @apply py-2 font-light text-4xl;
+}
+
+.title-lg {
+  @apply py-2 text-4xl font-black text-signature;
+}
+
+/* slide */
 .slick-dots {
   @apply static;
 }
@@ -80,8 +88,12 @@ input[type='number']::-webkit-outer-spin-button {
   @apply grid grid-cols-2 gap-5  place-items-center *:w-full *:h-full;
 }
 
-.opacity-blue-filter {
+.blue-filter {
   @apply absolute inset-0 bg-[#0173FA] bg-opacity-20;
+}
+
+.img-thumb {
+  @apply inset-0 size-full bg-cover bg-center bg-no-repeat;
 }
 
 .container-shadow {

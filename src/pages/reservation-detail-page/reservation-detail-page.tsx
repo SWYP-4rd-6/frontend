@@ -61,24 +61,10 @@ const ReservationDetailView = ({
         </div>
         <div className="sub-title-2">시간</div>
         <TimeRangePicker />
-        <div className="px-5  border-content text-base text-light my-3 parent">
-          <TimePicker
-            text="시작 시간"
-            value="17:00"
-            onChange={(value) => handleTimeChange({ startTime: value })}
-            open={startDate !== null}
-          />{' '}
-          <TimePicker
-            text="마감 시간"
-            value="17:00"
-            lastChild
-            onChange={(value) => handleTimeChange({ endTime: value })}
-            active={false}
-          />{' '}
-        </div>
-        <div className="sub-title-2">호스트에게 할 메시지</div>
+
+        <div className="sub-title-2 hidden">호스트에게 할 메시지</div>
         <textarea
-          className="px-5 py-4 border-content text-base text-light my-3 w-full"
+          className="px-5 py-4 border-content text-base text-light my-3 w-full hidden"
           placeholder="호스트에게 하고 싶은 메시지를 남겨주세요!(필수)"
           maxLength={500}
           onChange={onChangeText}

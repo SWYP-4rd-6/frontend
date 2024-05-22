@@ -10,7 +10,7 @@ function HostDetail() {
   const [content, setContent] = useState<GuideType>(); //USER_DATA
   const navigateTo = useNavigate();
   const pageLocation = useLocation();
-  const tourId = new URLSearchParams(pageLocation.search).get('id');
+  const userId = new URLSearchParams(pageLocation.search).get('id');
 
   const onClickTripImage = (index: number) => {
     if (content?.guideProducts) navigateTo('/tour/detail?id=' + content.guideProducts[index].id);
@@ -18,8 +18,8 @@ function HostDetail() {
 
   const getHostDetail = async () => {
     try {
-      if (tourId) {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/users/${tourId}`);
+      if (userId) {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/users/${userId}`);
         if (response.status === 200) {
           console.log('success');
           setContent(response.data);

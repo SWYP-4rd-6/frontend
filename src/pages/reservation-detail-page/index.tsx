@@ -1,14 +1,13 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ReservationDetailView from './reservation-detail-page';
-import axios from 'axios';
 import moment, { Moment } from 'moment';
 import { ReservationType } from '@/types/common';
+import { api } from '@/api/axios';
 
 function ReservationDetail() {
   const [reserveContent, seReserveContent] = useState<ReservationType>();
   const [content, setContent] = useState<string>('');
-
   const [startDate, setStartDate] = useState<Moment | null>(moment());
   const [endDate, setEndDate] = useState<Moment | null>(moment());
   const [startTime, setStartTime] = useState<string | null>();
@@ -16,11 +15,12 @@ function ReservationDetail() {
 
   const navigateTo = useNavigate();
   const pageLocation = useLocation();
-  const pId = new URLSearchParams(pageLocation.search).get('id');
   const MAX_LENGTH = 500;
+  const location = useLocation();
+  const { id, guideStart, guideEnd, price, guideTime } = location.state;
 
   const onClickPayment = () => {
-    navigateTo('/tour/reservation/Payment');
+    postReservationSave();
   };
 
   const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -71,20 +71,29 @@ function ReservationDetail() {
 
   const postReservationSave = async () => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/v1/reservation/client/save`,
-        {
-          productId: pId,
-          guideStart: startDate,
-          guideEnd: endDate,
-          personnel: 1,
-          message: content,
-          //  price: 10000,
-        },
-      );
-      if (response.status === 200) {
-        console.log('success');
+      const guideStart = startDate && startDate.format('YYYY-MM-DD HH:mm:ss');
+      const guideEnd = endDate && endDate.format('YYYY-MM-DD HH:mm:ss');
+      const response = await api.post(`/v1/reservation/client/save`, {
+        productId: id,
+        guideStart,
+        guideEnd,
+        personnel: 1,
+        message: content,
+        price,
+      });
 
+      if (response.status === 200) {
+        //console.log(response.data);
+        navigateTo('/tour/reservation/Payment', {
+          state: {
+            productId: id,
+            muid: 1,
+            price,
+            message: content,
+            guideStart,
+            guideEnd,
+          },
+        });
         return true;
       }
       console.log('fail');
@@ -95,9 +104,7 @@ function ReservationDetail() {
     }
   };
 
-  useEffect(() => {
-    // getReservationDetail();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <ReservationDetailView
