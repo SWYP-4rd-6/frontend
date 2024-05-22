@@ -1,4 +1,3 @@
-import 'react-dates/lib/css/_datepicker.css';
 import { ReservationType, UserType } from '@/types/common';
 import Header from '@/components/Header/Header';
 import moment, { Moment } from 'moment';
@@ -7,6 +6,7 @@ import Payment from '@/components/Payment';
 import BottomButton from '@/components/Button/BottomButton';
 import DayPickerRange from '@/components/DayPickerRange';
 import { ChangeEvent, ChangeEventHandler } from 'react';
+import TimeRangePicker from '@/components/TimeRangePicker';
 
 interface PropsType {
   onClickPayment: () => void;
@@ -60,6 +60,7 @@ const ReservationDetailView = ({
           </div>
         </div>
         <div className="sub-title-2">시간</div>
+        <TimeRangePicker />
         <div className="px-5  border-content text-base text-light my-3 parent">
           <TimePicker
             text="시작 시간"

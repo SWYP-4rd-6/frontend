@@ -1,6 +1,4 @@
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import CategoryButton from '@/components/Button/CategoryButton';
 import DoubleLine from '@/components/DoubleLIne';
 import { CATEGORIES } from '@/constants/common';

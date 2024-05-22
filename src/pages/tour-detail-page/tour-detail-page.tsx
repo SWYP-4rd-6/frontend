@@ -1,6 +1,5 @@
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+
 import { SlickSettingsType, GuideProductType } from '@/types/common';
 import Slide from '@/components/Slide/Slide';
 import { MaterialSymbol } from 'react-material-symbols';

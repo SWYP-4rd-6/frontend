@@ -58,7 +58,15 @@ function TourDetail() {
 
   const onClickReservation = () => {
     if (content) {
-      navigateTo('/tour/reservation?id=' + content.id);
+      navigateTo('/tour/reservation?id=' + content.id, {
+        state: {
+          id: content.id,
+          guideStart: '2024-05-12T15:59:35.598Z', ///ToDo
+          guideEnd: '2024-05-12T15:59:35.598Z',
+          price: 10000,
+          guideTime: 3,
+        },
+      });
     }
   };
 
@@ -71,7 +79,6 @@ function TourDetail() {
       if (response.status === 200) {
         console.log(response);
         setContent(response.data);
-        //userId = response.data.userId;
         setLoading(false);
         return true;
       }

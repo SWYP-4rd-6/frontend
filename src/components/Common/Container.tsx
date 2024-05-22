@@ -1,6 +1,4 @@
 import React, { FC, ReactNode, useState, useEffect, useRef } from 'react';
-import 'react-dates/lib/css/_datepicker.css';
-import 'react-dates/initialize';
 
 const Container: FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
