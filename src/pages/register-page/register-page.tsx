@@ -41,7 +41,7 @@ const RegisterPageView = () => {
       case 7:
         return <RegisterStage7 setStage={setStage} setStep={setStep} />;
       case 8:
-        return <RegisterStage8 userId={1} />
+        return <RegisterStage8 />
       default:
         return null;
     }
