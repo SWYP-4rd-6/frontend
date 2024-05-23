@@ -9,47 +9,93 @@ export const checkEmail = async (email: string): Promise<boolean | void> => {
     alert('유효하지 않은 이메일 형식입니다.');
     return;
   }
-  const response = await axios.get('/api/v1/validation/email', {
-    params: {
-      email: email,
-    },
-  });
-  if (response.status === 200) {
-    console.log('success');
-    return true;
+
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/validation/email`, {
+      params: {
+        email: email,
+      },
+    });
+
+    if (response.status === 200) {
+      console.log('success');
+      return true;
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response && error.response.status === 409) {
+        console.log('fail');
+        alert('이미 사용 중인 이메일입니다.');
+        return false;
+      } else {
+        console.error('An error occurred:', error.response?.status, error.message);
+        alert('이메일 확인 중 오류가 발생했습니다. 다시 시도해 주세요.');
+      }
+    } else {
+      console.error('An unexpected error occurred:', error);
+      alert('예상치 못한 오류가 발생했습니다. 다시 시도해 주세요.');
+    }
   }
-  console.log('fail');
-  return false;
 };
 
 // 닉네임 중복확인
-export const checkNickname = async (nickname: string): Promise<boolean> => {
-  const response = await axios.get('/api/v1/validation/nickname', {
-    params: {
-      nickname: nickname,
-    },
-  });
-  if (response.status === 200) {
-    console.log('success');
-    return true;
+export const checkNickname = async (nickname: string): Promise<boolean | void> => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/validation/nickname`, {
+      params: {
+        nickname: nickname,
+      },
+    });
+
+    if (response.status === 200) {
+      console.log('success');
+      return true;
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response && error.response.status === 409) {
+        console.log('fail');
+        alert('이미 사용 중인 닉네임입니다.');
+        return false;
+      } else {
+        console.error('An error occurred:', error.response?.status, error.message);
+        alert('닉네임 확인 중 오류가 발생했습니다. 다시 시도해 주세요.');
+      }
+    } else {
+      console.error('An unexpected error occurred:', error);
+      alert('예상치 못한 오류가 발생했습니다. 다시 시도해 주세요.');
+    }
   }
-  console.log('fail');
-  return false;
 };
 
 // 전화번호 중복확인
-export const checkPhone = async (phone: string): Promise<boolean> => {
-  const response = await axios.get('/api/v1/validation/phone', {
-    params: {
-      phone: phone,
-    },
-  });
-  if (response.status === 200) {
-    console.log('success');
-    return true;
+export const checkPhone = async (phone: string): Promise<boolean | void> => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/validation/phone`, {
+      params: {
+        phone: phone,
+      },
+    });
+
+    if (response.status === 200) {
+      console.log('success');
+      return true;
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response && error.response.status === 409) {
+        console.log('fail');
+        alert('이미 사용 중인 전화번호입니다.');
+        return false;
+      } else {
+        console.error('An error occurred:', error.response?.status, error.message);
+        alert('전화번호 확인 중 오류가 발생했습니다. 다시 시도해 주세요.');
+      }
+    } else {
+      console.error('An unexpected error occurred:', error);
+      alert('예상치 못한 오류가 발생했습니다. 다시 시도해 주세요.');
+    }
   }
-  console.log('fail');
-  return false;
 };
 
 // 회원가입

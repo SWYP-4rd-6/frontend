@@ -64,9 +64,7 @@ const SignupForm = ({ setSignupStage }: PropsType) => {
     if (res) {
       alert('사용 가능한 이메일입니다.');
       setCheckDuplication(true);
-    } else {
-      alert('이미 존재하는 이메일입니다.');
-    }
+    } 
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

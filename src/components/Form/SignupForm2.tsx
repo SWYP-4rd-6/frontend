@@ -106,9 +106,7 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
     if (res) {
       alert('사용 가능한 닉네임입니다.');
       setCheckDuplication({ ...checkDuplication, nickname: true });
-    } else {
-      alert('이미 존재하는 닉네임입니다.');
-    }
+    } 
   };
 
   useEffect(() => {
@@ -132,7 +130,7 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
 
     const res = await signup();
     if(res){
-      navigate('/');
+      navigate('/login');
     } else {
       alert('가입 오류!');
     }
