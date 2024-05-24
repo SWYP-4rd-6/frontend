@@ -11,10 +11,11 @@ import LoginHeader from '@/components/Header/LoginHeader';
 interface PropsType {
   onComplete: () => void;
   content?: ReservationType;
-  setIsPaid: any;
+  //  setIsPaid: any;
+  setUid: any;
 }
 //onComplete
-const ReservationPayView = ({ onComplete, content, setIsPaid }: PropsType) => {
+const ReservationPayView = ({ onComplete, content, setUid }: PropsType) => {
   const { price, merchantUid, product } = content || {};
   return (
     <>
@@ -109,7 +110,9 @@ const ReservationPayView = ({ onComplete, content, setIsPaid }: PropsType) => {
                   mid={merchantUid}
                   price={price}
                   title={content.product.title ? content.product.title : '매튜 여행 상품'}
-                  onTrue={() => setIsPaid(true)}
+                  onTrue={(uid: number) => {
+                    setUid(uid);
+                  }}
                 />
               )}
             </BottomButton>

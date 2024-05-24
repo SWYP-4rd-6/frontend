@@ -15,7 +15,6 @@ const Payment = ({ text, mid, price, title, onTrue }: PropsType) => {
   const { user, changeState } = useUserInfoStore();
 
   const onClickPayment = (pg: PG, storeId: string, payMethod: PaymentMethod) => {
-    if (price === 0) return;
     if (!window.IMP) return;
     /* 1. 가맹점 식별하기 */
     const { IMP } = window;
@@ -26,7 +25,7 @@ const Payment = ({ text, mid, price, title, onTrue }: PropsType) => {
       pg: `${pg}.${storeId}`, // PG사 : https://developers.portone.io/docs/ko/tip/pg-2 참고
       pay_method: payMethod, // 결제수단
       merchant_uid: mid, // `mid_${mid}`, // 주문번호
-      amount: 500, //Todo: price, // 결제금액
+      amount: price, // 결제금액
       name: title, // 주문명
       buyer_name: user.nickname, // 구매자 이름
       buyer_tel: user.phone, // 구매자 전화번호
@@ -45,7 +44,7 @@ const Payment = ({ text, mid, price, title, onTrue }: PropsType) => {
 
     if (success) {
       alert('결제 성공');
-      onTrue();
+      onTrue(imp_uid);
     } else {
       alert(`결제 실패: ${error_msg}`);
     }

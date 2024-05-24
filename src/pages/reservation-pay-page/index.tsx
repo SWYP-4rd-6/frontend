@@ -10,7 +10,7 @@ import { ReservationType } from '@/types/common';
 
 const ReservationPay = () => {
   const [content, setContent] = useState<ReservationType>(); //RESERVATION_DATA
-  const [isPaid, setIsPaid] = useState<boolean>(false);
+  const [uid, setUid] = useState<string>('');
 
   const navigateTo = useNavigate();
   const location = useLocation();
@@ -41,11 +41,10 @@ const ReservationPay = () => {
   const postReservationPaymentValidation = async () => {
     try {
       const response = await api.post(`/v1/reservation/client/payment/validation`, {
-        imp_uid: '',
+        imp_uid: uid,
       });
 
       if (response?.status === 200) {
-        setContent(response.data.product);
         console.log(response.data);
         postReservationPaymentSave();
 
@@ -64,10 +63,10 @@ const ReservationPay = () => {
   const postReservationPaymentSave = async () => {
     const param = {
       merchantUid: muid,
-      impUid: import.meta.env.VITE_PORTONE_IMP_KEY,
+      impUid: uid,
       productId,
       paidAt: getNowUnixTimestamp(),
-      price: 500, //ToDo:
+      price,
       personnel: 1,
     };
     console.log(param);
@@ -91,16 +90,14 @@ const ReservationPay = () => {
     getReservation();
   }, []);
   useEffect(() => {
-    if (isPaid === true) {
-      postReservationPaymentValidation();
-    }
+    if (uid) postReservationPaymentValidation();
     // navigateTo('/tour/reservation/complete', {
     //   state: {
     //     muid,
     //   },
     // });
-  }, [isPaid]);
+  }, [uid]);
 
-  return <ReservationPayView onComplete={onComplete} content={content} setIsPaid={setIsPaid} />;
+  return <ReservationPayView onComplete={onComplete} content={content} setUid={setUid} />;
 };
 export default ReservationPay;
