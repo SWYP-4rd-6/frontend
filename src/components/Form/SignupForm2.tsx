@@ -10,6 +10,9 @@ import ArrowButton from '../Button/ArrowButton';
 import { checkNickname, signup } from '@/pages/signup-page';
 import { UserState, useUserInfoStore } from '@/store/UserInfoStore';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
+import { emailLogin } from '@/pages/login-page/login-page';
+import useLoginStore from '@/store/LoginStore';
 
 interface PropsType {
   setSignupStage: React.Dispatch<React.SetStateAction<number>>;
@@ -26,6 +29,7 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
     phone: false,
   });
   const navigate = useNavigate();
+  const { setIsLogin } = useLoginStore();
   const GENDER_BUTTON_STYLE = `w-20 p-2 px-[20px] border-2 border-[#D9D9D9] text-[#D9D9D9] focus:outline-none transition`;
   const countries: Country[] = countryList;
 
@@ -106,7 +110,7 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
     if (res) {
       alert('사용 가능한 닉네임입니다.');
       setCheckDuplication({ ...checkDuplication, nickname: true });
-    } 
+    }
   };
 
   useEffect(() => {
@@ -129,12 +133,40 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
     changeState('birthdate', formattedBirthdate);
 
     const res = await signup();
-    if(res){
-      navigate('/login');
+    if (res) {
+      if (confirm('회원가입이 완료되었습니다. \n해당 정보로 로그인하시겠습니까?')) {
+        const res = await emailLogin({ email: user.email, password: user.password });
+
+        if (res) {
+          const { accessToken, refreshToken } = res.data;
+          // 토큰에서 만료 시간 추출
+          let expirationTime;
+          try {
+            const decodedToken = jwtDecode(accessToken);
+            expirationTime = decodedToken.exp ? decodedToken.exp * 1000 : null;
+
+            if (expirationTime) {
+              localStorage.setItem('accessToken', accessToken);
+              localStorage.setItem('refreshToken', refreshToken);
+              localStorage.setItem('tokenExpiration', expirationTime.toString());
+            }
+          } catch (error) {
+            console.error('토큰 디코딩 실패:', error);
+            alert('토큰 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
+            return;
+          }
+
+          setIsLogin(true);
+          navigate('/');
+        } else {
+          alert('로그인 실패');
+        }
+      } else {
+        navigate('/login');
+      }
     } else {
       alert('가입 오류!');
     }
-
   };
 
   const moveBack = () => {
