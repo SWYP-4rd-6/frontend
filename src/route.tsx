@@ -12,6 +12,8 @@ import ReservationDetail from './pages/reservation-detail-page';
 import ReservationComplete from './pages/reservation-complete-page';
 import ReservationPay from './pages/reservation-pay-page';
 import ProtectedRoute from './ProtectedRoute';
+import MyPage from './pages/mypage-page';
+
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,7 @@ const router = createBrowserRouter([
           { path: 'tour/register', element: <Register /> },
           { path: 'tour/reservation', element: <ReservationDetail /> },
           { path: 'tour/reservation/complete', element: <ReservationComplete /> },
+          { path: 'mypage/:userId', element: <MyPage />}
         ],
       },
     ],

@@ -14,11 +14,11 @@ const LoginButton = ({ loginType }: LoginButtonProps) => {
   const googleLogin = useGoogleLogin({
     flow: 'auth-code',
     onSuccess: async (codeResponse) => {
-      // console.log('codeResponse', codeResponse);
-      // const tokens = await axios.post('http://localhost:3001/auth/google', {
-      //   code: codeResponse.code,
-      // });
-      // console.log(tokens);
+      console.log('codeResponse', codeResponse);
+      const tokens = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/oauth2/callback`, {
+        // code: codeResponse.code,
+      });
+      console.log(tokens);
     },
     onError: (errorResponse) => console.log(errorResponse),
   });
