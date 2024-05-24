@@ -24,14 +24,6 @@ const router = createBrowserRouter([
       { path: 'login/email', element: <EmailLogin /> },
       { path: 'tour/detail', element: <TourDetail /> },
       { path: 'signup', element: <SignUp /> },
-      // 임시
-      { path: 'tour/detail', element: <TourDetail /> },
-      { path: 'more', element: <HomeMore /> },
-      { path: 'tour/reservation/payment', element: <ReservationPay /> },
-      { path: 'host/detail', element: <HostDetail /> },
-      { path: 'tour/register', element: <Register /> },
-      { path: 'tour/reservation', element: <ReservationDetail /> },
-      { path: 'tour/reservation/complete', element: <ReservationComplete /> },
       {
         path: '/',
         element: <ProtectedRoute />,

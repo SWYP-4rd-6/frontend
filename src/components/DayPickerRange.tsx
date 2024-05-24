@@ -54,11 +54,6 @@ const DayPickerRange = (props: PropsType) => {
         displayFormat="YYYY-MM-DD"
         startDatePlaceholderText="시작일"
         endDatePlaceholderText="완료일"
-        /*
-        customInputIcon={
-          <MaterialSymbol icon="schedule" fill size={24} className="text-signature" />
-        }
-        */
         inputIconPosition="before"
         hideKeyboardShortcutsPanel
 

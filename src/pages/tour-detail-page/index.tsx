@@ -7,7 +7,6 @@ import axios from 'axios';
 import { GUIDE_PRODUCT_DATA } from '@/constants/test';
 import { formatDate, formatTimeRange } from '@/utils';
 import useLoadingStore from '@/store/LoadingStore';
-import moment, { Moment } from 'moment';
 
 function TourDetail() {
   const pageLocation = useLocation();
