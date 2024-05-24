@@ -12,28 +12,6 @@ function ReservationComplete() {
   const pageLocation = useLocation();
   const userId = new URLSearchParams(pageLocation.search).get('id');
 
-  //4
-  const postReservationPaymentValidation = async () => {
-    try {
-      const response = await api.post(`/v1/reservation/client/payment/validation`, {
-        imp_uid: '',
-      });
-
-      if (response?.status === 200) {
-        setContent(response.data.product);
-        console.log(response.data);
-
-        return true;
-      }
-      console.log('fail');
-      return false;
-    } catch (error) {
-      //예약 취소하기
-      console.error(error);
-      throw error;
-    }
-  };
-
   //5
   const postReservationPaymentCancel = async () => {
     try {

@@ -10,10 +10,12 @@ import Loading from '@/components/Loading';
 import LoginHeader from '@/components/Header/LoginHeader';
 interface PropsType {
   onComplete: () => void;
-  content: ReservationType;
+  content?: ReservationType;
+  setIsPaid: any;
 }
 //onComplete
-const ReservationPayView = ({ onComplete, content }: PropsType) => {
+const ReservationPayView = ({ onComplete, content, setIsPaid }: PropsType) => {
+  const { price, merchantUid, product } = content || {};
   return (
     <>
       <Header />
@@ -101,12 +103,15 @@ const ReservationPayView = ({ onComplete, content }: PropsType) => {
                 },
               ]}
             >
-              <Payment
-                text={`${content.price && content.price.toLocaleString()}원 결제하기`}
-                mid={content.merchantUid}
-                price={content.price}
-                title={content.product.title}
-              />
+              {price && merchantUid && (
+                <Payment
+                  text={`${price.toLocaleString()}원 결제하기`}
+                  mid={merchantUid}
+                  price={price}
+                  title={content.product.title ? content.product.title : '매튜 여행 상품'}
+                  onTrue={() => setIsPaid(true)}
+                />
+              )}
             </BottomButton>
           </div>
         ) : (
