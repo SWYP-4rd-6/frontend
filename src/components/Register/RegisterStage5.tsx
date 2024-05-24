@@ -5,6 +5,7 @@ import ArrowButton from '../Button/ArrowButton';
 
 const RegisterStage5 = ({ setStage, setStep }: StagePropsType) => {
   const [images, setImages] = useState<string[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
   const [activate, setActivate] = useState(false);
   const { tour, addImage, changeState } = useTourRegStore();
 
@@ -18,27 +19,22 @@ const RegisterStage5 = ({ setStage, setStep }: StagePropsType) => {
     }
   }, [images, setStep]);
 
-  console.log(useTourRegStore.getState());
-
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (!files) return;
+    const selectedFiles = event.target.files;
+    if (!selectedFiles) return;
 
-    const fileArray = Array.from(files);
+    const fileArray = Array.from(selectedFiles);
     if (fileArray.length + images.length > 12) {
       alert('최대 12장까지 업로드할 수 있습니다.');
       return;
     }
 
-    // 로컬 URL 생성
     const newImages = fileArray.map((file) => URL.createObjectURL(file));
     setImages((prevImages) => [...prevImages, ...newImages]);
+    setFiles((prevFiles) => [...prevFiles, ...fileArray]);
 
-    // S3 URL 생성 (mock)
     fileArray.forEach((file) => {
-      const fileName = `${Math.random().toString(36).substring(2, 15)}.${file.type.split('/')[1]}`;
-      const s3Url = `https://metthew-s3.s3.us-east-2.amazonaws.com/guide/${fileName}`;
-      addImage(s3Url);
+      addImage(file); // 실제 파일 객체를 상태에 저장
     });
   };
 
@@ -81,11 +77,13 @@ const RegisterStage5 = ({ setStage, setStep }: StagePropsType) => {
       <ArrowButton
         activate={activate}
         moveForward={() => {
-          changeState('thumb', tour.images[0]);
-          changeState('thumb_local', images[0]);
+          changeState('thumb', files[0]); // 첫 번째 이미지를 thumb로 설정
           setStage(6);
         }}
-        moveBack={() => setStage(4)}
+        moveBack={() => {
+          changeState('images', []); // 이미지 초기화
+          setStage(4);
+        }}
       />
     </div>
   );

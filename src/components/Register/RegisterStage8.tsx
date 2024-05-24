@@ -3,11 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { MaterialSymbol } from 'react-material-symbols';
 import { useNavigate } from 'react-router-dom';
 
-type PropsType = {
-  userId: number;
-};
-
-const RegisterStage8 = ({ userId }: PropsType) => {
+const RegisterStage8 = () => {
   const { tour } = useTourRegStore();
   const navigate = useNavigate();
 
@@ -56,7 +52,7 @@ const RegisterStage8 = ({ userId }: PropsType) => {
         type="button"
         className={`absolute bottom-12 w-full h-12 px-[33px] flex  items-center text-white bg-signature`}
         onClick={() => {
-          navigate(`/tour/detail?id=${userId}`);
+          navigate(`/tour/detail?id=${tour.postId}`);
         }}
       >
         <div className="flex items-center w-full">

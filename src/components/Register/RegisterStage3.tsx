@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { StagePropsType } from '@/pages/register-page/register-page';
 import { MdOutlineKeyboardArrowUp, MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import ArrowButton from '../Button/ArrowButton';
+import Calendar from '@/components/Calendar/Calendar';
+import { format } from 'date-fns';
+import { useTourRegStore } from '@/store/RegisterStore';
 
 const RegisterStage3 = ({ setStage, setStep }: StagePropsType) => {
   const [open, setIsOpen] = useState({
@@ -16,6 +19,11 @@ const RegisterStage3 = ({ setStage, setStep }: StagePropsType) => {
   const [endMinute, setEndMinute] = useState(0);
   const [activate, setActivate] = useState(false);
 
+  const { tour, changeState } = useTourRegStore();
+
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+
   useEffect(() => {
     if ((startHour !== 0 || startMinute !== 0) && (endHour !== 0 || endMinute !== 0)) {
       setStep(3);
@@ -25,6 +33,26 @@ const RegisterStage3 = ({ setStage, setStep }: StagePropsType) => {
       setActivate(false);
     }
   }, [startHour, startMinute, endHour, endMinute, setStep]);
+
+  useEffect(() => {
+    if (startDate && endDate) {
+      const startDateTime = new Date(startDate);
+      startDateTime.setHours(startHour, startMinute);
+
+      const endDateTime = new Date(endDate);
+      endDateTime.setHours(endHour, endMinute);
+
+      const newGuideStart = format(startDateTime, 'yyyy-MM-dd HH:mm:ss');
+      const newGuideEnd = format(endDateTime, 'yyyy-MM-dd HH:mm:ss');
+
+      if (tour.guideStart !== newGuideStart) {
+        changeState('guideStart', newGuideStart);
+      }
+      if (tour.guideEnd !== newGuideEnd) {
+        changeState('guideEnd', newGuideEnd);
+      }
+    }
+  }, [startDate, endDate, startHour, startMinute, endHour, endMinute, changeState, tour]);
 
   const toggleState = (name: 'calendar' | 'startTime' | 'endTime') => {
     setIsOpen((prev) => {
@@ -54,6 +82,11 @@ const RegisterStage3 = ({ setStage, setStep }: StagePropsType) => {
     }
   };
 
+  const handleDateRangeChange = (start: Date | null, end: Date | null) => {
+    setStartDate(start);
+    setEndDate(end);
+  };
+
   return (
     <div>
       <div className="reg-title-black mb-5">
@@ -61,18 +94,27 @@ const RegisterStage3 = ({ setStage, setStep }: StagePropsType) => {
         <div>여행할까요?</div>
       </div>
 
-      <div
-        onClick={() => toggleState('calendar')}
-        className=" px-5 py-[0.75rem] border-2 border-signature mb-5"
-      >
+      <div className="mb-5">
         {open.calendar ? (
-          <div>calendar</div>
+          <Calendar onDateRangeChange={handleDateRangeChange} />
         ) : (
-          <div className="text-sub-bu font-[300] text-base">
-            <div>
-              <span className="text-signature font-[900]">2024년 8월 8일 ~ 2024년 8월 10일</span>에
+          <div
+            onClick={() => toggleState('calendar')}
+            className=" px-5 py-[0.75rem] border-2 border-signature"
+          >
+            <div className="text-sub-bu font-[300] text-base">
+              <div>
+                <span className="text-signature font-[900]">
+                  {startDate && endDate ? (
+                    `${format(startDate, 'yyyy년 M월 d일')} ~ ${format(endDate, 'yyyy년 M월 d일')}`
+                  ) : (
+                    '날짜를 선택해주세요'
+                  )}
+                </span>
+                에
+              </div>
+              <div>이웃을 만나요.</div>
             </div>
-            <div>이웃을 만나요.</div>
           </div>
         )}
       </div>

@@ -19,18 +19,18 @@ export type UserState = {
     guideStart: string;
     guideEnd: string;
     guideTime: number;
-    requiredTime: string;
-    thumb: string;
+    thumb: File | null;
     thumb_local: string;
-    images: string[];
+    images: File[]; // 변경된 부분
     categories: Category[];
     price: number | undefined;
+    postId: number | null;
   };
 };
 
 type UserAction = {
-  changeState: (field: keyof Omit<UserState['tour'], 'images' | 'categories'>, value: any) => void;
-  addImage: (image: string) => void;
+  changeState: (field: keyof Omit<UserState['tour'], 'categories'>, value: any) => void;
+  addImage: (image: File) => void; // 변경된 부분
   setCategories: (categories: Category[]) => void;
 };
 
@@ -45,12 +45,12 @@ export const useTourRegStore = create<UserState & UserAction>((set) => ({
     guideStart: '',
     guideEnd: '',
     guideTime: 0,
-    requiredTime: '',
-    thumb: '',
+    thumb: null,
     thumb_local: '',
-    images: [],
+    images: [], // 변경된 부분
     categories: [],
     price: undefined,
+    postId: null,
   },
   changeState: (field, value) =>
     set((state) => ({
