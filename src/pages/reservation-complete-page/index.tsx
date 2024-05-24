@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import ReservationCompleteView from '@/pages/reservation-complete-page/reservation-complete-page';
 import axios from 'axios';
 import { RESERVATION_DATA } from '@/constants/test';
+import { api } from '@/api/axios';
 
 function ReservationComplete() {
   const [content, setContent] = useState(RESERVATION_DATA);
@@ -11,8 +12,44 @@ function ReservationComplete() {
   const pageLocation = useLocation();
   const userId = new URLSearchParams(pageLocation.search).get('id');
 
-  const onClickMore = () => {
-    navigateTo('/');
+  //4
+  const postReservationPaymentValidation = async () => {
+    try {
+      const response = await api.post(`/v1/reservation/client/payment/validation`, {
+        imp_uid: '',
+      });
+
+      if (response?.status === 200) {
+        setContent(response.data.product);
+        console.log(response.data);
+
+        return true;
+      }
+      console.log('fail');
+      return false;
+    } catch (error) {
+      //예약 취소하기
+      console.error(error);
+      throw error;
+    }
+  };
+
+  //5
+  const postReservationPaymentCancel = async () => {
+    try {
+      const response = await api.post(`/v1/reservation/client/cancel/${'muid'}`);
+
+      if (response?.status === 200) {
+        console.log(response.data);
+
+        return true;
+      }
+      console.log('fail');
+      return false;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   };
 
   const getReservationComplete = async () => {
@@ -33,7 +70,7 @@ function ReservationComplete() {
   };
 
   useEffect(() => {
-    // getReservationComplete();
+    postReservationPaymentValidation();
   }, []);
 
   return <ReservationCompleteView content={content} />;

@@ -58,7 +58,15 @@ function TourDetail() {
 
   const onClickReservation = () => {
     if (content) {
-      navigateTo('/tour/reservation?id=' + content.id);
+      navigateTo('/tour/reservation', {
+        state: {
+          id: content.id,
+          guideStart: content.guideStart,
+          guideEnd: content.guideEnd,
+          price: content.price,
+          guideTime: content.guideTime,
+        },
+      });
     }
   };
 
@@ -71,7 +79,6 @@ function TourDetail() {
       if (response.status === 200) {
         console.log(response);
         setContent(response.data);
-        //userId = response.data.userId;
         setLoading(false);
         return true;
       }

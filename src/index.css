@@ -13,15 +13,11 @@
   font-weight: normal;
 }
 
-.blue-filter {
-  @apply absolute inset-0 bg-[#0173FA] bg-opacity-20;
-}
-
 /* number 타입 input의 숫자 조절버튼 비활성화 */
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* signup */
@@ -44,18 +40,30 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* typo */
+.font-effect {
+  @apply text-signature py-2 font-black;
+}
 .title {
-  @apply text-signature font-black py-2  text-3xl;
+  @apply font-effect text-3xl;
 }
 
 .sub-title {
-  @apply text-signature py-2 font-black text-xl;
+  @apply font-effect text-xl;
 }
 
 .sub-title-2 {
-  @apply text-signature py-2 font-black text-base;
+  @apply font-effect  text-base;
 }
 
+.title-lg-bk {
+  @apply py-2 font-light text-4xl;
+}
+
+.title-lg {
+  @apply py-2 text-4xl font-black text-signature;
+}
+
+/* slide */
 .slick-dots {
   @apply static;
 }
@@ -80,12 +88,71 @@ input[type=number]::-webkit-outer-spin-button {
   @apply grid grid-cols-2 gap-5  place-items-center *:w-full *:h-full;
 }
 
-.opacity-blue-filter {
+.blue-filter {
   @apply absolute inset-0 bg-[#0173FA] bg-opacity-20;
+}
+
+.img-thumb {
+  @apply inset-0 size-full bg-cover bg-center bg-no-repeat;
 }
 
 .container-shadow {
   box-shadow: -10px 10px 6px -4px rgba(217, 217, 217, 1);
   -webkit-box-shadow: -10px 10px 6px -4px rgba(217, 217, 217, 1);
   -moz-box-shadow: -10px 10px 6px -4px rgba(217, 217, 217, 1);
+}
+
+/*** react- date custom ***/
+.DateRangePickerInput {
+  @apply flex justify-between items-center;
+}
+
+/* input */
+.DateInput {
+  @apply w-full    text-gray-900 p-2;
+}
+
+.DateInput_input {
+  @apply border-signature text-gray-900 p-2;
+}
+
+/* calendar picker */
+.DateRangePicker_picker {
+  @apply w-full;
+}
+/* day */
+.CalendarDay__default {
+  @apply py-2;
+}
+
+.CalendarDay__selected_span {
+  @apply bg-blue-300 text-white;
+}
+
+.CalendarDay__hovered_span {
+  @apply bg-blue-300 text-white border-signature;
+}
+.CalendarDay__selected_span:hover {
+  @apply bg-blue-400 text-white border-blue-400;
+}
+
+.CalendarDay__selected:active,
+.CalendarDay__selected:hover,
+.CalendarDay__selected,
+.CalendarDay__selected_start,
+.CalendarDay__selected_end {
+  @apply bg-signature text-white border-signature;
+}
+.CalendarDay__selected_span {
+  @apply bg-blue-300 text-white border-blue-300;
+}
+
+/* button */
+.DayPickerNavigation_button,
+.DayPickerNavigation_button:hover {
+  @apply border-none text-center align-middle items-center border-blue-500;
+}
+
+.DayPickerNavigation_svg__vertical {
+  @apply my-0 mx-auto;
 }

@@ -1,6 +1,5 @@
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+
 import { SlickSettingsType, GuideProductType } from '@/types/common';
 import Slide from '@/components/Slide/Slide';
 import { MaterialSymbol } from 'react-material-symbols';
@@ -19,7 +18,7 @@ interface PropsType {
   reviewSlickSettings: SlickSettingsType;
   onClickHost: () => void;
   content?: GuideProductType;
-  formatDate: (dateString: string) => string;
+  formatDate: (dateString: string) => string | null;
   formatTimeRange: (start: string, end: string) => string;
   onClickReservation: () => void;
   loading: boolean;

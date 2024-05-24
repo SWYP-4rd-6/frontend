@@ -11,7 +11,6 @@
   scrollbar-width: none;
 }
 
-
 textarea {
   resize: none;
 }
@@ -20,4 +19,3 @@ textarea {
 .placeholder-normal::placeholder {
   font-weight: normal;
 }
-

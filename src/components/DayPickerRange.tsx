@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
+
 import { DateRangePicker, FocusedInputShape } from 'react-dates';
 import moment, { Moment } from 'moment';
+import { MaterialSymbol } from 'react-material-symbols';
 
 interface PropsType {
   startDate: Moment | null;
@@ -51,6 +51,11 @@ const DayPickerRange = (props: PropsType) => {
         disableScroll={false}
         keepOpenOnDateSelect={false}
         isOutsideRange={isOutsideRange} // 특정 날짜 범위 외의 날짜 비활성화
+        displayFormat="YYYY-MM-DD"
+        startDatePlaceholderText="시작일"
+        endDatePlaceholderText="완료일"
+        inputIconPosition="before"
+        hideKeyboardShortcutsPanel
 
         /*
       onFocusChange={(focusedInput) => {
