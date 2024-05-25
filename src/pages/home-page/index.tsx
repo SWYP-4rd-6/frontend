@@ -41,6 +41,7 @@ function Home() {
     slidesToShow: 1.09,
     slidesToScroll: 1,
     touchThreshold: 100,
+
     beforeChange: () => {
       setDragging(true);
     },

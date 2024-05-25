@@ -60,6 +60,7 @@ export interface GuideType extends UserType {
   createdAt?: string;
   guideProducts?: Array<guideProductType>;
   reviews?: ReviewType;
+  languages: Array<string>;
 }
 export interface ReviewType {
   reviewId: number;

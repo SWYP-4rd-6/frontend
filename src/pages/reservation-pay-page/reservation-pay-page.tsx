@@ -1,114 +1,143 @@
-import { ChangeEvent } from 'react';
-import type { PG, PaymentMethod } from '@/types/portone';
 import Payment from '@/components/Payment';
 import Header from '@/components/Header/Header';
-import { MaterialSymbol } from 'react-material-symbols';
 import { CategoryType, GuideProductType, ReservationType, ReviewType } from '@/types/common';
 import { calculateDays, formatDateKor, formatTimeRange, getTagNameKor } from '@/utils';
 import BottomButton from '@/components/Button/BottomButton';
 import Loading from '@/components/Loading';
-import LoginHeader from '@/components/Header/LoginHeader';
+import IconText from '@/components/IconText';
 interface PropsType {
   onComplete: () => void;
-  content: ReservationType;
+  content?: ReservationType;
+  //  setIsPaid: any;
+  setUid: any;
+  isLoading: boolean;
 }
 //onComplete
-const ReservationPayView = ({ onComplete, content }: PropsType) => {
+const ReservationPayView = ({ onComplete, content, setUid, isLoading }: PropsType) => {
+  const { price, merchantUid, product } = content || {};
   return (
     <>
       <Header />
-      <div className="px-4">
-        {content ? (
-          <div className="border-b-2 border-signature">
-            <div className="title-lg-bk">예약을 위해서는</div>
-            <div className="title-lg border-b-2 border-signature">결제가 필요해요.</div>
-            <div className="border-b-2 border-signature">
-              <div className="sub-title-2">여행 상품</div>
-              <div className="mb-4 border-content">
-                <img src={content.product.thumb} className="size-24" />
-                <div className="text-signature font-black">{content.product.title}</div>
-                <div className="text-gray-500">
-                  {content.product.categories?.map((item: CategoryType, i: number) => (
-                    <span key={i} className="font-light text-sub-bu text-xs">
-                      #{getTagNameKor(item)}
-                    </span>
-                  ))}
-                </div>
-                <MaterialSymbol
-                  icon="fmd_good"
-                  size={19}
-                  fill
-                  grade={-25}
-                  className="text-signature"
-                />
-                <div>{content.product.locationName}</div>
+      <div className="">
+        {content && !isLoading ? (
+          <>
+            <div className="px-6">
+              <div className="*:py-1.5 pb-3 border-b-2 border-signature">
+                <div className="title-lg-bk">예약을 위해서는</div>
+                <div className="title-lg ">결제가 필요해요.</div>
               </div>
-            </div>
-            <div className="border-b-2 border-signature">
-              <div className="sub-title-2">예약 정보</div>
-
-              <div>
-                <div className="sub-title-2">날짜</div>
-                <div className="font-light">
-                  {content.guideStart && formatDateKor(content.guideStart)} (
-                  {content.guideStart &&
-                    content.guideEnd &&
-                    calculateDays(content.guideStart, content.guideEnd)}
-                  일)
+              <div className="border-b-2 border-signature">
+                <div className="sub-title-2">여행 상품</div>
+                <div className="mb-4 border-content p-[1.1rem] flex">
+                  <img src={product.thumb} className="size-24 mr-2" />
+                  <div className="relative  flex-1">
+                    <div className="text-signature font-black">{product.title}</div>
+                    {product.categories?.map((item: CategoryType, i: number) => (
+                      <span key={i} className="align-top pt-4 mr-1 font-light text-sub-bu text-xs ">
+                        #{getTagNameKor(item)}
+                      </span>
+                    ))}
+                    <div className="absolute bottom-0">
+                      <IconText
+                        text={product.locationName}
+                        textClass={'text-black '}
+                        iconClass={'text-signature'}
+                        icon={'fmd_good'}
+                        iconSize={19}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="font-light">
-                <div className="sub-title-2">예약 시간</div>
-                <div>{content.product.guideTime}</div>
-              </div>
-              <div>
-                <div className="sub-title-2">결제 금액</div>
-                <div className="text-signature font-black">
-                  {content.price && content.price.toLocaleString()}원
+              <div className="border-b-2 border-signature">
+                <div className="sub-title-2">예약 정보</div>
+                <div className="px-4 pb-4">
+                  <IconText
+                    text="날짜"
+                    textClass={' font-effect '}
+                    iconClass={'text-signature pr-1'}
+                    icon={'date_range'}
+                    iconSize={22}
+                  />{' '}
+                  <div className="ml-[1.8rem] font-light">
+                    {content.guideStart &&
+                      `${formatDateKor(content.guideStart)}${content.guideEnd && ' ~ ' + formatDateKor(content.guideEnd)}`}{' '}
+                    (
+                    {content.guideStart &&
+                      content.guideEnd &&
+                      calculateDays(content.guideStart, content.guideEnd)}
+                    일)
+                  </div>
+                  <IconText
+                    text="예약 시간"
+                    textClass={' font-effect '}
+                    iconClass={'text-signature pr-1'}
+                    icon={'schedule'}
+                    iconSize={22}
+                  />{' '}
+                  <div className="ml-[1.8rem] font-light">
+                    {`${formatTimeRange(content.product.guideStart, content.product.guideEnd)} (${content.product.guideTime}시간 소요)`}
+                  </div>
+                  <IconText
+                    text="결제 금액"
+                    textClass={' font-effect '}
+                    iconClass={'text-signature pr-1'}
+                    icon={'payments'}
+                    iconSize={22}
+                  />{' '}
+                  <div className="text-signature font-black ml-[1.8rem]">
+                    {content.price && content.price.toLocaleString()}원
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className="mt-4 border-b-2 border-signature">
-              <div className="sub-title-2 ">환불 정책</div>
-              <div>
-                이 예약은 결제일 기준 3일이내 예약 미확정 또는 가이드의 예약 취소시에 환불됩니다.
+              <div className="pb-3 border-b-2 border-signature">
+                <div className="sub-title-2 ">환불 정책</div>
+                <div className="p-1 text-[#686868]">
+                  이 예약은 <u>결제일 기준 3일이내</u> 예약 미확정 또는 가이드의 <u>예약 취소시</u>
+                  에 환불됩니다.
+                </div>
               </div>
-            </div>
-            <div>
-              <div className="sub-title-2">유의사항</div>
-              <ol className="list-decimal pl-4">
-                <li>매튜와 만나면 반갑게 인사를 나눠주세요!</li>
-                <li>매튜와 서로 서로 소중한 친구처럼 아껴주세요!</li>
-                <li>여행 후에 리뷰는 잊지마세요!</li>
-                <li>매튜와 함께 즐거운 여행 되세요!</li>
-              </ol>
-            </div>
+              <div>
+                <div className="sub-title-2">유의사항</div>
+                <ol className="list-decimal *:ml-4 ml-3 py-1">
+                  <li>매튜와 만나면 반갑게 인사를 나눠주세요!</li>
+                  <li>매튜와 서로 서로 소중한 친구처럼 아껴주세요!</li>
+                  <li>여행 후에 리뷰는 잊지마세요!</li>
+                  <li>매튜와 함께 즐거운 여행 되세요!</li>
+                </ol>
+              </div>
 
-            <div className="*:font-poppins text-signature text-4xl ">
-              <span className="font-extralight ">Nice to </span>
-              <span className="font-extrabold *:font-poppins ">
-                Mat
-                <span className="transform scale-x-[-1] ">t</span>
-                <span>hew</span>
-                <span className="font-extralight">!</span>
-              </span>
+              <div className="*:font-poppins text-signature text-4xl py-8">
+                <span className="font-extralight ">Nice to </span>
+                <span className="font-extrabold *:font-poppins ">
+                  Mat
+                  <p className="transform scale-x-[-1] inline-block">t</p>
+                  <span>hew</span>
+                  <span className="font-extralight">!</span>
+                </span>
+              </div>
             </div>
             <BottomButton
+              className="sticky"
               buttons={[
                 {
                   active: true,
                 },
               ]}
             >
-              <Payment
-                text={`${content.price && content.price.toLocaleString()}원 결제하기`}
-                mid={content.merchantUid}
-                price={content.price}
-                title={content.product.title}
-              />
+              {content && price && merchantUid && (
+                <Payment
+                  text={`${price.toLocaleString()}원 결제하기`}
+                  mid={merchantUid}
+                  price={price}
+                  title={content.product.title ? content.product.title : '매튜 여행 상품'}
+                  onTrue={(uid: number) => {
+                    setUid(uid);
+                  }}
+                />
+              )}
             </BottomButton>
-          </div>
+          </>
         ) : (
           <Loading />
         )}

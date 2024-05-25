@@ -10,7 +10,7 @@ function PaymentView({ onClickPayment, text }: PropsType) {
   return (
     <div
       id="cardPay"
-      className="  text-signature text-xl font-black"
+      className="  text-signature text-xl font-black size-full"
       onClick={() => {
         onClickPayment('html5_inicis', `${import.meta.env.VITE_PORTONE_INI_MID}`, 'card');
       }}

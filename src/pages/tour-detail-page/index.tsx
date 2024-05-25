@@ -20,9 +20,9 @@ function TourDetail() {
 
   const arrowSlickSettings: SlickSettingsType = {
     infinite: false,
-    arrows: true, //
+    arrows: true,
     speed: 500,
-    slidesToShow: 1, //
+    slidesToShow: 1,
     slidesToScroll: 1,
     touchThreshold: 100,
     beforeChange: () => {
@@ -65,6 +65,7 @@ function TourDetail() {
           guideEnd: content.guideEnd,
           price: content.price,
           guideTime: content.guideTime,
+          title: content.title,
         },
       });
     }

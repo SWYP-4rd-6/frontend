@@ -9,7 +9,7 @@ type PropsType = {
 /* 메인 근처 카드 */
 const SlideCard = ({ content, onClick }: PropsType) => {
   return (
-    <div className=" h-[22.5rem] w-[22.5rem] relative cursor-pointer " onClick={onClick}>
+    <div className=" h-[22.5rem] relative cursor-pointer mr-5" onClick={onClick}>
       <div
         className="inset-0 size-full bg-cover bg-center bg-no-repeat  "
         style={{ backgroundImage: `url(${content.thumb})` }}
