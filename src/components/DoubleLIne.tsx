@@ -1,13 +1,13 @@
 type PropsType = {
   className?: string;
   color?: string;
-  thick?: string;
+  thick?: number;
 };
 
 const DoubleLine = ({ className, color = 'signature', thick }: PropsType) => {
   return (
     <div
-      className={`${className} *:bg-${color} ${thick ? '*:h-[' + thick + ']' : '*:h-px'} *:w-full `}
+      className={`${className} ${color === 'white' ? '*:bg-white' : '*:bg-signature'} ${thick === 2 ? '*:h-0.5' : '*:h-px'} *:w-full `}
     >
       <div className={`mb-1`} />
       <div />

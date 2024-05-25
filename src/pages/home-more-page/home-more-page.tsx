@@ -14,7 +14,8 @@ const HomeMorePageView = ({ multiSlickSettings, selectedCategory, onCategoryClic
   return (
     <div>
       <div className="px-6 pt-4 p-8"></div>
-      <DoubleLine />
+      <DoubleLine thick={2} />
+
       <div className="px-6 pt-6">
         <div className="text-signature font-light text-4xl py-2 ">
           <span className="font-black">{'현위치'}</span>로<br /> 여행을 떠나볼가요?

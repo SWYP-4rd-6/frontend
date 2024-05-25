@@ -48,7 +48,7 @@ const HomePageView = ({
       <div className="px-6 pt-4 pb-1">
         <img src="main_logo.png" className="w-40" alt="logo" />
       </div>
-      <DoubleLine color="white" />
+      <DoubleLine thick={2} />
       <div className="px-6 pt-6">
         <div className="relative  flex items-center *:flex *:items-center ">
           <input

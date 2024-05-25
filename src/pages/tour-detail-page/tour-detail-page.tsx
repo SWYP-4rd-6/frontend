@@ -40,7 +40,7 @@ const TourDetailPageView = ({
       <Header type="trans" />
       {content ? (
         <>
-          <div className="relative">
+          <div className="relative ">
             <Slider {...arrowSlickSettings} className="">
               {content.images ? (
                 content.images.map((img, index) => <Slide key={index} src={img} />)
@@ -55,7 +55,7 @@ const TourDetailPageView = ({
             </div>
           </div>
 
-          <DoubleLine className="my-4" />
+          <DoubleLine className="my-4" thick={2} />
           <section className="px-6 ">
             <div className="title">{content.title}</div>
             <ul className="*:mb-2">
@@ -117,7 +117,7 @@ const TourDetailPageView = ({
               </div>
             </div>
           </section>
-          <section className="content-section ">
+          <section className="content-section pb-12 ">
             <div className="sub-title-2">리뷰</div>
             <Slider {...reviewSlickSettings} className="pb-3">
               {content.reviews &&
