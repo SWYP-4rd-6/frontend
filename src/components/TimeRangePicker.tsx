@@ -150,7 +150,7 @@ const TimeRangePicker = ({
           </div>
         </div>
       )}
-
+      {/* 
       <div className="flex justify-between items-center py-4">
         <span className="text-signature font-[300]">종료 시간</span>
         <span
@@ -199,6 +199,7 @@ const TimeRangePicker = ({
           </div>
         </div>
       )}
+     */}
     </div>
   );
 };

@@ -9,6 +9,7 @@ import { ChangeEvent, ChangeEventHandler } from 'react';
 import TimeRangePicker from '@/components/TimeRangePicker';
 import Calendar from '@/components/Calendar/Calendar';
 import { format } from 'date-fns';
+import { calculateDiffMonths } from '@/utils';
 
 interface PropsType {
   onClickPayment: () => void;
@@ -88,7 +89,10 @@ const ReservationDetailView = ({
 
           <div className="mb-5">
             {open.calendar ? (
-              <Calendar onDateRangeChange={handleDateRangeChange} />
+              <Calendar
+                onDateRangeChange={handleDateRangeChange}
+                monthRange={calculateDiffMonths(guideStart, guideEnd) + 1}
+              />
             ) : (
               <div
                 onClick={() => toggleState('calendar')}

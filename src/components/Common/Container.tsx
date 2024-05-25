@@ -1,22 +1,6 @@
 import React, { FC, ReactNode, useState, useEffect, useRef } from 'react';
 
 const Container: FC<{ children: ReactNode }> = ({ children }) => {
-  useEffect(() => {
-    const originalConsoleError = console.error;
-
-    console.error = (...args: any[]) => {
-      if (typeof args[0] === 'string' && /defaultProps/.test(args[0])) {
-        return;
-      }
-
-      originalConsoleError(...args);
-    };
-
-    return () => {
-      console.error = originalConsoleError;
-    };
-  }, []);
-
   return (
     <div
       className="relative container-shadow shadow-2xl bg-white w-full overflow-x-hidden no-scroll-bar 

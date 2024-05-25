@@ -138,7 +138,7 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
         const res = await emailLogin({ email: user.email, password: user.password });
 
         if (res) {
-          const { accessToken, refreshToken } = res.data;
+          const { accessToken, refreshToken } = res.data.token;
           // 토큰에서 만료 시간 추출
           let expirationTime;
           try {
