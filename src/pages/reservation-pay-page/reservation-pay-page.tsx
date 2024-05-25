@@ -1,14 +1,9 @@
-import { ChangeEvent } from 'react';
-import type { PG, PaymentMethod } from '@/types/portone';
 import Payment from '@/components/Payment';
 import Header from '@/components/Header/Header';
-import { MaterialSymbol } from 'react-material-symbols';
 import { CategoryType, GuideProductType, ReservationType, ReviewType } from '@/types/common';
 import { calculateDays, formatDateKor, formatTimeRange, getTagNameKor } from '@/utils';
 import BottomButton from '@/components/Button/BottomButton';
 import Loading from '@/components/Loading';
-import LoginHeader from '@/components/Header/LoginHeader';
-import { IconContext } from 'react-icons';
 import IconText from '@/components/IconText';
 interface PropsType {
   onComplete: () => void;
@@ -65,7 +60,9 @@ const ReservationPayView = ({ onComplete, content, setUid, isLoading }: PropsTyp
                     iconSize={22}
                   />{' '}
                   <div className="ml-[1.8rem] font-light">
-                    {content.guideStart && formatDateKor(content.guideStart)} (
+                    {content.guideStart &&
+                      `${formatDateKor(content.guideStart)}${content.guideEnd && ' ~ ' + formatDateKor(content.guideEnd)}`}{' '}
+                    (
                     {content.guideStart &&
                       content.guideEnd &&
                       calculateDays(content.guideStart, content.guideEnd)}

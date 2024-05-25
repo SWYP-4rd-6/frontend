@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-import type { RequestPayParams, RequestPayResponse, PG, PaymentMethod } from '@/types/portone';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ReservationPayView from './reservation-pay-page';
-import axios from 'axios';
 import { RESERVATION_DATA } from '@/constants/test';
 import { api } from '@/api/axios';
 import { convertDateFormat, getNowUnixTimestamp } from '@/utils';
@@ -12,7 +10,6 @@ const ReservationPay = () => {
   const [content, setContent] = useState<ReservationType>(); //RESERVATION_DATA
   const [uid, setUid] = useState<string>('');
   const [isLoding, setIsLoding] = useState<boolean>(false);
-
   const navigateTo = useNavigate();
   const location = useLocation();
   const { productId, price, muid } = location.state;
