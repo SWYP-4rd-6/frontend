@@ -17,7 +17,7 @@ interface PropsType {
   message: string;
   startDate: Date | null;
   endDate: Date | null;
-  handleDateRangeChange: (start: Date | null, end: Date | null) => any;
+  handleDateRangeChange: (start: Date | null, end: Date | null) => void;
   handleTimeRangeChange: ({
     startTime,
     endTime,

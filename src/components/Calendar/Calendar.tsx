@@ -8,8 +8,10 @@ import './calendar.css';
 
 const Calendar = ({
   onDateRangeChange,
+  monthRange = 12,
 }: {
   onDateRangeChange: (start: Date | null, end: Date | null) => void;
+  monthRange?: number;
 }) => {
   const currentDate = new Date();
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -33,7 +35,7 @@ const Calendar = ({
     }
   };
 
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < monthRange; i++) {
     months.push(
       <div
         key={uuid()}
