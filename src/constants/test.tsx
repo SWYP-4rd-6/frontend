@@ -126,6 +126,7 @@ export const USER_DATA: GuideType = {
   profileImageUrl: '/man_sample.png',
   reviewRating: 4.6,
   createdAt: '2024-05-05 00:00:00',
+  languages: ['kor'],
   guideProducts: [
     {
       id: 1,

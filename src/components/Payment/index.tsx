@@ -1,6 +1,5 @@
 import type { RequestPayParams, RequestPayResponse, PG, PaymentMethod } from '@/types/portone';
 import PaymentView from './payment';
-import { GuideType, UserType } from '@/types/common';
 import { useUserInfoStore } from '@/store/UserInfoStore';
 
 interface PropsType {
