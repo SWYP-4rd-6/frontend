@@ -4,7 +4,7 @@ import {
   MainContentType,
   SearchContentType,
   UserType,
-    ReservationType
+  ReservationType,
 } from '@/types/common';
 
 export const imgs = [
@@ -69,6 +69,7 @@ export const RESERVATION_DATA: ReservationType = {
     reviewCount: 10,
     reviewRating: 4.6,
     createdAt: '2024-05-05 00:00:00',
+    languages: ['kor'],
     guideProducts: [
       {
         id: 1,

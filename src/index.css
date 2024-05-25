@@ -13,6 +13,16 @@
   font-weight: normal;
 }
 
+@layer utilities {
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    max-height: calc(1.5em * 3); /* assuming line-height is 1.5 */
+  }
+}
+
 /* number 타입 input의 숫자 조절버튼 비활성화 */
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
@@ -41,7 +51,7 @@ input[type='number']::-webkit-outer-spin-button {
 
 /* typo */
 .font-effect {
-  @apply text-signature py-2 font-black;
+  @apply text-signature pt-2.5 pb-1.5 font-black;
 }
 .title {
   @apply font-effect text-3xl;
@@ -52,15 +62,22 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .sub-title-2 {
-  @apply font-effect  text-base;
+  @apply font-effect  text-base pt-3;
 }
 
+.title-bk {
+  @apply pt-2.5 pb-2 font-black;
+}
 .title-lg-bk {
-  @apply py-2 font-light text-4xl;
+  @apply font-light text-4xl;
 }
 
 .title-lg {
-  @apply py-2 text-4xl font-black text-signature;
+  @apply text-4xl font-black text-signature;
+}
+
+.desc-text {
+  @apply font-light text-base text-sub-bu;
 }
 
 /* slide */
@@ -74,11 +91,14 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .content-section {
-  @apply px-6 border-t-2 border-signature;
+  @apply px-6 line-t;
 }
 
+.line-t {
+  @apply border-t-2 border-signature;
+}
 .line-content {
-  @apply border-t-2 border-signature my-5;
+  @apply line-t mt-5;
 }
 .border-content {
   @apply border-2 border-signature font-light;

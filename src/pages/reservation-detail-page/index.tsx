@@ -21,7 +21,7 @@ function ReservationDetail() {
   const navigateTo = useNavigate();
   const MAX_LENGTH = 500;
   const location = useLocation();
-  const { id, guideStart, guideEnd, price, guideTime } = location.state;
+  const { id, guideStart, guideEnd, price, guideTime, title } = location.state;
 
   const toggleState = (name: 'calendar') => {
     setIsOpen((prev) => {
@@ -187,6 +187,7 @@ function ReservationDetail() {
       guideStart={guideStart}
       guideEnd={guideEnd}
       guideTime={guideTime}
+      title={title}
     />
   );
 }

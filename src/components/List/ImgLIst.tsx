@@ -1,6 +1,8 @@
 import { GuideProductType } from '@/types/common';
 import { MaterialSymbol } from 'react-material-symbols';
 import { formatDate } from '@/utils';
+import DoubleLine from '@/components/DoubleLIne';
+import IconText from '@/components/IconText';
 
 type PropsType = {
   content: GuideProductType;
@@ -15,17 +17,16 @@ const ImgList = ({ content, onClick }: PropsType) => {
     <div className="relative cursor-pointer " onClick={onClick}>
       <img className="size-[11.25rem] object-cover" alt="" src={content.thumb} />
       <div className="blue-filter" />
-
+      <div className="px-4 absolute top-[2.35rem] w-full">
+        <div className="font-black text-base text-white mb-0.5">{content.title}</div>
+        <DoubleLine color="white" />
+      </div>
       <div className="px-4 absolute bottom-6">
-        <div className="font-black text-base text-white">{content.title}</div>
-        <div className="text-[0.7rem] text-white font-right">
-          <MaterialSymbol icon="fmd_good" size={19} fill grade={-25} color="white" />
-          {content.locationName}
-        </div>
-        <div className="text-[0.7rem] text-white font-right">
-          <MaterialSymbol icon="date_range" size={19} fill grade={-25} color="white" />
-          {formatDate(content.guideStart)}~{formatDate(content.guideEnd)}
-        </div>
+        <IconText text={content.locationName} icon={'fmd_good'} />
+        <IconText
+          text={`${formatDate(content.guideStart)}~${formatDate(content.guideEnd)}`}
+          icon={'date_range'}
+        />
       </div>
     </div>
   );

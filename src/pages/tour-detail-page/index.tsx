@@ -65,6 +65,7 @@ function TourDetail() {
           guideEnd: content.guideEnd,
           price: content.price,
           guideTime: content.guideTime,
+          title: content.title,
         },
       });
     }

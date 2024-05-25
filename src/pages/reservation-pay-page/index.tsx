@@ -11,6 +11,7 @@ import { ReservationType } from '@/types/common';
 const ReservationPay = () => {
   const [content, setContent] = useState<ReservationType>(); //RESERVATION_DATA
   const [uid, setUid] = useState<string>('');
+  const [isLoding, setIsLoding] = useState<boolean>(false);
 
   const navigateTo = useNavigate();
   const location = useLocation();
@@ -33,12 +34,12 @@ const ReservationPay = () => {
       return false;
     } catch (error) {
       console.error(error);
-      throw error;
     }
   };
 
   //4.
   const postReservationPaymentValidation = async () => {
+    setIsLoding(true);
     try {
       const response = await api.post(`/v1/reservation/client/payment/validation`, {
         imp_uid: uid,
@@ -53,10 +54,9 @@ const ReservationPay = () => {
       console.log('fail');
       return false;
     } catch (error) {
-      //예약 취소하기
-      console.error(error);
-      throw error;
+      alert(error);
     }
+    setIsLoding(false);
   };
 
   //5.
@@ -74,15 +74,38 @@ const ReservationPay = () => {
       const response = await api.post(`/v1/reservation/client/payment`, param);
 
       if (response?.status === 200) {
-        setContent(response.data);
+        //setContent(response.data);
+        navigateTo('/tour/reservation/complete', {
+          state: {
+            productId,
+          },
+        });
         console.log(response.data);
 
+        return true;
+      }
+      postReservationPaymentCancel();
+      return false;
+    } catch (error) {
+      postReservationPaymentCancel();
+      throw error;
+    }
+  };
+
+  //6
+  const postReservationPaymentCancel = async () => {
+    try {
+      const response = await api.post(`/v1/reservation/client/cancel/${'muid'}`);
+
+      if (response?.status === 200) {
+        alert('결제 요청에 실패하여 취소되었습니다');
+        navigateTo('/');
+        console.log(response.data);
         return true;
       }
       console.log('fail');
       return false;
     } catch (error) {
-      console.error(error);
       throw error;
     }
   };
@@ -91,13 +114,15 @@ const ReservationPay = () => {
   }, []);
   useEffect(() => {
     if (uid) postReservationPaymentValidation();
-    // navigateTo('/tour/reservation/complete', {
-    //   state: {
-    //     muid,
-    //   },
-    // });
   }, [uid]);
 
-  return <ReservationPayView onComplete={onComplete} content={content} setUid={setUid} />;
+  return (
+    <ReservationPayView
+      onComplete={onComplete}
+      content={content}
+      setUid={setUid}
+      isLoading={isLoding}
+    />
+  );
 };
 export default ReservationPay;

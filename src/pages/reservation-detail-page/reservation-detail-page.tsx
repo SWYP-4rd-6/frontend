@@ -36,9 +36,9 @@ interface PropsType {
   }) => void;
 
   */
+  title: string;
   open: { calendar: boolean };
   toggleState: (name: 'calendar') => any;
-
   guideStart: string;
   guideEnd: string;
   guideTime: number;
@@ -57,15 +57,16 @@ const ReservationDetailView = ({
   open,
   handleDateRangeChange,
   handleTimeRangeChange,
+  title,
 }: PropsType) => {
   return (
     <div className="relative  h-full">
       <Header />
       <section className="px-6 h-full">
-        <div className="title ">
-          <div className="  whitespace-nowrap">
-            <span className="inline-block max-w-[88%] text-ellipsis  line-clamp-1  ">
-              타asa어ㅏ런아ㅓ라아아ㅓ라어ㅏㄹㅇ너ㅏ러
+        <div className="title-lg-bk ">
+          <div className="whitespace-nowrap ">
+            <span className="title-lg inline-block max-w-[88%] text-ellipsis  line-clamp-1  ">
+              {title}
             </span>
             <span>에</span>
           </div>
@@ -126,6 +127,7 @@ const ReservationDetailView = ({
         />
       </section>
       <BottomButton
+        className="sticky"
         buttons={[
           {
             text: '예약 요청',

@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
-
 import { MaterialSymbol } from 'react-material-symbols';
-
 import CategoryButton from '@/components/Button/CategoryButton';
 import SlideCard from '@/components/Slide/SlideCard';
 import BottomNavLayout from '@/components/BottomNavLayout';
@@ -10,7 +8,6 @@ import DoubleLine from '@/components/DoubleLIne';
 
 import {
   CategoryKorType,
-  CategoryType,
   ILocation,
   MainContentType,
   SearchContentType,
@@ -51,7 +48,7 @@ const HomePageView = ({
       <div className="px-6 pt-4 pb-1">
         <img src="main_logo.png" className="w-40" alt="logo" />
       </div>
-      <DoubleLine />
+      <DoubleLine color="white" />
       <div className="px-6 pt-6">
         <div className="relative  flex items-center *:flex *:items-center ">
           <input
@@ -117,7 +114,7 @@ const HomePageView = ({
         <></>
       )}
       {/* 카테고리 전체 결과 영역 */}
-      <section className="content-section ">
+      <section className="content-section pb-28">
         <div className="flex justify-between items-center pr-3">
           <div className="sub-title">{selectedCategory}</div>
           {selectedCategory === '근처' && (

@@ -11,15 +11,13 @@ interface PropsType {
   children?: React.ReactNode;
 }
 
-const BottomButton: React.FC<PropsType> = ({ buttons, className, children }) => {
-  const getColor = (active: boolean) => {
-    return active ? 'text-signature' : 'text-sub-bu';
-  };
+const BottomButton: React.FC<PropsType> = ({ buttons, className = 'fixed', children }) => {
   return (
     <div
-      className={` sticky justify-between w-full
-    bottom-0 bg-white py-8 min-h-24 flex rounded-t-3xl shadow-top 
-    *:flex *:items-center  *:justify-center *:px-2 *:flex-1`}
+      className={`${className} bottom-0 justify-between w-full overflow-hidden min-h-24
+    bg-white flex gap-x-1 rounded-t-3xl shadow-top *:flex *: items-center *:justify-center
+    py-8 `}
+      //sticky bottom-0  *:px-2 *:flex-1 px-5 `}
     >
       {buttons.map((button, index) => (
         <button

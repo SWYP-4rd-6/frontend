@@ -36,7 +36,7 @@ const TourDetailPageView = ({
   loading,
 }: PropsType) => {
   return (
-    <div className="relative">
+    <div className="">
       <Header type="trans" />
       {content ? (
         <>
@@ -83,9 +83,11 @@ const TourDetailPageView = ({
               <div className="border-content text-sm p-2 ">{content.title}</div>
             </div>
             <div>
-              <div className=" line-content">
+              <div className="inline-block  text-ellipsis line-content w-full">
                 <h2 className="sub-title-2">상세 설명</h2>
-                <div className="border-content text-sm p-2">{content.description}</div>
+                <div className="border-content text-sm p-2 ">
+                  <div className="line-clamp-3 ">{content.description}</div>
+                </div>
               </div>
             </div>
             <div className="line-content ">
@@ -122,8 +124,8 @@ const TourDetailPageView = ({
                 content.reviews.map((item, index) => <ReviewSlide key={index} content={item} />)}
             </Slider>
           </section>
-
           <BottomButton
+            className="sticky"
             buttons={[
               { text: '1:1 Message', icon: 'chat' },
               {
