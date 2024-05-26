@@ -1,6 +1,7 @@
 import { SymbolCodepoints } from 'react-material-symbols';
 import { DateTime } from 'luxon';
 import { CategoryKorType, CategoryType } from './types/common';
+import { differenceInMonths } from 'date-fns';
 
 const getTagIcon = (tag: CategoryType): SymbolCodepoints => {
   switch (tag) {
@@ -110,11 +111,17 @@ const calculateDays = (startDateStr: string, endDateStr: string) => {
   // 문자열을 Date 객체로 변환
   const startDate: any = new Date(startDateStr);
   const endDate: any = new Date(endDateStr);
-
   const timeDifference = endDate - startDate;
   const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
 
-  return daysDifference;
+  return Math.floor(daysDifference);
+};
+
+const calculateDiffMonths = (startDateStr: string, endDateStr: string): number => {
+  const startDate = new Date(startDateStr);
+  const endDate = new Date(endDateStr);
+  console.log(differenceInMonths(endDate, startDate));
+  return differenceInMonths(endDate, startDate);
 };
 
 export {
@@ -127,4 +134,5 @@ export {
   calculateDays,
   convertDateFormat,
   getNowUnixTimestamp,
+  calculateDiffMonths,
 };

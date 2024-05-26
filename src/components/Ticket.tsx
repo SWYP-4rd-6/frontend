@@ -54,7 +54,7 @@ const Ticket = ({ src, content }: PropsType) => {
             </span>
           ))}
         </div>
-        <div className="absolute bottom-14 left-8 grid grid-cols-2 grid-rows-1 gap-x-10 gap-y-3 ">
+        <div className="absolute bottom-14 left-8 grid grid-cols-2 grid-rows-1 gap-x-10 gap-y-3 *:max-w-32">
           <div className="   ">
             <p className="text-xs font-bold font-poppins flex items-center  py-1.5">
               <MaterialSymbol
@@ -67,7 +67,7 @@ const Ticket = ({ src, content }: PropsType) => {
               />
               Location
             </p>
-            <p className="text-base font-black">{content.locationName}</p>
+            <p className="text-base font-black line-clamp-2">{content.locationName}</p>
           </div>
           <div className="   ">
             <p className="text-xs font-bold font-poppins flex items-center  py-1.5">

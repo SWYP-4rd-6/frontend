@@ -22,24 +22,33 @@ const HostDetailView = ({ content, onClickTripImage }: PropsType) => {
                 alt="profileImg"
               />
 
-              <div className="mx-3">
-                <p className="font-black text-signature text-base">{content.nickname}</p>
-                <p className="font-black text-signature text-base">
-                  <span>{content.reviewCount}</span>개의 리뷰
+              <div className="w-full text-center self-center ml-7">
+                <p className="font-black text-signature text-base pb-3 mb-3 border-b-signature border-b-2">
+                  {content.nickname}
                 </p>
-
-                <p className="font-black text-signature text-base">
-                  <span>{content.reviewRating}</span>점의 별점
+                <p className="font-light  text-base">
+                  <span className="font-black text-signature">{content.reviewCount}</span>개의 리뷰
+                </p>
+                <p className="font-light  text-base">
+                  <span className="font-black text-signature">{content.reviewRating}</span>점의 별점
                 </p>
               </div>
             </div>
 
-            <div className="px-5 py-4 border-content text-base text-light my-3">
-              {content.profile}
+            <div className="mt-4">
+              {content.languages?.map((item: string, i: number) => (
+                <span key={i} className="font-light text-signature mr-1">
+                  #{item}
+                </span>
+              ))}
             </div>
-
-            <div className="line-content">
-              <div className="sub-title-2">호스팅</div>
+            {content.profile && (
+              <div className="px-5 py-4 border-content text-base text-light my-3">
+                {content.profile}
+              </div>
+            )}
+            <div className="line-t">
+              <div className="sub-title-2 ">호스팅</div>
               <div className="grid-img-wrap">
                 {content.guideProducts?.map((item, index) => (
                   <ImgList key={index} content={item} onClick={() => onClickTripImage(index)} />

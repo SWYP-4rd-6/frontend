@@ -6,7 +6,13 @@ import RenderHeader from './RenderHeader';
 import RenderCells from './RenderCells';
 import './calendar.css';
 
-const Calendar = ({ onDateRangeChange }: { onDateRangeChange: (start: Date | null, end: Date | null) => void }) => {
+const Calendar = ({
+  onDateRangeChange,
+  monthRange = 12,
+}: {
+  onDateRangeChange: (start: Date | null, end: Date | null) => void;
+  monthRange?: number;
+}) => {
   const currentDate = new Date();
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -29,16 +35,12 @@ const Calendar = ({ onDateRangeChange }: { onDateRangeChange: (start: Date | nul
     }
   };
 
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < monthRange; i++) {
     months.push(
       <div
         key={uuid()}
-        ref={
-          format(currentMonth, 'MM') === format(currentDate, 'MM')
-            ? monthRef
-            : null
-        }
-        className='calendar-month'
+        ref={format(currentMonth, 'MM') === format(currentDate, 'MM') ? monthRef : null}
+        className="calendar-month"
       >
         <RenderHeader currentMonth={currentMonth} />
         <RenderCells
@@ -47,7 +49,7 @@ const Calendar = ({ onDateRangeChange }: { onDateRangeChange: (start: Date | nul
           endDate={endDate}
           onDateClick={handleDateClick}
         />
-      </div>
+      </div>,
     );
     currentMonth = addMonths(currentMonth, 1);
   }
@@ -59,11 +61,11 @@ const Calendar = ({ onDateRangeChange }: { onDateRangeChange: (start: Date | nul
   }, []);
 
   return (
-    <div className='calendar-wrapper'>
-      <div className='calendar-header'>
+    <div className="calendar-wrapper">
+      <div className="calendar-header">
         <RenderDays />
       </div>
-      <div className='calendar-content'>{months}</div>
+      <div className="calendar-content  no-scroll-bar">{months}</div>
     </div>
   );
 };

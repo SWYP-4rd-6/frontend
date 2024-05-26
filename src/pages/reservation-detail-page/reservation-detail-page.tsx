@@ -7,77 +7,137 @@ import BottomButton from '@/components/Button/BottomButton';
 import DayPickerRange from '@/components/DayPickerRange';
 import { ChangeEvent, ChangeEventHandler } from 'react';
 import TimeRangePicker from '@/components/TimeRangePicker';
+import Calendar from '@/components/Calendar/Calendar';
+import { format } from 'date-fns';
+import { calculateDiffMonths } from '@/utils';
 
 interface PropsType {
   onClickPayment: () => void;
   onChangeText: (e: ChangeEvent<HTMLTextAreaElement>) => void;
-  reserveContent?: ReservationType;
-  content: string;
-  startDate: Moment | null;
-  endDate: Moment | null;
-  handleDatesChange: ({
-    startDate,
-    endDate,
-  }: {
-    startDate: Moment | null;
-    endDate: Moment | null;
-  }) => void;
-  handleTimeChange: ({
+  message: string;
+  startDate: Date | null;
+  endDate: Date | null;
+  handleDateRangeChange: (start: Date | null, end: Date | null) => void;
+  handleTimeRangeChange: ({
     startTime,
     endTime,
   }: {
     startTime?: string | null;
     endTime?: string | null;
   }) => void;
+  /*
+    // startDate: Moment | null;
+  //endDate: Moment | null;
+  handleDatesChange?: ({
+    startDate,
+    endDate,
+  }: {
+    startDate: Moment | null;
+    endDate: Moment | null;
+  }) => void;
+
+  */
+  title: string;
+  open: { calendar: boolean };
+  toggleState: (name: 'calendar') => any;
+  guideStart: string;
+  guideEnd: string;
+  guideTime: number;
 }
 
 const ReservationDetailView = ({
-  content,
-  reserveContent,
+  message,
   startDate,
   endDate,
+  guideStart,
+  guideEnd,
+  guideTime,
   onClickPayment,
   onChangeText,
-  handleDatesChange,
-  handleTimeChange,
+  toggleState,
+  open,
+  handleDateRangeChange,
+  handleTimeRangeChange,
+  title,
 }: PropsType) => {
   return (
     <div className="relative  h-full">
       <Header />
       <section className="px-6 h-full">
-        <div className="title ">
-          <span className="title">타이틀</span>에 <br />
-          참여해볼까요?
+        <div className="title-lg-bk ">
+          <div className="whitespace-nowrap ">
+            <span className="title-lg inline-block max-w-[88%] text-ellipsis  line-clamp-1  ">
+              {title}
+            </span>
+            <span>에</span>
+          </div>
+          <p>참여해볼까요?</p>
         </div>
         <div className="line-content">
           <div className="sub-title-2">날짜</div>
-          <div className="px-5 py-4 border-content text-base text-light my-3">
+
+          {/* 
+                    <div className="px-5 py-4 border-content text-base text-light my-3">
             <DayPickerRange
               startDate={startDate}
               endDate={endDate}
               handleDatesChange={handleDatesChange}
             />
+            </div>
+            
+            */}
+
+          <div className="mb-5">
+            {open.calendar ? (
+              <Calendar
+                onDateRangeChange={handleDateRangeChange}
+                monthRange={calculateDiffMonths(guideStart, guideEnd) + 1}
+              />
+            ) : (
+              <div
+                onClick={() => toggleState('calendar')}
+                className=" px-5 py-[0.75rem] border-2 border-signature"
+              >
+                <div className="text-sub-bu font-[300] text-base">
+                  <div>
+                    <span className="text-signature font-[900]">
+                      {startDate && endDate
+                        ? `${format(startDate, 'yyyy년 M월 d일')} ~ ${format(endDate, 'yyyy년 M월 d일')}`
+                        : '날짜를 선택해주세요'}
+                    </span>
+                    에
+                  </div>
+                  <div>이웃을 만나요.</div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <div className="sub-title-2">시간</div>
-        <TimeRangePicker />
-
+        <TimeRangePicker
+          endActive={false}
+          handleTimeRangeChange={handleTimeRangeChange}
+          initialEndTime={guideEnd}
+          initialStartTime={guideStart}
+          lange={guideTime}
+        />
         <div className="sub-title-2 hidden">호스트에게 할 메시지</div>
         <textarea
           className="px-5 py-4 border-content text-base text-light my-3 w-full hidden"
           placeholder="호스트에게 하고 싶은 메시지를 남겨주세요!(필수)"
           maxLength={500}
           onChange={onChangeText}
-          value={content}
+          value={message}
         />
       </section>
       <BottomButton
+        className="sticky"
         buttons={[
           {
             text: '예약 요청',
             icon: 'local_activity',
             onClick: onClickPayment,
-            active: content.length > 0,
+            active: message.length > 0,
           },
         ]}
       />

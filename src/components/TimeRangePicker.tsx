@@ -1,21 +1,55 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md';
+interface PropsType {
+  initialStartTime: string; // `2024-11-05 14:54:12` 형식의 초기 startTime
+  initialEndTime: string; // `2024-11-05 14:54:12` 형식의 초기 endTime
+  endActive: boolean;
+  handleTimeRangeChange: ({
+    startTime,
+    endTime,
+  }: {
+    startTime?: string | null;
+    endTime?: string | null;
+  }) => void;
+  lange: number;
+}
 
-const TimeRangePicker = ({}) => {
+const parseTime = (timeString: string) => {
+  if (!timeString) {
+    return { hour: 17, minute: 0 };
+  }
+  const date = new Date(timeString);
+  return {
+    hour: date.getHours(),
+    minute: date.getMinutes(),
+  };
+};
+
+const TimeRangePicker = ({
+  initialStartTime,
+  initialEndTime,
+  endActive,
+  handleTimeRangeChange,
+  lange,
+}: PropsType) => {
+  const initialStart = parseTime(initialStartTime);
+  const initialEnd = parseTime(initialEndTime);
   const [open, setIsOpen] = useState({
-    calendar: true,
     startTime: false,
     endTime: false,
   });
-  const [startHour, setStartHour] = useState(0);
-  const [startMinute, setStartMinute] = useState(0);
-  const [endHour, setEndHour] = useState(0);
-  const [endMinute, setEndMinute] = useState(0);
-  const [activate, setActivate] = useState(false);
-  const toggleState = (name: 'calendar' | 'startTime' | 'endTime') => {
+  const [startHour, setStartHour] = useState(initialStart.hour);
+  const [startMinute, setStartMinute] = useState(initialStart.minute);
+  const [endHour, setEndHour] = useState(initialEnd.hour);
+  const [endMinute, setEndMinute] = useState(initialEnd.minute);
+
+  const formatTime = (time: number) => time.toString().padStart(2, '0');
+  const formattedStartTime = `${formatTime(startHour)}:${formatTime(startMinute)}`;
+  const formattedEndTime = `${formatTime(endHour)}:${formatTime(endMinute)}`;
+
+  const toggleState = (name: 'startTime' | 'endTime') => {
     setIsOpen((prev) => {
-      const newState: { calendar: boolean; startTime: boolean; endTime: boolean } = {
-        calendar: false,
+      const newState: { startTime: boolean; endTime: boolean } = {
         startTime: false,
         endTime: false,
       };
@@ -48,6 +82,19 @@ const TimeRangePicker = ({}) => {
         setter(value);
       }
     };
+
+  useEffect(() => {
+    handleTimeRangeChange({ startTime: formattedStartTime, endTime: formattedEndTime });
+  }, [formattedStartTime, formattedEndTime, handleTimeRangeChange]);
+
+  useEffect(() => {
+    if (lange) {
+      const newEndHour = (startHour + Math.floor((startMinute + lange * 60) / 60)) % 24;
+      const newEndMinute = (startMinute + lange * 60) % 60;
+      setEndHour(newEndHour);
+      setEndMinute(newEndMinute);
+    }
+  }, [startHour, startMinute]);
 
   return (
     <div className="border-2 border-signature py-1 px-5">
@@ -103,7 +150,7 @@ const TimeRangePicker = ({}) => {
           </div>
         </div>
       )}
-
+      {/* 
       <div className="flex justify-between items-center py-4">
         <span className="text-signature font-[300]">종료 시간</span>
         <span
@@ -113,7 +160,7 @@ const TimeRangePicker = ({}) => {
           {String(endHour).padStart(2, '0')}:{String(endMinute).padStart(2, '0')}
         </span>
       </div>
-      {open.endTime && (
+      {endActive && open.endTime && (
         <div className="flex justify-center items-center gap-2 pb-4">
           <div className="flex flex-col justify-center items-center">
             <div onClick={() => handleTimeChange('end', 'hour', 1)}>
@@ -152,6 +199,7 @@ const TimeRangePicker = ({}) => {
           </div>
         </div>
       )}
+     */}
     </div>
   );
 };

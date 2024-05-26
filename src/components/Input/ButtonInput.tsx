@@ -9,7 +9,7 @@ interface ButtonInputProps {
   autoComplete?: string;
   clickFunc: MouseEventHandler<HTMLButtonElement>;
   value: string;
-  handleChange?: ChangeEventHandler<HTMLInputElement>
+  handleChange?: ChangeEventHandler<HTMLInputElement>;
   buttonText: string;
   readonly?: boolean;
 }

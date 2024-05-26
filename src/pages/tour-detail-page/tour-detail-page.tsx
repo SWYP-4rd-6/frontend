@@ -36,11 +36,11 @@ const TourDetailPageView = ({
   loading,
 }: PropsType) => {
   return (
-    <div className="relative">
+    <div className="">
       <Header type="trans" />
       {content ? (
         <>
-          <div className="relative">
+          <div className="relative ">
             <Slider {...arrowSlickSettings} className="">
               {content.images ? (
                 content.images.map((img, index) => <Slide key={index} src={img} />)
@@ -55,7 +55,7 @@ const TourDetailPageView = ({
             </div>
           </div>
 
-          <DoubleLine className="my-4" />
+          <DoubleLine className="my-4" thick={2} />
           <section className="px-6 ">
             <div className="title">{content.title}</div>
             <ul className="*:mb-2">
@@ -83,9 +83,11 @@ const TourDetailPageView = ({
               <div className="border-content text-sm p-2 ">{content.title}</div>
             </div>
             <div>
-              <div className=" line-content">
+              <div className="inline-block  text-ellipsis line-content w-full">
                 <h2 className="sub-title-2">상세 설명</h2>
-                <div className="border-content text-sm p-2">{content.description}</div>
+                <div className="border-content text-sm p-2 ">
+                  <div className="line-clamp-3 ">{content.description}</div>
+                </div>
               </div>
             </div>
             <div className="line-content ">
@@ -115,15 +117,15 @@ const TourDetailPageView = ({
               </div>
             </div>
           </section>
-          <section className="content-section ">
+          <section className="content-section pb-12 ">
             <div className="sub-title-2">리뷰</div>
             <Slider {...reviewSlickSettings} className="pb-3">
               {content.reviews &&
                 content.reviews.map((item, index) => <ReviewSlide key={index} content={item} />)}
             </Slider>
           </section>
-
           <BottomButton
+            className="sticky"
             buttons={[
               { text: '1:1 Message', icon: 'chat' },
               {
