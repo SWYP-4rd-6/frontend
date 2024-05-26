@@ -116,7 +116,7 @@ const PhoneAuth = ({ setCheckDuplication }: PropsType) => {
           onClick={sendOtp}
           className={`absolute top-1/2 transform -translate-y-1/2 right-[1px] text-[16px] px-3 py-[8px] transition ${!(phone.length === 0 || countryNumbers.includes(phone)) ? 'text-white bg-signature font-[900]' : 'text-[#646464] bg-[#D9D9D9] font-[300]'}`}
         >
-          코드전송
+          {userInfo.phone ? '인증 완료' :'코드전송'}
         </button>
       </div>
 

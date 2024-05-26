@@ -114,7 +114,7 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
   };
 
   useEffect(() => {
-    if (checkDuplication.nickname && user.name && user.gender && user.birthdate) {
+    if (checkDuplication.nickname && user.name && user.gender && user.birthdate && user.nationality) {
       setActivate(true);
     } else {
       setActivate(false);
@@ -124,7 +124,7 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
     checkDuplication.phone,
     user.name,
     user.gender,
-    user.location,
+    user.nationality,
     user.birthdate,
   ]);
 
@@ -138,7 +138,7 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
         const res = await emailLogin({ email: user.email, password: user.password });
 
         if (res) {
-          const { accessToken, refreshToken } = res.data;
+          const { accessToken, refreshToken } = res.data.token;
           // 토큰에서 만료 시간 추출
           let expirationTime;
           try {
