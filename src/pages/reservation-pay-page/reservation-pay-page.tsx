@@ -1,20 +1,26 @@
 import Payment from '@/components/Payment';
 import Header from '@/components/Header/Header';
 import { CategoryType, GuideProductType, ReservationType, ReviewType } from '@/types/common';
-import { calculateDays, formatDateKor, formatTimeRange, getTagNameKor } from '@/utils';
+import {
+  calculateDays,
+  formatDateKor,
+  formatStringDateKor,
+  formatTimeRange,
+  getTagNameKor,
+} from '@/utils';
 import BottomButton from '@/components/Button/BottomButton';
 import Loading from '@/components/Loading';
 import IconText from '@/components/IconText';
 interface PropsType {
-  onComplete: () => void;
   content?: ReservationType;
-  //  setIsPaid: any;
   setUid: any;
   isLoading: boolean;
+  startDate: string;
+  endDate: string;
 }
-//onComplete
-const ReservationPayView = ({ onComplete, content, setUid, isLoading }: PropsType) => {
+const ReservationPayView = ({ startDate, endDate, content, setUid, isLoading }: PropsType) => {
   const { price, merchantUid, product } = content || {};
+  console.log(startDate);
   return (
     <>
       <Header />
@@ -60,12 +66,9 @@ const ReservationPayView = ({ onComplete, content, setUid, isLoading }: PropsTyp
                     iconSize={22}
                   />{' '}
                   <div className="ml-[1.8rem] font-light">
-                    {content.guideStart &&
-                      `${formatDateKor(content.guideStart)}${content.guideEnd && ' ~ ' + formatDateKor(content.guideEnd)}`}{' '}
-                    (
-                    {content.guideStart &&
-                      content.guideEnd &&
-                      calculateDays(content.guideStart, content.guideEnd)}
+                    {startDate &&
+                      `${formatStringDateKor(startDate)}${endDate && ' ~ ' + formatStringDateKor(endDate)}`}{' '}
+                    ({startDate && endDate && calculateDays(startDate, endDate)}
                     일)
                   </div>
                   <IconText

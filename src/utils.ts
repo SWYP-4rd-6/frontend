@@ -1,7 +1,8 @@
 import { SymbolCodepoints } from 'react-material-symbols';
 import { DateTime } from 'luxon';
 import { CategoryKorType, CategoryType } from './types/common';
-import { differenceInMonths } from 'date-fns';
+import { differenceInMonths, format, parse } from 'date-fns';
+import { ko } from 'date-fns/locale';
 
 const getTagIcon = (tag: CategoryType): SymbolCodepoints => {
   switch (tag) {
@@ -97,6 +98,11 @@ const formatDateKor = (dateString: string): string => {
   return date.toFormat('yyyy년 LL월 dd일'); // 2024년 5월 17일
 };
 
+// 문자열 24 14:19:24 GMT+0900 (한국) --> yyyy년 LL월 dd일
+const formatStringDateKor = (dateString: string): string => {
+  return format(dateString, 'yyyy년 LL월 dd일', { locale: ko });
+};
+
 const formatTimeRange = (start: string, end: string): string => {
   const startTime = DateTime.fromFormat(start, 'yyyy-MM-dd HH:mm:ss');
   const endTime = DateTime.fromFormat(end, 'yyyy-MM-dd HH:mm:ss');
@@ -120,7 +126,6 @@ const calculateDays = (startDateStr: string, endDateStr: string) => {
 const calculateDiffMonths = (startDateStr: string, endDateStr: string): number => {
   const startDate = new Date(startDateStr);
   const endDate = new Date(endDateStr);
-  console.log(differenceInMonths(endDate, startDate));
   return differenceInMonths(endDate, startDate);
 };
 
@@ -135,4 +140,5 @@ export {
   convertDateFormat,
   getNowUnixTimestamp,
   calculateDiffMonths,
+  formatStringDateKor,
 };
