@@ -15,8 +15,9 @@ const useLoginStore = create<AuthState>((set) => ({
     set({ isLogin });
   },
   setUserId: (userId: number) => {
-    localStorage.setItem('userId', userId.toString());
-    set({ userId });
+    if (userId !== 0) {
+      localStorage.setItem('userId', userId.toString());
+    }
   },
 }));
 

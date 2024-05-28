@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import useLoginStore from '@/store/LoginStore';
 import { jwtDecode } from 'jwt-decode';
 import { useUserInfoStore } from '@/store/UserInfoStore';
+import Loading from '@/components/Loading';
 
 const GoogleCallback = () => {
   const location = useLocation();
@@ -62,7 +63,7 @@ const GoogleCallback = () => {
     googleLogin();
   }, [location, navigate, setIsLogin, setUserId]);
 
-  return <div className='h-screen flex justify-center items-center'>정보요청 중입니다...</div>;
+  return <Loading />;
 };
 
 export default GoogleCallback;
