@@ -1,5 +1,5 @@
-import React, { FC, ReactNode, useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FC, ReactNode, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { MaterialSymbol } from 'react-material-symbols';
 import FloatingButton from './Button/FloatingButton';
 import useScrollStore from '@/store/scrollStore';
@@ -12,6 +12,7 @@ type PropsType = {
 const BottomNavLayout = ({ login, children }: PropsType) => {
   const { scrolling, setScrolling } = useScrollStore();
   const containerRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
 
   const handleScroll = () => {
     setScrolling(true);
@@ -31,12 +32,13 @@ const BottomNavLayout = ({ login, children }: PropsType) => {
     return () => {
       if (container) {
         container.removeEventListener('scroll', handleScroll);
-        container.addEventListener('scrollend', handleScrollEnd);
+        container.removeEventListener('scrollend', handleScrollEnd);
       }
     };
   }, []);
+
   return (
-    <div className=" relative h-full overflow-y-scroll no-scroll-bar" ref={containerRef}>
+    <div className="relative h-full overflow-y-scroll no-scroll-bar" ref={containerRef}>
       {children}
       <FloatingButton />
       <div
@@ -45,8 +47,12 @@ const BottomNavLayout = ({ login, children }: PropsType) => {
       >
         {login ? (
           <>
-            <Link to="#" className="">
-              <img src="/select_nav_home.png" className="w-[6.4rem] " alt="home" />
+            <Link to="/" className="">
+              {location.pathname === '/' ? (
+                <img src="/select_nav_home.png" className="w-[6.4rem]" alt="home" />
+              ) : (
+                <MaterialSymbol icon="home" size={24} fill grade={-25} color="#d9d9d9" />
+              )}
             </Link>
             <Link to="#" className="mx-2">
               <MaterialSymbol icon="trip" size={24} fill grade={-25} color="#d9d9d9" />
@@ -54,14 +60,18 @@ const BottomNavLayout = ({ login, children }: PropsType) => {
             <Link to="#" className="mx-2">
               <MaterialSymbol icon="message" size={24} fill grade={-25} color="#d9d9d9" />
             </Link>
-            <Link to={``} className="mx-2">
-              <MaterialSymbol icon="person" size={24} fill grade={-25} color="#d9d9d9" />
+            <Link to={`/mypage/${localStorage.getItem('userId')}`} className="mx-2">
+              {location.pathname.startsWith('/mypage/') ? (
+                <img src="/select_nav_mypage.png" className="w-[6.4rem]" alt="mypage" />
+              ) : (
+                <MaterialSymbol icon="person" size={24} fill grade={-25} color="#d9d9d9" />
+              )}
             </Link>
           </>
         ) : (
           <>
             <Link to="#" className="w-1/2">
-              <img src="/select_nav_explore.png" className=" w-[8.2rem]" alt="home" />
+              <img src="/select_nav_explore.png" className="w-[8.2rem]" alt="explore" />
             </Link>
             <Link to="/login" className="w-1/2 font-poppins font-extrabold text-xl text-signature">
               Login

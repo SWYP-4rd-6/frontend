@@ -138,6 +138,9 @@ const GoogleSignupForm = () => {
         console.log(res);
         alert('회원가입이 완료되었습니다. \n해당 계정으로 다시 로그인해주세요.');
         navigate('/login');
+    } else {
+        alert('회원가입에 실패하였습니다.');
+        navigate('/login');
     }
     
   };

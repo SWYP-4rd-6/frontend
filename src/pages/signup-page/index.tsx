@@ -164,8 +164,11 @@ export const googleSignup = async () => {
       return response.data;
     } else if (response.status === 409) {
       console.log('Duplicate entry exists');
+      alert('중복된 계정입니다.');
+      window.location.href = '/login';
     } else if (response.status === 400) {
-      console.log('Form input error');
+      alert('입력 양식 오류입니다.');
+      window.location.href = '/login';
     }
   } catch (error) {
     console.error('Signup failed:', error);
@@ -176,6 +179,4 @@ export const googleSignup = async () => {
 
 export const SignUp = () => <SignUpPageView />;
 
-export const GoogleSignup = () => <GoogleSignupPageView />
-
-
+export const GoogleSignup = () => <GoogleSignupPageView />;
