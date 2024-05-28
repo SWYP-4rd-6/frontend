@@ -1,6 +1,7 @@
 import { UserState, useUserInfoStore } from '@/store/UserInfoStore';
 import SignUpPageView from './signup-page';
 import axios from 'axios';
+import GoogleSignupPageView from './google-signup-page';
 
 // 이메일 중복확인
 export const checkEmail = async (email: string): Promise<boolean | void> => {
@@ -134,6 +135,47 @@ export const signup = async () => {
   }
   return false;
 };
-const SignUp = () => <SignUpPageView />;
 
-export default SignUp;
+// 구글 회원가입
+export const googleSignup = async () => {
+  const userData = useUserInfoStore.getState().googleUser;
+
+  const validData = await Object.entries(userData).reduce((acc: any, [key, value]) => {
+    if (value !== '' && value !== null) {
+      acc[key] = value;
+    }
+    return acc;
+  }, {});
+  console.log(validData);
+
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/v1/oauth2/google/signup`,
+      validData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    if (response.status === 200) {
+      console.log('Signup success');
+      return response.data;
+    } else if (response.status === 409) {
+      console.log('Duplicate entry exists');
+    } else if (response.status === 400) {
+      console.log('Form input error');
+    }
+  } catch (error) {
+    console.error('Signup failed:', error);
+    return false;
+  }
+  return false;
+};
+
+export const SignUp = () => <SignUpPageView />;
+
+export const GoogleSignup = () => <GoogleSignupPageView />
+
+
