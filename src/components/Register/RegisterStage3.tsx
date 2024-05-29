@@ -36,20 +36,22 @@ const RegisterStage3 = ({ setStage, setStep }: StagePropsType) => {
 
   useEffect(() => {
     if (startDate && endDate) {
-      const startDateTime = new Date(startDate);
-      startDateTime.setHours(startHour, startMinute);
-
-      const endDateTime = new Date(endDate);
-      endDateTime.setHours(endHour, endMinute);
-
-      const newGuideStart = format(startDateTime, 'yyyy-MM-dd HH:mm:ss');
-      const newGuideEnd = format(endDateTime, 'yyyy-MM-dd HH:mm:ss');
+      const newGuideStart = format(startDate, 'yyyy-MM-dd');
+      const newGuideEnd = format(endDate, 'yyyy-MM-dd');
+      const newGuideStartTime = `${String(startHour).padStart(2, '0')}:${String(startMinute).padStart(2, '0')}:00`;
+      const newGuideEndTime = `${String(endHour).padStart(2, '0')}:${String(endMinute).padStart(2, '0')}:00`;
 
       if (tour.guideStart !== newGuideStart) {
         changeState('guideStart', newGuideStart);
       }
       if (tour.guideEnd !== newGuideEnd) {
         changeState('guideEnd', newGuideEnd);
+      }
+      if (tour.guideStartTime !== newGuideStartTime) {
+        changeState('guideStartTime', newGuideStartTime);
+      }
+      if (tour.guideEndTime !== newGuideEndTime) {
+        changeState('guideEndTime', newGuideEndTime);
       }
     }
   }, [startDate, endDate, startHour, startMinute, endHour, endMinute, changeState, tour]);

@@ -65,7 +65,9 @@ const RegisterStage7 = ({ setStage, setStep }: StagePropsType) => {
       title: tour.name,
       categories: tour.categories,
       description: tour.des,
-      guideEnd: tour.guideEnd
+      guideEnd: tour.guideEnd,
+      guideStartTime: tour.guideStartTime,
+      guideEndTime: tour.guideEndTime,
     };
 
     formData.append('request', JSON.stringify(requestPayload));
@@ -89,7 +91,10 @@ const RegisterStage7 = ({ setStage, setStep }: StagePropsType) => {
         setStage(8);
       }
     } catch (error) {
-      console.error('Error uploading files:', error);
+      if (axios.isAxiosError(error)) {
+        alert(error.message);
+      }
+      window.location.reload();
     } finally {
       setIsSubmitting(false); // 제출 완료 후 상태 초기화
     }

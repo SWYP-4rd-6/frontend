@@ -14,8 +14,8 @@ const RegisterStage4 = ({ setStage, setStep }: StagePropsType) => {
     { label: '3시간', value: 3 },
     { label: '4시간', value: 4 },
     { label: '6시간', value: 6 },
-    { label: '반나절', value: 12 },
-    { label: '하루 이상', value: 24 },
+    { label: '12시간', value: 12 },
+    { label: '24시간', value: 24 },
   ];
 
   useEffect(() => {
