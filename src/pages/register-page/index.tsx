@@ -2,13 +2,13 @@ import axios from 'axios';
 import RegisterPageView from './register-page';
 
 export const registerTour = async (data: any) => {
-  const token = localStorage.getItem('accessToken')
+  const token = localStorage.getItem('accessToken');
 
   try {
     const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/v1/products`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -17,12 +17,16 @@ export const registerTour = async (data: any) => {
     } else if (res.status === 400) {
       alert('위치 정보 오류');
       window.location.reload();
-    } else if (res.status === 404){
+    } else if (res.status === 404) {
       alert('사용자 정보 오류');
       window.location.reload();
     }
   } catch (error) {
-    console.error('Signup failed:', error);
+    if (axios.isAxiosError(error)) {
+      alert(error.response?.data.message || '업로드 중 에러가 발생하였습니다ㅏ.');
+      window.location.reload();
+    }
+
     return null;
   }
   return null;
