@@ -48,7 +48,7 @@ const RegisterStage7 = ({ setStage, setStep }: StagePropsType) => {
     setIsSubmitting(true); // 제출 시작 시 상태 변경
 
     if (!tour.thumb) {
-      alert("대표 이미지를 추가해야 합니다.");
+      alert('대표 이미지를 추가해야 합니다.');
       setIsSubmitting(false); // 제출 실패 시 상태 초기화
       return;
     }
@@ -65,7 +65,9 @@ const RegisterStage7 = ({ setStage, setStep }: StagePropsType) => {
       title: tour.name,
       categories: tour.categories,
       description: tour.des,
-      guideEnd: tour.guideEnd
+      guideEnd: tour.guideEnd,
+      guideStartTime: tour.guideStartTime,
+      guideEndTime: tour.guideEndTime,
     };
 
     formData.append('request', JSON.stringify(requestPayload));
@@ -88,10 +90,10 @@ const RegisterStage7 = ({ setStage, setStep }: StagePropsType) => {
         changeState('postId', res.data.id);
         setStage(8);
       }
-    } catch (error) {
-      console.error('Error uploading files:', error);
+    } catch (error: any) {
+      console.log(error);
     } finally {
-      setIsSubmitting(false); // 제출 완료 후 상태 초기화
+      setIsSubmitting(false);
     }
   };
 
@@ -117,7 +119,11 @@ const RegisterStage7 = ({ setStage, setStep }: StagePropsType) => {
         disabled={isSubmitting} // 제출 중일 때 입력 필드 비활성화
       />
 
-      <ArrowButton activate={activate && !isSubmitting} moveForward={handleSubmit} moveBack={() => setStage(6)} />
+      <ArrowButton
+        activate={activate && !isSubmitting}
+        moveForward={handleSubmit}
+        moveBack={() => setStage(6)}
+      />
     </div>
   );
 };
