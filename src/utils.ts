@@ -1,7 +1,8 @@
 import { SymbolCodepoints } from 'react-material-symbols';
 import { DateTime } from 'luxon';
 import { CategoryKorType, CategoryType } from './types/common';
-import { differenceInMonths } from 'date-fns';
+import { differenceInMonths, format, parse } from 'date-fns';
+import { ko } from 'date-fns/locale';
 
 const getTagIcon = (tag: CategoryType): SymbolCodepoints => {
   switch (tag) {
@@ -77,11 +78,17 @@ const formatDate = (dateString: string): string | null => {
   const date = DateTime.fromFormat(dateString, 'yyyy-MM-dd HH:mm:ss'); //.fromISO(start);
   return date.toFormat('yyyy.LL.dd');
 };
+//2024-05-21 -> 2024.08.01
+const formatDate2 = (dateString: string) => {
+  const date = new Date(dateString);
+  const formattedDate = format(date, 'yyyy.MM.dd');
+  return formattedDate;
+};
+
 const convertDateFormat = (isoString: string | null): string | null => {
   if (isoString === null) {
     return null;
   }
-
   // ISO 문자열을 Luxon DateTime 객체로 변환
   const dateTime = DateTime.fromISO(isoString);
   return dateTime.toFormat('yyyy-MM-dd HH:mm:ss');
@@ -97,16 +104,34 @@ const formatDateKor = (dateString: string): string => {
   return date.toFormat('yyyy년 LL월 dd일'); // 2024년 5월 17일
 };
 
+// 문자열 24 14:19:24 GMT+0900 (한국) --> yyyy년 LL월 dd일
+const formatStringDateKor = (dateString: string): string => {
+  return format(dateString, 'yyyy년 LL월 dd일', { locale: ko });
+};
+
 const formatTimeRange = (start: string, end: string): string => {
   const startTime = DateTime.fromFormat(start, 'yyyy-MM-dd HH:mm:ss');
   const endTime = DateTime.fromFormat(end, 'yyyy-MM-dd HH:mm:ss');
   const startTimeString = startTime.toFormat('HH:mm');
   const endTimeString = endTime.toFormat('HH:mm');
-
   //const duration = endTime.diff(startTime, 'hours').hours; (${duration}시간 소요)
   return `${startTimeString}~${endTimeString}`; //"17:00~19:00 (2시간 소요)
 };
 
+//08:00:00 ->17:00
+const formatTime = (inputTime: string) => {
+  const time = parse(inputTime, 'HH:mm:ss', new Date());
+  const formattedTime = format(time, 'HH:mm');
+  return formattedTime;
+};
+
+//00:00:00 -> 넘버 시간  00
+const extractHour = (timeString: string) => {
+  const time = parse(timeString, 'HH:mm:ss', new Date());
+  const hour = time.getHours();
+
+  return hour;
+};
 const calculateDays = (startDateStr: string, endDateStr: string) => {
   // 문자열을 Date 객체로 변환
   const startDate: any = new Date(startDateStr);
@@ -120,7 +145,6 @@ const calculateDays = (startDateStr: string, endDateStr: string) => {
 const calculateDiffMonths = (startDateStr: string, endDateStr: string): number => {
   const startDate = new Date(startDateStr);
   const endDate = new Date(endDateStr);
-  console.log(differenceInMonths(endDate, startDate));
   return differenceInMonths(endDate, startDate);
 };
 
@@ -131,8 +155,12 @@ export {
   formatDate,
   formatDateKor,
   formatTimeRange,
+  formatTime,
   calculateDays,
   convertDateFormat,
   getNowUnixTimestamp,
   calculateDiffMonths,
+  formatStringDateKor,
+  formatDate2,
+  extractHour,
 };

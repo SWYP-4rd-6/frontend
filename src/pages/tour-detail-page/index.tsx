@@ -63,6 +63,8 @@ function TourDetail() {
           id: content.id,
           guideStart: content.guideStart,
           guideEnd: content.guideEnd,
+          guideStartTime: content.guideStartTime,
+          guideEndTime: content.guideEndTime,
           price: content.price,
           guideTime: content.guideTime,
           title: content.title,

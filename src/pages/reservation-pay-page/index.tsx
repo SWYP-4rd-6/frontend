@@ -12,11 +12,7 @@ const ReservationPay = () => {
   const [isLoding, setIsLoding] = useState<boolean>(false);
   const navigateTo = useNavigate();
   const location = useLocation();
-  const { productId, price, muid } = location.state;
-
-  const onComplete = () => {
-    navigateTo('/tour/reservation/complete');
-  };
+  const { productId, price, muid, startDate, endDate } = location.state;
 
   //2.
   const getReservation = async () => {
@@ -115,8 +111,9 @@ const ReservationPay = () => {
 
   return (
     <ReservationPayView
-      onComplete={onComplete}
       content={content}
+      startDate={startDate}
+      endDate={endDate}
       setUid={setUid}
       isLoading={isLoding}
     />

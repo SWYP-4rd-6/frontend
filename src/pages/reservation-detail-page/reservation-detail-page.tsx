@@ -7,9 +7,22 @@ import BottomButton from '@/components/Button/BottomButton';
 import DayPickerRange from '@/components/DayPickerRange';
 import { ChangeEvent, ChangeEventHandler } from 'react';
 import TimeRangePicker from '@/components/TimeRangePicker';
-import Calendar from '@/components/Calendar/Calendar';
-import { format } from 'date-fns';
-import { calculateDiffMonths } from '@/utils';
+import CalendarR from '@/components/CalendarR/CalendarR';
+import {
+  parseISO,
+  format,
+  isBefore,
+  isEqual,
+  addHours,
+  startOfHour,
+  setMilliseconds,
+  setSeconds,
+  setMinutes,
+  setHours,
+} from 'date-fns';
+import { calculateDiffMonths, extractHour } from '@/utils';
+import CategoryButton from '@/components/Button/CategoryButton';
+import TimeSelector from '@/components/TimeSelector';
 
 interface PropsType {
   onClickPayment: () => void;
@@ -18,31 +31,16 @@ interface PropsType {
   startDate: Date | null;
   endDate: Date | null;
   handleDateRangeChange: (start: Date | null, end: Date | null) => void;
-  handleTimeRangeChange: ({
-    startTime,
-    endTime,
-  }: {
-    startTime?: string | null;
-    endTime?: string | null;
-  }) => void;
-  /*
-    // startDate: Moment | null;
-  //endDate: Moment | null;
-  handleDatesChange?: ({
-    startDate,
-    endDate,
-  }: {
-    startDate: Moment | null;
-    endDate: Moment | null;
-  }) => void;
-
-  */
   title: string;
   open: { calendar: boolean };
   toggleState: (name: 'calendar') => any;
   guideStart: string;
   guideEnd: string;
   guideTime: number;
+  guideStartTime: string;
+  guideEndTime: string;
+  selectedTime: string | null;
+  handleTimeChange: (num: string | null) => void;
 }
 
 const ReservationDetailView = ({
@@ -52,13 +50,16 @@ const ReservationDetailView = ({
   guideStart,
   guideEnd,
   guideTime,
+  guideStartTime,
+  guideEndTime,
   onClickPayment,
   onChangeText,
   toggleState,
   open,
   handleDateRangeChange,
-  handleTimeRangeChange,
   title,
+  selectedTime,
+  handleTimeChange,
 }: PropsType) => {
   return (
     <div className="relative  h-full">
@@ -75,22 +76,11 @@ const ReservationDetailView = ({
         </div>
         <div className="line-content">
           <div className="sub-title-2">날짜</div>
-
-          {/* 
-                    <div className="px-5 py-4 border-content text-base text-light my-3">
-            <DayPickerRange
-              startDate={startDate}
-              endDate={endDate}
-              handleDatesChange={handleDatesChange}
-            />
-            </div>
-            
-            */}
-
           <div className="mb-5">
             {open.calendar ? (
-              <Calendar
+              <CalendarR
                 onDateRangeChange={handleDateRangeChange}
+                initialDate={{ guideStart: parseISO(guideStart), guideEnd: parseISO(guideEnd) }}
                 monthRange={calculateDiffMonths(guideStart, guideEnd) + 1}
               />
             ) : (
@@ -113,13 +103,12 @@ const ReservationDetailView = ({
             )}
           </div>
         </div>
-        <div className="sub-title-2">시간</div>
-        <TimeRangePicker
-          endActive={false}
-          handleTimeRangeChange={handleTimeRangeChange}
-          initialEndTime={guideEnd}
-          initialStartTime={guideStart}
-          lange={guideTime}
+        <div className="sub-title-2">예약 가능 시간</div>
+        <TimeSelector
+          startTime={extractHour(guideStartTime)}
+          endTime={extractHour(guideEndTime)}
+          selectedTime={selectedTime}
+          handleTimeChange={handleTimeChange}
         />
         <div className="sub-title-2 hidden">호스트에게 할 메시지</div>
         <textarea

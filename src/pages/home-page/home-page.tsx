@@ -8,6 +8,7 @@ import DoubleLine from '@/components/DoubleLIne';
 
 import {
   CategoryKorType,
+  GuideProductType,
   ILocation,
   MainContentType,
   SearchContentType,
@@ -26,8 +27,9 @@ interface PropsType {
   onClickMore: (cate: CategoryKorType) => void;
   onClickTripImage: (index: number, cate: string) => void;
   mainContent?: MainContentType;
-  searchContent?: SearchContentType;
+  searchContent: Array<GuideProductType>;
   location: string;
+  fetchMoreProducts: () => void;
 }
 
 const HomePageView = ({
@@ -40,9 +42,12 @@ const HomePageView = ({
   searchContent,
   mainContent,
   location,
+  fetchMoreProducts,
 }: PropsType) => {
   const { isLogin } = useLoginStore();
   console.log(isLogin);
+  console.log(searchContent);
+
   return (
     <BottomNavLayout login={isLogin}>
       <div className="px-6 pt-4 pb-1">
@@ -125,13 +130,20 @@ const HomePageView = ({
           )}
         </div>
         <div className="grid-img-wrap">
-          {searchContent?.content.map((item, i) => (
-            <ImgList key={i} content={item} onClick={() => onClickTripImage(i, selectedCategory)} />
-          ))}
+          {searchContent?.length > 0 &&
+            searchContent.map((item, i) => (
+              <ImgList
+                key={i}
+                content={item}
+                onClick={() => onClickTripImage(i, selectedCategory)}
+              />
+            ))}
         </div>
+
         <button
           type="button"
-          className="border-2 border-sub-non w-full text-xl font-black text-sub-non py-1.5 my-5"
+          className="hidden sborder-2 border-sub-non w-full text-xl font-black text-sub-non py-1.5 my-5"
+          onClick={fetchMoreProducts}
         >
           더보기
         </button>

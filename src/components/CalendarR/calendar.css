@@ -1,0 +1,106 @@
+/* calendar.css */
+.calendar-wrapper {
+  width: 23.75rem;
+  height: 24.875rem;
+  border: 2px solid #0173fa;
+  position: relative;
+  overflow-y: hidden;
+  padding-top: 3.5rem;
+}
+
+.calendar-content {
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.calendar-header {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  box-sizing: border-box;
+  padding: 20px 10px;
+  color: #636363;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.calendar-days {
+  padding-top: 40px;
+  width: 100%;
+}
+
+.calendar-row {
+  display: flex;
+  width: 100%;
+}
+
+.calendar-col {
+  flex: 1;
+  padding: 5px;
+  text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #636363;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+}
+
+.calendar-col.cell {
+  box-sizing: border-box;
+  min-height: 50px;
+}
+
+.calendar-col.disabled {
+  color: transparent;
+}
+
+.calendar-col.limit {
+  color: #eaeaea;
+}
+.calendar-col.limitR {
+  color: #cecece;
+}
+
+.calendar-col.not-valid {
+  background-color: #fff;
+}
+
+.calendar-col.in-range {
+  background-color: #d0e7ff;
+}
+
+.calendar-col.start-date,
+.calendar-col.end-date {
+  background-color: #0173fa;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.calendar-body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
+.calendar-month-header {
+  box-sizing: border-box;
+  margin: 24px 0 12px 0;
+  padding: 0 18px;
+  text-align: left;
+  font-weight: bold;
+  width: 100%;
+  color: #636363;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
