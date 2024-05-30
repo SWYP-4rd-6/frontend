@@ -26,7 +26,8 @@ function Home() {
   const [dragging, setDragging] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<CategoryKorType>('전체');
   const [mainContent, setMainContent] = useState<MainContentType>(); //MAIN_CONTENT_DATA
-  const [searchContent, setSearchContent] = useState<SearchContentType>(); //SEARCH_DATA
+  const [searchContent, setSearchContent] = useState<Array<GuideProductType>>([]);
+  const [page, setPage] = useState(0);
   //sconst { location, error } = useGeoLocation(geolocationOptions);
   const [location, setLocation] = useState('Seoul, South Korea');
   const navigateTo = useNavigate();
@@ -74,7 +75,7 @@ function Home() {
       case 'BEST':
         return mainContent?.bestGuideProducts[index];
       default:
-        return searchContent?.content[index];
+        return searchContent && searchContent[index];
     }
   };
 
@@ -100,7 +101,7 @@ function Home() {
       if (response.status === 200) {
         console.log('success');
         setMainContent(response.data);
-        setSearchContent(response.data.allGuideProducts);
+        setSearchContent(response.data.allGuideProducts.content);
 
         return true;
       }
@@ -114,8 +115,8 @@ function Home() {
 
   const getSearchContent = async (): Promise<boolean> => {
     try {
-      const cate = getTagName(selectedCategory);
-      if (cate === 'ALL') return true;
+      const category = getTagName(selectedCategory);
+      if (category === 'ALL') return true;
       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/search`, {
         params: {
           /* 지역 + 날짜 검색 param */
@@ -125,9 +126,9 @@ function Home() {
           /* 카테고리 검색 param */
           //  latitude: 34.567,
           // longitude: 127.235,
-          category: getTagName(selectedCategory),
+          category,
           /* 상세조건 검색 param */
-          //  min: 0,
+          //min: 0,
           //max: 12,
           //minD: 10,
           //maxD: 24,
@@ -141,7 +142,8 @@ function Home() {
       });
 
       if (response.status === 200) {
-        setSearchContent(response.data);
+        setSearchContent(response.data.content);
+        console.log(response.data.content);
         return true;
       }
       console.log('fail');
@@ -152,9 +154,26 @@ function Home() {
     }
   };
 
+  const fetchMoreProducts = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/search`, {
+        params: {
+          category: getTagName(selectedCategory),
+          page: page + 1,
+        },
+      });
+      const newProducts = response.data;
+      setSearchContent((prevSearchContent) => [...Array(prevSearchContent), ...newProducts]); // 기존 상품 목록에 새로운 상품을 추가합니다.
+      setPage((prevPage) => prevPage + 1);
+    } catch (error) {
+      console.error('Error fetching more products:', error);
+    }
+  };
+
   useEffect(() => {}, []);
 
   useEffect(() => {
+    setSearchContent([]);
     if (selectedCategory === '전체') getMainContent();
     else getSearchContent();
   }, [selectedCategory]);
@@ -180,6 +199,7 @@ function Home() {
       onCategoryClick={onCategoryClick}
       onClickMore={onClickMore}
       location={location}
+      fetchMoreProducts={fetchMoreProducts}
     />
   );
 }
