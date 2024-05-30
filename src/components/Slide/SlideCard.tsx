@@ -1,5 +1,5 @@
 import { CategoryType, CategoryKorType, GuideProductType } from '@/types/common';
-import { formatDate, getTagNameKor } from '@/utils';
+import { formatDate, formatDate2, getTagNameKor } from '@/utils';
 
 type PropsType = {
   onClick: () => void;
@@ -24,7 +24,7 @@ const SlideCard = ({ content, onClick }: PropsType) => {
       <div className="px-8 absolute bottom-8">
         <div className="font-black text-4xl text-white">{content.title}</div>
         <div className="text-base text-white font-right">
-          {formatDate(content.guideStart)}~{formatDate(content.guideEnd)}
+          {formatDate2(content.guideStart)}~{formatDate2(content.guideEnd)}
         </div>
         {content.categories?.map((item: CategoryType, index) => (
           <span key={index} className="text-sm text-white font-right">

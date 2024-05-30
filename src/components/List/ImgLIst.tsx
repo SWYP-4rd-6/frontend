@@ -1,6 +1,6 @@
 import { GuideProductType } from '@/types/common';
 import { MaterialSymbol } from 'react-material-symbols';
-import { formatDate } from '@/utils';
+import { formatDate, formatDate2 } from '@/utils';
 import DoubleLine from '@/components/DoubleLIne';
 import IconText from '@/components/IconText';
 
@@ -24,7 +24,7 @@ const ImgList = ({ content, onClick }: PropsType) => {
       <div className="px-4 absolute bottom-6">
         <IconText text={content.locationName} icon={'fmd_good'} />
         <IconText
-          text={`${formatDate(content.guideStart)}~${formatDate(content.guideEnd)}`}
+          text={`${formatDate2(content.guideStart)}~${formatDate2(content.guideEnd)}`}
           icon={'date_range'}
         />
       </div>

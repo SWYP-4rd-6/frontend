@@ -8,7 +8,7 @@ import BottomButton from '@/components/Button/BottomButton';
 import IconList from '@/components/List/IconList';
 import CategoryIcon from '@/components/CategoryIcon';
 import ReviewSlide from '@/components/Slide/ReviewSlide';
-import { getTagIcon, getTagNameKor } from '@/utils';
+import { formatDate2, formatTime, getTagIcon, getTagNameKor } from '@/utils';
 import Header from '@/components/Header/Header';
 import Loading from '@/components/Loading';
 
@@ -96,11 +96,11 @@ const TourDetailPageView = ({
                 <ul>
                   <IconList
                     icon="date_range"
-                    text={`${formatDate(content.guideStart as string)} ~ ${formatDate(content.guideEnd as string)}`}
+                    text={`${formatDate2(content.guideStart as string)} ~ ${formatDate2(content.guideEnd as string)}`}
                   />
                   <IconList
                     icon="schedule"
-                    text={`${formatTimeRange(content.guideStart, content.guideEnd)} (${content.guideTime}시간 소요)`}
+                    text={`${formatTime(content.guideStartTime as string)}~${formatTime(content.guideEndTime as string)} (${content.guideTime}시간 소요)`}
                   />
                   <span> </span>
                 </ul>

@@ -38,7 +38,7 @@ const RenderCells = ({
     if (!initialDate) {
       return false;
     }
-    const guideStartDate = subDays(initialDate.guideStart, 1);
+    const guideStartDate = initialDate.guideStart;
     const guideEndDate = initialDate.guideEnd;
     return !(day >= guideStartDate && day <= guideEndDate);
   };
@@ -56,7 +56,7 @@ const RenderCells = ({
             !isSameMonth(day, monthStart)
               ? 'disabled'
               : initialDateCheck()
-                ? 'limit'
+                ? 'limitR'
                 : isStartDate
                   ? 'start-date'
                   : isEndDate

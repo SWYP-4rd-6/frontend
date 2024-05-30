@@ -84,6 +84,8 @@ export interface GuideProductType {
   latitude?: number;
   guideStart: string;
   guideEnd: string;
+  guideStartTime?: string;
+  guideEndTime?: string;
   categories?: Array<CategoryType>;
   thumb?: string;
   images?: Array<string>;
@@ -148,6 +150,8 @@ export interface ReservationType {
   product?: guideProductType;
   guideStart?: string;
   guideEnd?: string;
+  guideStartTime?: string;
+  guideEndTime?: string;
   personnel?: number;
   message?: string;
   price?: number;

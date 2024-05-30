@@ -64,6 +64,9 @@
 .calendar-col.limit {
   color: #eaeaea;
 }
+.calendar-col.limitR {
+  color: #cecece;
+}
 
 .calendar-col.not-valid {
   background-color: #fff;
