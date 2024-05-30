@@ -8,15 +8,15 @@ import { format, isBefore } from 'date-fns';
 
 function ReservationDetail() {
   const location = useLocation();
-  const { id, guideStart, guideEnd, price, guideTime, title } = location.state;
+  const { id, guideStart, guideEnd, price, guideTime, guideStartTime, guideEndTime, title } =
+    location.state;
   const [message, setMessage] = useState<string>('');
   const [startDate, setStartDate] = useState<Date | null>(guideStart);
   const [endDate, setEndDate] = useState<Date | null>(guideEnd);
-  const [startTime, setStartTime] = useState<string | null>(format(guideStart, 'HH:mm'));
-  const [endTime, setEndTime] = useState<string | null>(format(guideEnd, 'HH:mm'));
   const [open, setIsOpen] = useState({
     calendar: true,
   });
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
 
   const navigateTo = useNavigate();
   const MAX_LENGTH = 500;
@@ -30,6 +30,7 @@ function ReservationDetail() {
       return newState;
     });
   };
+
   const onClickPayment = () => {
     postReservationSave();
   };
@@ -45,36 +46,19 @@ function ReservationDetail() {
   const handleDateRangeChange = (start: Date | null, end: Date | null) => {
     setStartDate(start);
     setEndDate(end);
-    /*
-    if (startDate && endDate) {
-      if (isBefore(endDate, startDate)) {
-        // 종료 날짜가 시작 날짜보다 이전인 경우 종료 날짜로 둘 다 설정
-        setStartDate(end);
-        setEndDate(end);
-      } else {
-        // 그 외의 경우는 날짜 그대로 설정
-        setStartDate(start);
-        setEndDate(end);
-      }
-    }
-    */
-  };
-  const handleTimeRangeChange = ({
-    startTime,
-    endTime,
-  }: {
-    startTime?: string | null;
-    endTime?: string | null;
-  }) => {
-    consoloe: startTime && setStartTime(startTime);
-    endTime && setEndTime(endTime);
   };
 
+  const handleTimeChange = (num: string | null) => {
+    console.log(num);
+    setSelectedTime(num);
+  };
   const postReservationSave = async () => {
     const param = {
       productId: id,
       guideStart,
       guideEnd,
+      guideStartTime,
+      guideEndTime,
       personnel: 1,
       message,
       price,
@@ -82,8 +66,8 @@ function ReservationDetail() {
 
     console.log(param);
     try {
-      const guideStart = startDate && format(startDate, 'yyyy-MM-dd') + ' ' + startTime;
-      const guideEnd = endDate && format(endDate, 'yyyy-MM-dd') + ' ' + endTime;
+      // const guideStart = startDate && format(startDate, 'yyyy-MM-dd') + ' ' + startTime;
+      //  const guideEnd = endDate && format(endDate, 'yyyy-MM-dd') + ' ' + endTime;
       const response = await api.post(`/v1/reservation/client/save`, param);
 
       if (response.status === 200) {
@@ -92,10 +76,12 @@ function ReservationDetail() {
         const param2 = {
           state: {
             productId: id,
-            startDate,
-            endDate,
+            startDate, //
+            endDate, //
+            guideStartTims: selectedTime,
+            // guideEndTime,
             price,
-            message,
+            //     message,
             personnel: 1,
             muid: response.data,
           },
@@ -120,13 +106,16 @@ function ReservationDetail() {
       message={message}
       onChangeText={onChangeText}
       onClickPayment={onClickPayment}
-      handleTimeRangeChange={handleTimeRangeChange}
       handleDateRangeChange={handleDateRangeChange}
       open={open}
       guideStart={guideStart}
       guideEnd={guideEnd}
+      guideStartTime={guideStartTime}
+      guideEndTime={guideEndTime}
       guideTime={guideTime}
       title={title}
+      selectedTime={selectedTime}
+      handleTimeChange={handleTimeChange}
     />
   );
 }

@@ -20,30 +20,27 @@ import {
   setMinutes,
   setHours,
 } from 'date-fns';
-import { calculateDiffMonths } from '@/utils';
+import { calculateDiffMonths, extractHour } from '@/utils';
 import CategoryButton from '@/components/Button/CategoryButton';
+import TimeSelector from '@/components/TimeSelector';
 
 interface PropsType {
   onClickPayment: () => void;
   onChangeText: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   message: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | null;
+  endDate: Date | null;
   handleDateRangeChange: (start: Date | null, end: Date | null) => void;
-  handleTimeRangeChange: ({
-    startTime,
-    endTime,
-  }: {
-    startTime?: string | null;
-    endTime?: string | null;
-  }) => void;
-
   title: string;
   open: { calendar: boolean };
   toggleState: (name: 'calendar') => any;
   guideStart: string;
   guideEnd: string;
   guideTime: number;
+  guideStartTime: string;
+  guideEndTime: string;
+  selectedTime: string | null;
+  handleTimeChange: (num: string | null) => void;
 }
 
 const ReservationDetailView = ({
@@ -53,66 +50,17 @@ const ReservationDetailView = ({
   guideStart,
   guideEnd,
   guideTime,
+  guideStartTime,
+  guideEndTime,
   onClickPayment,
   onChangeText,
   toggleState,
   open,
   handleDateRangeChange,
-  handleTimeRangeChange,
   title,
+  selectedTime,
+  handleTimeChange,
 }: PropsType) => {
-  const generateTimeButtons = () => {
-    console.log(guideStart);
-    console.log(startDate);
-    const buttons = [];
-    let current = parseISO('2024-05-25 00:00:00');
-    //let current: Date = startDate;
-    // 다음 시간의 정시로 설정
-    if (
-      current.getMinutes() !== 0 ||
-      current.getSeconds() !== 0 ||
-      current.getMilliseconds() !== 0
-    ) {
-      current = startOfHour(addHours(current, 1));
-    }
-    const endOfStartDay = setMilliseconds(
-      setSeconds(setMinutes(setHours(parseISO(guideStart), 11), 0), 0),
-      0,
-    );
-    while (isBefore(current, endOfStartDay) || isEqual(current, endOfStartDay)) {
-      buttons.push(
-        <CategoryButton
-          key={format(current, 'HH:mm')}
-          text={format(current, 'HH:mm')}
-          onClick={() => {}}
-        />,
-      );
-      current = addHours(current, 1);
-    }
-
-    return buttons;
-  };
-
-  /*
-  const generateTimeButtons = () => {
-    const buttons = [];
-    let current = parseISO(guideStart);
-    const endDate = parseISO(guideEnd);
-    while (isBefore(current, endDate) || isEqual(current, endDate)) {
-      buttons.push(
-        <CategoryButton
-          key={format(current, 'HH:mm')}
-          text={format(current, 'HH:mm')}
-          //active={selectedCategory === category}
-          onClick={() => {}}
-        />,
-      );
-      current = addHours(current, 1);
-    }
-
-    return buttons;
-  };
-*/
   return (
     <div className="relative  h-full">
       <Header />
@@ -156,16 +104,12 @@ const ReservationDetailView = ({
           </div>
         </div>
         <div className="sub-title-2">예약 가능 시간</div>
-        {generateTimeButtons()}
-
-        {/* 
-        <TimeRangePicker
-          endActive={false}
-          handleTimeRangeChange={handleTimeRangeChange}
-          initialEndTime={guideEnd}
-          initialStartTime={guideStart}
-          lange={guideTime}
-        /> */}
+        <TimeSelector
+          startTime={extractHour(guideStartTime)}
+          endTime={extractHour(guideEndTime)}
+          selectedTime={selectedTime}
+          handleTimeChange={handleTimeChange}
+        />
         <div className="sub-title-2 hidden">호스트에게 할 메시지</div>
         <textarea
           className="px-5 py-4 border-content text-base text-light my-3 w-full hidden"
