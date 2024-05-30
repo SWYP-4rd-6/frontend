@@ -7,21 +7,16 @@ import { getLocation } from '@/utils/getLocation';
 import PhoneAuth from '../Input/PhoneAuth';
 import { countryList } from '@/constants/common';
 import ArrowButton from '../Button/ArrowButton';
-import { checkNickname, signup } from '@/pages/signup-page';
+import { checkNickname, googleSignup, signup } from '@/pages/signup-page';
 import { UserState, useUserInfoStore } from '@/store/UserInfoStore';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-import { emailLogin } from '@/pages/login-page/login-page';
 import useLoginStore from '@/store/LoginStore';
-
-interface PropsType {
-  setSignupStage: React.Dispatch<React.SetStateAction<number>>;
-}
 
 type Gender = 'Male' | 'Female';
 
-const SignupForm2 = ({ setSignupStage }: PropsType) => {
-  const { user, changeState } = useUserInfoStore();
+const GoogleSignupForm = () => {
+  const { googleUser: user, changeGState } = useUserInfoStore();
   const [activate, setActivate] = useState(false);
   const [location, setLocation] = useState('');
   const [checkDuplication, setCheckDuplication] = useState({
@@ -83,20 +78,20 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
     if (name === 'birthdate') {
       formattedValue = formatDate(value);
     }
-    changeState(name as keyof UserState['user'], formattedValue);
+    changeGState(name as keyof UserState['googleUser'], formattedValue);
   };
   const handleGenderSelect = (selectedGender: Gender) => {
-    changeState('gender', selectedGender);
+    changeGState('gender', selectedGender);
   };
 
   const handleCountryChange = (selectedOption: any) => {
-    changeState('nationality', selectedOption.value);
+    changeGState('nationality', selectedOption.value);
   };
 
   const getUserLocation = async () => {
     try {
       const location = await getLocation();
-      changeState('location', location.address);
+      changeGState('location', location.address);
       setLocation(`${location.address}의 Matthew`);
     } catch (error) {
       console.error(error);
@@ -114,7 +109,13 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
   };
 
   useEffect(() => {
-    if (checkDuplication.nickname && user.name && user.gender && user.birthdate && user.nationality) {
+    if (
+      checkDuplication.nickname &&
+      user.name &&
+      user.gender &&
+      user.birthdate &&
+      user.nationality
+    ) {
       setActivate(true);
     } else {
       setActivate(false);
@@ -130,47 +131,22 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
 
   const moveForward = async () => {
     const formattedBirthdate = user.birthdate.replace(/\./g, '-');
-    changeState('birthdate', formattedBirthdate);
+    changeGState('birthdate', formattedBirthdate);
 
-    const res = await signup();
+    const res = await googleSignup();
     if (res) {
-      if (confirm('회원가입이 완료되었습니다. \n해당 정보로 로그인하시겠습니까?')) {
-        const res = await emailLogin({ email: user.email, password: user.password });
-
-        if (res) {
-          const { accessToken, refreshToken } = res.data.token;
-          // 토큰에서 만료 시간 추출
-          let expirationTime;
-          try {
-            const decodedToken = jwtDecode(accessToken);
-            expirationTime = decodedToken.exp ? decodedToken.exp * 1000 : null;
-
-            if (expirationTime) {
-              localStorage.setItem('accessToken', accessToken);
-              localStorage.setItem('refreshToken', refreshToken);
-              localStorage.setItem('tokenExpiration', expirationTime.toString());
-            }
-          } catch (error) {
-            console.error('토큰 디코딩 실패:', error);
-            alert('토큰 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
-            return;
-          }
-
-          setIsLogin(true);
-          navigate('/');
-        } else {
-          alert('로그인 실패');
-        }
-      } else {
+        console.log(res);
+        alert('회원가입이 완료되었습니다. \n해당 계정으로 다시 로그인해주세요.');
         navigate('/login');
-      }
     } else {
-      alert('가입 오류!');
+        alert('회원가입에 실패하였습니다.');
+        navigate('/login');
     }
+    
   };
 
   const moveBack = () => {
-    setSignupStage(1);
+    navigate('/login');
   };
 
   return (
@@ -321,4 +297,4 @@ const SignupForm2 = ({ setSignupStage }: PropsType) => {
   );
 };
 
-export default SignupForm2;
+export default GoogleSignupForm;

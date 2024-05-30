@@ -4,7 +4,7 @@ import Error from './pages/error-page';
 import { Login, EmailLogin } from './pages/login-page';
 import TourDetail from './pages/tour-detail-page';
 import App from './App';
-import SignUp from './pages/signup-page';
+import {SignUp, GoogleSignup } from './pages/signup-page';
 import HomeMore from './pages/home-more-page';
 import HostDetail from './pages/host-detail-page';
 import Register from './pages/register-page';
@@ -13,6 +13,7 @@ import ReservationComplete from './pages/reservation-complete-page';
 import ReservationPay from './pages/reservation-pay-page';
 import ProtectedRoute from './ProtectedRoute';
 import MyPage from './pages/mypage-page';
+import GoogleCallback from './pages/login-page/google-callback';
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,8 @@ const router = createBrowserRouter([
       { path: 'login/email', element: <EmailLogin /> },
       { path: 'tour/detail', element: <TourDetail /> },
       { path: 'signup', element: <SignUp /> },
+      { path: '/google/callback', element: <GoogleCallback /> },
+      { path: '/google/signup', element: <GoogleSignup />},
       {
         path: '/',
         element: <ProtectedRoute />,

@@ -9,6 +9,7 @@ const RegisterStage7 = ({ setStage, setStep }: StagePropsType) => {
   const { tour, changeState } = useTourRegStore();
   const [activate, setActivate] = useState(false);
   const [price, setPrice] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false); // 새로운 상태 변수 추가
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^0-9]/g, '');
@@ -27,7 +28,6 @@ const RegisterStage7 = ({ setStage, setStep }: StagePropsType) => {
     }
   };
 
-  // 입력 필드에 포커스가 될 때 '원'을 제거
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     if (e.target.value.endsWith('원')) {
       const valueWithoutWon = e.target.value.slice(0, -1).replace(/,/g, '');
@@ -35,7 +35,6 @@ const RegisterStage7 = ({ setStage, setStep }: StagePropsType) => {
     }
   };
 
-  // 입력 필드에서 포커스가 벗어날 때 다시 '원'을 추가
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (e.target.value && !e.target.value.endsWith('원')) {
       const formattedValue = Number(e.target.value.replace(/[^0-9]/g, '')).toLocaleString();
@@ -44,14 +43,18 @@ const RegisterStage7 = ({ setStage, setStep }: StagePropsType) => {
   };
 
   const handleSubmit = async () => {
+    if (isSubmitting) return; // 이미 제출 중이면 함수 종료
+
+    setIsSubmitting(true); // 제출 시작 시 상태 변경
+
     if (!tour.thumb) {
-      alert("대표 이미지를 추가해야 합니다.");
+      alert('대표 이미지를 추가해야 합니다.');
+      setIsSubmitting(false); // 제출 실패 시 상태 초기화
       return;
     }
-  
+
     const formData = new FormData();
-  
-    // JSON 필드를 request 필드로 추가
+
     const requestPayload = {
       locationName: tour.place,
       guideStart: tour.guideStart,
@@ -62,15 +65,14 @@ const RegisterStage7 = ({ setStage, setStep }: StagePropsType) => {
       title: tour.name,
       categories: tour.categories,
       description: tour.des,
-      guideEnd: tour.guideEnd
+      guideEnd: tour.guideEnd,
+      guideStartTime: tour.guideStartTime,
+      guideEndTime: tour.guideEndTime,
     };
-    
+
     formData.append('request', JSON.stringify(requestPayload));
-  
-    // 대표 이미지 추가
     formData.append('thumb', tour.thumb);
-  
-    // 다른 이미지 파일들 추가
+
     tour.images.forEach((file: File) => {
       if (file) {
         formData.append('file', file, file.name);
@@ -88,8 +90,10 @@ const RegisterStage7 = ({ setStage, setStep }: StagePropsType) => {
         changeState('postId', res.data.id);
         setStage(8);
       }
-    } catch (error) {
-      console.error('Error uploading files:', error);
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -112,9 +116,14 @@ const RegisterStage7 = ({ setStage, setStep }: StagePropsType) => {
         placeholder="요금을 입력해주세요."
         maxLength={50}
         className="w-full h-9 border-2 border-signature text-signature font-[900] placeholder-normal caret-black focus:outline-none px-2 mb-2"
+        disabled={isSubmitting} // 제출 중일 때 입력 필드 비활성화
       />
 
-      <ArrowButton activate={activate} moveForward={handleSubmit} moveBack={() => setStage(6)} />
+      <ArrowButton
+        activate={activate && !isSubmitting}
+        moveForward={handleSubmit}
+        moveBack={() => setStage(6)}
+      />
     </div>
   );
 };

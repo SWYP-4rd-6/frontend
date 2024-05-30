@@ -37,6 +37,7 @@ const RegisterStage1 = ({ setStage, setStep }: StagePropsType) => {
         onChange={handleChange}
         placeholder="이름을 입력해주세요."
         maxLength={50}
+        autoComplete='off'
         className="w-full h-9 border-2 border-signature text-signature font-[900] placeholder-normal caret-black focus:outline-none px-2 mb-2"
       />
       <div className="text-xs text-sub-bu font-[300] mb-9 min-h-[1rem]">

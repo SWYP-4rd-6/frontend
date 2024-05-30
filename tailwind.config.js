@@ -10,7 +10,7 @@ export default {
     extend: {
       screens: {
         xs: '440px',
-        csize: '1600px',
+        csize: '1900px',
         'h-md': { raw: '(min-height: 800px)' },
       },
 

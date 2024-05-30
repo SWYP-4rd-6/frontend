@@ -11,17 +11,9 @@ interface LoginButtonProps {
 const LoginButton = ({ loginType }: LoginButtonProps) => {
   const navigate = useNavigate();
 
-  const googleLogin = useGoogleLogin({
-    flow: 'auth-code',
-    onSuccess: async (codeResponse) => {
-      console.log('codeResponse', codeResponse);
-      const tokens = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/v1/oauth2/callback`, {
-        // code: codeResponse.code,
-      });
-      console.log(tokens);
-    },
-    onError: (errorResponse) => console.log(errorResponse),
-  });
+  const googleLogin = () => {
+    window.location.href = `${import.meta.env.VITE_BACKEND_URL}/v1/oauth2/google`;
+  };
 
   const emailLogin = () => {
     navigate(`/login/email`);

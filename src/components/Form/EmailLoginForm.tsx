@@ -11,7 +11,7 @@ const EmailLoginForm = () => {
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-  const { setIsLogin } = useLoginStore();
+  const { setUserId, setIsLogin } = useLoginStore();
 
   useEffect(() => {
     if (email && password) {
@@ -37,6 +37,7 @@ const EmailLoginForm = () => {
 
     if (res) {
       const { accessToken, refreshToken } = res.data.token;
+      const { id } = res.data.user;
       // 토큰에서 만료 시간 추출
       let expirationTime;
       try {
@@ -55,6 +56,7 @@ const EmailLoginForm = () => {
       }
 
       setIsLogin(true);
+      setUserId(id);
       navigate('/');
     } else {
       alert('로그인 실패');
