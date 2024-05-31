@@ -54,8 +54,12 @@ const BottomNavLayout = ({ login, children }: PropsType) => {
                 <MaterialSymbol icon="home" size={24} fill grade={-25} color="#d9d9d9" />
               )}
             </Link>
-            <Link to="#" className="mx-2">
-              <MaterialSymbol icon="trip" size={24} fill grade={-25} color="#d9d9d9" />
+            <Link to="/mytrip" className="mx-2">
+              {location.pathname === '/mytrip' ? (
+                <img src="/select_nav_mytrip.png" className="w-[6.4rem]" alt="mytrip" />
+              ) : (
+                <MaterialSymbol icon="trip" size={24} fill grade={-25} color="#d9d9d9" />
+              )}
             </Link>
             <Link to="#" className="mx-2">
               <MaterialSymbol icon="message" size={24} fill grade={-25} color="#d9d9d9" />

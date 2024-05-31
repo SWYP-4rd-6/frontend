@@ -3,22 +3,37 @@ import Header from '@/components/Header/Header';
 import { CategoryType, GuideProductType, ReservationType, ReviewType } from '@/types/common';
 import {
   calculateDays,
+  extractHourMinute,
+  formatDate2,
   formatDateKor,
+  formatDateString,
   formatStringDateKor,
+  formatTime,
   formatTimeRange,
   getTagNameKor,
 } from '@/utils';
 import BottomButton from '@/components/Button/BottomButton';
 import Loading from '@/components/Loading';
 import IconText from '@/components/IconText';
+import { formatDate } from 'date-fns';
 interface PropsType {
   content?: ReservationType;
   setUid: any;
   isLoading: boolean;
   startDate: string;
   endDate: string;
+  guideStartTime: string;
+  guideEndTime: string;
 }
-const ReservationPayView = ({ startDate, endDate, content, setUid, isLoading }: PropsType) => {
+const ReservationPayView = ({
+  startDate,
+  endDate,
+  content,
+  setUid,
+  isLoading,
+  guideStartTime,
+  guideEndTime,
+}: PropsType) => {
   const { price, merchantUid, product } = content || {};
   console.log(startDate);
   return (
@@ -67,9 +82,8 @@ const ReservationPayView = ({ startDate, endDate, content, setUid, isLoading }: 
                   />{' '}
                   <div className="ml-[1.8rem] font-light">
                     {startDate &&
-                      `${formatStringDateKor(startDate)}${endDate && ' ~ ' + formatStringDateKor(endDate)}`}{' '}
-                    ({startDate && endDate && calculateDays(startDate, endDate)}
-                    일)
+                      `${formatDateKor(formatDateString(startDate))}${endDate && ' ~ ' + formatDateKor(formatDateString(endDate))}`}{' '}
+                    ({startDate && endDate && calculateDays(startDate, endDate)}일)
                   </div>
                   <IconText
                     text="예약 시간"
@@ -79,7 +93,7 @@ const ReservationPayView = ({ startDate, endDate, content, setUid, isLoading }: 
                     iconSize={22}
                   />{' '}
                   <div className="ml-[1.8rem] font-light">
-                    {`${formatTimeRange(content.product.guideStart, content.product.guideEnd)} (${content.product.guideTime}시간 소요)`}
+                    {`${guideStartTime} ~ ${formatTime(guideEndTime)} (${content.product.guideTime}시간 소요)`}
                   </div>
                   <IconText
                     text="결제 금액"

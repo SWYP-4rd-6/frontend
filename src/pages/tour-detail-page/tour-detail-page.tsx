@@ -42,11 +42,13 @@ const TourDetailPageView = ({
         <>
           <div className="relative ">
             <Slider {...arrowSlickSettings} className="">
-              {content.images ? (
-                content.images.map((img, index) => <Slide key={index} src={img} />)
+              {content.thumb && content.thumb?.length > 0 ? (
+                <Slide src={content.thumb} />
               ) : (
                 <Slide src={''} />
               )}
+              {content.images &&
+                content.images.map((img, index) => <Slide key={index} src={img} />)}
             </Slider>
             <div className="absolute bottom-5 w-full text-center ">
               <div className="  text-white font-light text-base z-50 ">

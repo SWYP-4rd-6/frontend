@@ -10,6 +10,7 @@ import {
   GuideProductType,
   ILocation,
   MainContentType,
+  ReservationType,
   SearchContentType,
   SlickSettingsType,
 } from '@/types/common';
@@ -23,8 +24,8 @@ interface PropsType {
   multiSlickSettings: SlickSettingsType;
   selectedCategory: string;
   onCategoryClick: (category: string) => void;
-  pastContent: GuideProductType[];
-  commingContent: GuideProductType[];
+  pastContent: ReservationType[];
+  commingContent: ReservationType[];
 }
 
 const MyTripPageView = ({
@@ -64,16 +65,26 @@ const MyTripPageView = ({
         <>
           <div className="border-b-2 border-signature category-wrap">
             <div className="sub-title ">다가오는 여행</div>
-            <Slider {...multiSlickSettings}>
+            <Slider {...slickSettings}>
               {commingContent.map((item, index) => (
-                <Ticket content={item} key={index} />
+                <Ticket
+                  content={item.product}
+                  key={index}
+                  src={item.product.thumb}
+                  classname="mr-5"
+                />
               ))}
             </Slider>
           </div>
           <div>
             <div className="sub-title  category-wrap">지난 여행</div>
             {pastContent.map((item, index) => (
-              <Ticket content={item} key={index} />
+              <Ticket
+                content={item.product}
+                key={index}
+                src={item.product.thumb}
+                classname="mr-5 p-5"
+              />
             ))}
           </div>
         </>

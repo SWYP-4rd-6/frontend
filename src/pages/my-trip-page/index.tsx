@@ -4,6 +4,7 @@ import {
   CategoryKorType,
   GuideProductType,
   MainContentType,
+  ReservationType,
   SearchContentType,
   SlickSettingsType,
 } from '@/types/common';
@@ -11,13 +12,14 @@ import MyTripPageView from '@/pages/my-trip-page/my-trp-page';
 import axios from 'axios';
 import { GUIDE_PRODUCT_DATA, MAIN_CONTENT_DATA, SEARCH_DATA } from '@/constants/test';
 import { getTagName } from '@/utils';
+import { api } from '@/api/axios';
 
 function MyTrip() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [dragging, setDragging] = useState<boolean>(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('여행자');
-  const [commingContent, setCommingContent] = useState<GuideProductType[]>([]);
-  const [pastContent, setPastContent] = useState<GuideProductType[]>([]);
+  const [commingContent, setCommingContent] = useState<ReservationType[]>([]);
+  const [pastContent, setPastContent] = useState<ReservationType[]>([]);
 
   const navigateTo = useNavigate();
   const onCategoryClick = (category: string) => {
@@ -57,16 +59,22 @@ function MyTrip() {
     },
   };
 
-  const getCommingContent = async (): Promise<boolean> => {
+  const getContent = async (name: string): Promise<boolean> => {
+    const token = localStorage.getItem('accessToken');
+    setCommingContent([]);
+    setPastContent([]);
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/v1/reservation/client/list`,
+      const response = await api.post(
+        `${import.meta.env.VITE_BACKEND_URL}/v1/reservation/${name}/list`,
         {
-          params: {
-            timeFilter: 0,
-            statusFilter: 0,
-            offset: 0,
-            pageSize: 5,
+          timeFilter: 0,
+          statusFilter: 0,
+          offset: 0,
+          pageSize: 5,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
         },
       );
@@ -78,6 +86,7 @@ function MyTrip() {
         const afterToday: any = [];
 
         let startTime;
+        console.log(response.data);
         response.data?.map((item: any, i: any) => {
           startTime = new Date(item.product.guideStartTime);
 
@@ -102,7 +111,8 @@ function MyTrip() {
   };
 
   useEffect(() => {
-    if (selectedCategory === '여행자') getCommingContent();
+    if (selectedCategory === '여행자') getContent('client');
+    else getContent('guide');
   }, [selectedCategory]);
 
   return (

@@ -5,7 +5,7 @@ interface TimeSelectorProps {
   startTime: number; // 시작 시간
   endTime: number; // 끝 시간
   selectedTime: string | null;
-  handleTimeChange: (num: string | null) => void;
+  handleTimeChange: (num: string) => void;
 }
 
 const TimeSelector = ({

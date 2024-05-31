@@ -1,7 +1,7 @@
 import { SymbolCodepoints } from 'react-material-symbols';
 import { DateTime } from 'luxon';
 import { CategoryKorType, CategoryType } from './types/common';
-import { differenceInMonths, format, parse } from 'date-fns';
+import { differenceInMonths, format, isValid, parse } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
 const getTagIcon = (tag: CategoryType): SymbolCodepoints => {
@@ -85,6 +85,31 @@ const formatDate2 = (dateString: string) => {
   return formattedDate;
 };
 
+// Date객체를 "YYYY-MM-DD" 형식으로 변환하는 함수
+const formatOnlyDate = (date: Date | null): any => {
+  return date && format(date, 'yyyy-MM-dd');
+};
+
+const formatDateString2 = (dateStr: string): any => {
+  const isoFormat = /^\d{4}-\d{2}-\d{2}$/;
+
+  // 이미 "YYYY-MM-DD" 형식인 경우 그대로 반환
+  if (isoFormat.test(dateStr)) {
+    return dateStr;
+  }
+
+  // 다른 형식의 문자열을 Date 객체로 파싱
+  const parsedDate = parse(dateStr, "EEE MMM dd yyyy HH:mm:ss 'GMT'XXX (z) HH:mm:ss", new Date());
+
+  // 유효한 날짜인지 확인
+  if (!isValid(parsedDate)) {
+    return;
+    //throw new Error('Invalid date format');
+  }
+
+  return formatOnlyDate(parsedDate);
+};
+
 const convertDateFormat = (isoString: string | null): string | null => {
   if (isoString === null) {
     return null;
@@ -109,13 +134,36 @@ const formatStringDateKor = (dateString: string): string => {
   return format(dateString, 'yyyy년 LL월 dd일', { locale: ko });
 };
 
+//문자열 "Thu May 30 2024 00:00:00 GMT+0900 (한국 표준시) 22:00:00"--> "2024-05-30"
+const formatDateString = (dateStr: string) => {
+  const isoFormat = /^\d{4}-\d{2}-\d{2}$/;
+
+  if (isoFormat.test(dateStr)) {
+    return dateStr;
+  }
+
+  const parsedDate = new Date(dateStr);
+
+  const year = parsedDate.getFullYear();
+  const month = String(parsedDate.getMonth() + 1).padStart(2, '0');
+  const day = String(parsedDate.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+};
+
+const extractHourMinute = (timeStr: string): string => {
+  const parts = timeStr.split(':');
+  return parts.slice(0, 2).join(':');
+};
+
+//"17:00~19:00 (2시간 소요)
 const formatTimeRange = (start: string, end: string): string => {
   const startTime = DateTime.fromFormat(start, 'yyyy-MM-dd HH:mm:ss');
   const endTime = DateTime.fromFormat(end, 'yyyy-MM-dd HH:mm:ss');
   const startTimeString = startTime.toFormat('HH:mm');
   const endTimeString = endTime.toFormat('HH:mm');
   //const duration = endTime.diff(startTime, 'hours').hours; (${duration}시간 소요)
-  return `${startTimeString}~${endTimeString}`; //"17:00~19:00 (2시간 소요)
+  return `${startTimeString}~${endTimeString}`;
 };
 
 //08:00:00 ->17:00
@@ -163,4 +211,8 @@ export {
   formatStringDateKor,
   formatDate2,
   extractHour,
+  formatDateString,
+  formatDateString2,
+  formatOnlyDate,
+  extractHourMinute,
 };

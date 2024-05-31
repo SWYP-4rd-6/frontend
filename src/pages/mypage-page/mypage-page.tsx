@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import BottomNavLayout from '@/components/BottomNavLayout';
 import useLoginStore from '@/store/LoginStore';
@@ -11,6 +11,13 @@ const MyPageView = () => {
   const [userData, setUserData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const { isLogin, setIsLogin, setUserId } = useLoginStore();
+  const navigateTo = useNavigate();
+
+  const toProfile = () => {
+    if (userId) {
+      navigateTo('/host/detail?id=' + userId);
+    }
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -77,7 +84,10 @@ const MyPageView = () => {
               {userData.location ? userData.location : '지역 인증이 필요합니다.'}
             </div>
           </div>
-          <div className="border-2 border-sub-non text-sub-bu px-4 py-1 text-xs ml-2 cursor-pointer">
+          <div
+            className="border-2 border-sub-non text-sub-bu px-4 py-1 text-xs ml-2 cursor-pointer"
+            onClick={() => toProfile()}
+          >
             프로필보기
           </div>
         </div>
