@@ -170,7 +170,15 @@ function Home() {
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const getUserLocation = async () => {
+      const location = await getLocation();
+      if(location){
+        setLocation(`${location.address}`);
+      }
+    };
+    getUserLocation();
+  }, []);
 
   useEffect(() => {
     setSearchContent([]);
@@ -179,14 +187,7 @@ function Home() {
   }, [selectedCategory]);
 
   /*
-  const getUserLocation = async () => {
-    try {
-      const location = await getLocation();
-      setLocation(`${location.address}`);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
 */
   return (
     <HomePageView

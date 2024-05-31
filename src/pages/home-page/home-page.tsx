@@ -17,6 +17,8 @@ import {
 import { CATEGORIES } from '@/constants/common';
 import ImgList from '@/components/List/ImgLIst';
 import useLoginStore from '@/store/LoginStore';
+import { useEffect } from 'react';
+import { getLocation } from '@/utils/getLocation';
 
 interface PropsType {
   slickSettings: SlickSettingsType;
@@ -45,8 +47,6 @@ const HomePageView = ({
   fetchMoreProducts,
 }: PropsType) => {
   const { isLogin } = useLoginStore();
-  console.log(isLogin);
-  console.log(searchContent);
 
   return (
     <BottomNavLayout login={isLogin}>
