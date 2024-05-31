@@ -15,7 +15,7 @@ const RegisterStage3 = ({ setStage, setStep }: StagePropsType) => {
 
   const [startHour, setStartHour] = useState(0);
   const [startMinute, setStartMinute] = useState(0);
-  const [endHour, setEndHour] = useState(0);
+  const [endHour, setEndHour] = useState(24);
   const [endMinute, setEndMinute] = useState(0);
   const [activate, setActivate] = useState(false);
 
@@ -70,19 +70,32 @@ const RegisterStage3 = ({ setStage, setStep }: StagePropsType) => {
 
   const handleTimeChange = (type: 'start' | 'end', unit: 'hour' | 'minute', value: number) => {
     if (type === 'start') {
-      if (unit === 'hour') {
-        setStartHour((prev) => (prev + value + 24) % 24);
-      } else {
-        setStartMinute((prev) => (prev + value + 60) % 60);
-      }
+        if (unit === 'hour') {
+            const newHour = (startHour + value + 24) % 24;
+            if (newHour < endHour || (newHour === endHour && startMinute <= endMinute)) {
+                setStartHour(newHour);
+            }
+        } else {
+            const newMinute = (startMinute + value + 60) % 60;
+            if (startHour < endHour || (startHour === endHour && newMinute <= endMinute)) {
+                setStartMinute(newMinute);
+            }
+        }
     } else {
-      if (unit === 'hour') {
-        setEndHour((prev) => (prev + value + 24) % 24);
-      } else {
-        setEndMinute((prev) => (prev + value + 60) % 60);
-      }
+        if (unit === 'hour') {
+            const newHour = (endHour + value + 24) % 24;
+            if (newHour > startHour || (newHour === startHour && endMinute >= startMinute)) {
+                setEndHour(newHour);
+            }
+        } else {
+            const newMinute = (endMinute + value + 60) % 60;
+            if (endHour > startHour || (endHour === startHour && newMinute >= startMinute)) {
+                setEndMinute(newMinute);
+            }
+        }
     }
-  };
+};
+
 
   const handleDateRangeChange = (start: Date | null, end: Date | null) => {
     setStartDate(start);
