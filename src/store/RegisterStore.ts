@@ -34,28 +34,31 @@ type UserAction = {
   changeState: (field: keyof Omit<UserState['tour'], 'categories'>, value: any) => void;
   addImage: (image: File) => void;
   setCategories: (categories: Category[]) => void;
+  resetTour: () => void;
+};
+
+const initialState: UserState['tour'] = {
+  name: '',
+  des: '',
+  latitude: 0,
+  longitude: 0,
+  place: '',
+  date: '',
+  guideStart: '',
+  guideEnd: '',
+  guideStartTime: '',
+  guideEndTime: '',
+  guideTime: 0,
+  thumb: null,
+  thumb_local: '',
+  images: [],
+  categories: [],
+  price: undefined,
+  postId: null,
 };
 
 export const useTourRegStore = create<UserState & UserAction>((set) => ({
-  tour: {
-    name: '',
-    des: '',
-    latitude: 0,
-    longitude: 0,
-    place: '',
-    date: '',
-    guideStart: '',
-    guideEnd: '',
-    guideStartTime: '',
-    guideEndTime: '',
-    guideTime: 0,
-    thumb: null,
-    thumb_local: '',
-    images: [],
-    categories: [],
-    price: undefined,
-    postId: null,
-  },
+  tour: { ...initialState },
   changeState: (field, value) =>
     set((state) => ({
       ...state,
@@ -79,5 +82,9 @@ export const useTourRegStore = create<UserState & UserAction>((set) => ({
         ...state.tour,
         categories: categories,
       },
+    })),
+  resetTour: () =>
+    set(() => ({
+      tour: { ...initialState },
     })),
 }));

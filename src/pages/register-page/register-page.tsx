@@ -11,6 +11,8 @@ import RegisterStage6 from '@/components/Register/RegisterStage6';
 import RegisterStage7 from '@/components/Register/RegisterStage7';
 import RegisterStage8 from '@/components/Register/RegisterStage8';
 import { useTourRegStore } from '@/store/RegisterStore';
+import { MaterialSymbol } from 'react-material-symbols';
+import { useNavigate } from 'react-router-dom';
 
 export type StagePropsType = {
   setStage: React.Dispatch<React.SetStateAction<number>>;
@@ -20,7 +22,8 @@ export type StagePropsType = {
 const RegisterPageView = () => {
   const [stage, setStage] = useState(0);
   const [step, setStep] = useState(0);
-  console.log(useTourRegStore.getState().tour);
+  const navigate = useNavigate();
+  const { resetTour } = useTourRegStore();
 
   const renderStep = (step: number): JSX.Element | null => {
     switch (step) {
@@ -41,7 +44,7 @@ const RegisterPageView = () => {
       case 7:
         return <RegisterStage7 setStage={setStage} setStep={setStep} />;
       case 8:
-        return <RegisterStage8 />
+        return <RegisterStage8 />;
       default:
         return null;
     }
@@ -49,7 +52,21 @@ const RegisterPageView = () => {
 
   return (
     <div className="h-full flex flex-col overflow-y-scroll">
-      <Header />
+      <div
+        onClick={() => {
+          resetTour();
+          navigate('/');
+        }}
+        className={`mb-[14px] cursor-pointer`}
+      >
+        <MaterialSymbol
+          icon="arrow_back"
+          fill
+          size={28}
+          className="pt-[26px] pb-5 pl-[25px] text-[#646464] z-50"
+        />
+         <div className="border-y-2 border-signature h-[10px]"></div>
+      </div>
       <div className="mx-[25px] flex-grow relative">
         {stage !== 0 && <ProgressBar step={step} />}
         {renderStep(stage)}
