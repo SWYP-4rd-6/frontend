@@ -4,7 +4,8 @@ import ReservationDetailView from './reservation-detail-page';
 import moment, { Moment } from 'moment';
 import { ReservationType } from '@/types/common';
 import { api } from '@/api/axios';
-import { format, isBefore } from 'date-fns';
+import { format, formatDate, isBefore } from 'date-fns';
+import { formatDateString, formatDateString2, formatOnlyDate, formatStringDateKor } from '@/utils';
 
 function ReservationDetail() {
   const location = useLocation();
@@ -16,8 +17,7 @@ function ReservationDetail() {
   const [open, setIsOpen] = useState({
     calendar: true,
   });
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
-
+  const [selectedTime, setSelectedTime] = useState<string>('00:00');
   const navigateTo = useNavigate();
   const MAX_LENGTH = 500;
 
@@ -48,21 +48,22 @@ function ReservationDetail() {
     setEndDate(end);
   };
 
-  const handleTimeChange = (num: string | null) => {
+  const handleTimeChange = (num: string) => {
     console.log(num);
     setSelectedTime(num);
   };
   const postReservationSave = async () => {
     const param = {
       productId: id,
-      guideStart,
-      guideEnd,
-      guideStartTime,
-      guideEndTime,
+      guideStart:
+        formatOnlyDate(startDate === null ? endDate : startDate) + ' ' + selectedTime + ':00',
+      guideEnd: formatOnlyDate(endDate === null ? startDate : endDate) + ' ' + guideEndTime,
       personnel: 1,
       message,
       price,
     };
+    //  1.2024-05-27 00:00:00
+    // 2.Tue May 28 2024 00:00:00 GMT+0900 (한국 표준시) 18:00:00
 
     console.log(param);
     try {
@@ -73,20 +74,20 @@ function ReservationDetail() {
       if (response.status === 200) {
         console.log(response.data);
 
-        const param2 = {
+        const routeParam = {
           state: {
             productId: id,
-            startDate, //
-            endDate, //
-            guideStartTims: selectedTime,
-            // guideEndTime,
+            startDate,
+            endDate,
+            guideStartTime: selectedTime,
+            guideEndTime,
             price,
-            //     message,
+            message,
             personnel: 1,
-            muid: response.data,
+            muid: response.data.merchantUid,
           },
         };
-        navigateTo('/tour/reservation/Payment', param2);
+        navigateTo('/tour/reservation/Payment', routeParam);
         return true;
       }
       console.log('fail');

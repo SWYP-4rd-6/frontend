@@ -12,7 +12,8 @@ const ReservationPay = () => {
   const [isLoding, setIsLoding] = useState<boolean>(false);
   const navigateTo = useNavigate();
   const location = useLocation();
-  const { productId, price, muid, startDate, endDate } = location.state;
+  const { productId, price, muid, startDate, endDate, guideStartTime, guideEndTime } =
+    location.state;
 
   //2.
   const getReservation = async () => {
@@ -116,6 +117,8 @@ const ReservationPay = () => {
       endDate={endDate}
       setUid={setUid}
       isLoading={isLoding}
+      guideStartTime={guideStartTime}
+      guideEndTime={guideEndTime}
     />
   );
 };

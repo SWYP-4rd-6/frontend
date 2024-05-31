@@ -40,7 +40,7 @@ interface PropsType {
   guideStartTime: string;
   guideEndTime: string;
   selectedTime: string | null;
-  handleTimeChange: (num: string | null) => void;
+  handleTimeChange: (num: string) => void;
 }
 
 const ReservationDetailView = ({

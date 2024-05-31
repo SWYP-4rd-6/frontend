@@ -12,7 +12,7 @@ const ReservationCompleteView = ({ content, onClick }: PropsType) => {
   return (
     <div>
       <Header />
-      <div className="px-6">
+      <div className="px-6 pb-20">
         <div className="title">예약 요청 완료!</div>
         <div className="desc-text pt-3.5 pb-4">
           가이드가 일정을 확인하고 있어요. <br />
@@ -20,7 +20,9 @@ const ReservationCompleteView = ({ content, onClick }: PropsType) => {
         </div>
         {content ? <Ticket src={content.thumb} content={content} /> : <Loading />}
 
-        <TextArrowButton activate={true} onClick={onClick} />
+        <div className="bottom-0">
+          <TextArrowButton activate={true} onClick={onClick} />
+        </div>
       </div>
     </div>
   );
