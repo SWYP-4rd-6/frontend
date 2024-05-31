@@ -1,6 +1,6 @@
 /* calendar.css */
 .calendar-wrapper {
-    width: 23.75rem;
+    width: 100%;
     height: 24.875rem;
     border: 2px solid #0173fa;
     position: relative;

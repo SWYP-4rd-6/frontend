@@ -11,7 +11,7 @@ type TourCategory = {
 };
 
 const RegisterStage6 = ({ setStage, setStep }: StagePropsType) => {
-  const { tour, setCategories } = useTourRegStore();
+  const { tour, setCategories, changeState } = useTourRegStore();
   const [activate, setActivate] = useState(false);
 
   const categories: TourCategory[] = [
@@ -30,7 +30,7 @@ const RegisterStage6 = ({ setStage, setStep }: StagePropsType) => {
       setActivate(true);
     } else {
       setStep(5);
-      setActivate(false)
+      setActivate(false);
     }
   }, [tour.categories, setStep]);
 
@@ -75,7 +75,14 @@ const RegisterStage6 = ({ setStage, setStep }: StagePropsType) => {
         ))}
       </div>
 
-      <ArrowButton activate={activate} moveForward={() => setStage(7)} moveBack={() => setStage(5)} />
+      <ArrowButton
+        activate={activate}
+        moveForward={() => setStage(7)}
+        moveBack={() => {
+          changeState('images', [])
+          setStage(5);
+        }}
+      />
     </div>
   );
 };
