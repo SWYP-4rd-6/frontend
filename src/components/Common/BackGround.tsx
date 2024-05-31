@@ -86,7 +86,7 @@ const BackGround: FC<{ children: ReactNode }> = ({ children }) => (
       <div className="text-sub-bu text-base xl:text-xl font-[300] mt-7 mb-[10rem] h-md:mb-[18.75rem] max-w-[26rem] xl:max-w-[34rem] 2xl:max-w-[40.063rem]">
         <div>
           높아진 로컬 일상에 대한 관심을 가진 여행객들과 현지 가이드와의 매칭을 통해 다른 지역에
-          거주하고 있는 친구를 만들고 이들과의 만족스러운 여행 경험을 선 사하는 서비스입니다.
+          거주하고 있는 친구를 만들고 이들과의 만족스러운 여행 경험을 선사하는 서비스입니다.
         </div>
       </div>
       <a

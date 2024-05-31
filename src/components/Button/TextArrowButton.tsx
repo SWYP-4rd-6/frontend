@@ -9,10 +9,10 @@ const TextArrowButton = ({ activate, onClick }: ArrowButtonProps) => {
   const buttonStyle = `flex justify-center items-center transition`;
 
   return (
-    <div className={`${buttonStyle} gap-5 max-w-[400px] fixed bottom-12`}>
+    <div className={`${buttonStyle} gap-5 mt-10`}>
       <button
         type="button"
-        className={`${buttonStyle} h-12    w-full px-[1.875rem]  text-white bg-signature `}
+        className={`${buttonStyle} h-12  w-full px-[1.875rem]  text-white bg-signature `}
         disabled={!activate}
         onClick={() => onClick()}
       >
