@@ -1,6 +1,6 @@
-# React + TypeScript + Vite
-
-## run
-
-yarn install
-yarn dev
+![thumb1](/public/thumb/thumb1.png)
+![thumb2](/public/thumb/thumb2.png)
+![thumb3](/public/thumb/thumb3.png)
+![thumb4](/public/thumb/thumb4.png)
+![thumb5](/public/thumb/thumb5.png)
+![thumb6](/public/thumb/thumb6.png)
