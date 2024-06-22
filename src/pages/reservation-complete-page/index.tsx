@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ReservationCompleteView from '@/pages/reservation-complete-page/reservation-complete-page';
-import { api } from '@/api/axios';
+import { authAxiosInstance } from '@/apis/axios';
 import { GuideProductType } from '@/types/common';
 
 function ReservationComplete() {
@@ -14,7 +14,7 @@ function ReservationComplete() {
   };
   const getReservationComplete = async () => {
     try {
-      const response = await api.get(
+      const response = await authAxiosInstance.get(
         `${import.meta.env.VITE_BACKEND_URL}/v1/products/${productId}`,
       );
       if (response.status === 200) {

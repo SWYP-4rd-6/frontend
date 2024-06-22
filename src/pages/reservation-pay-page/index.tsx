@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ReservationPayView from './reservation-pay-page';
 import { RESERVATION_DATA } from '@/constants/test';
-import { api } from '@/api/axios';
+import { authAxiosInstance } from '@/apis/axios';
 import { convertDateFormat, getNowUnixTimestamp } from '@/utils';
 import { ReservationType } from '@/types/common';
 
@@ -18,7 +18,7 @@ const ReservationPay = () => {
   //2.
   const getReservation = async () => {
     try {
-      const response = await api.get(`${import.meta.env.VITE_BACKEND_URL}/v1/reservation/${muid}`);
+      const response = await authAxiosInstance.get(`${import.meta.env.VITE_BACKEND_URL}/v1/reservation/${muid}`);
       if (response.status === 200) {
         console.log(response);
         setContent(response.data);
@@ -35,7 +35,7 @@ const ReservationPay = () => {
   const postReservationPaymentValidation = async () => {
     setIsLoding(true);
     try {
-      const response = await api.post(`/v1/reservation/client/payment/validation`, {
+      const response = await authAxiosInstance.post(`/v1/reservation/client/payment/validation`, {
         imp_uid: uid,
       });
 
@@ -65,7 +65,7 @@ const ReservationPay = () => {
     };
     console.log(param);
     try {
-      const response = await api.post(`/v1/reservation/client/payment`, param);
+      const response = await authAxiosInstance.post(`/v1/reservation/client/payment`, param);
 
       if (response?.status === 200) {
         //setContent(response.data);
@@ -89,7 +89,7 @@ const ReservationPay = () => {
   //6
   const postReservationPaymentCancel = async () => {
     try {
-      const response = await api.post(`/v1/reservation/client/cancel/${'muid'}`);
+      const response = await authAxiosInstance.post(`/v1/reservation/client/cancel/${'muid'}`);
 
       if (response?.status === 200) {
         alert('결제 요청에 실패하여 취소되었습니다');

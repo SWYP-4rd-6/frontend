@@ -12,7 +12,7 @@ import MyTripPageView from '@/pages/my-trip-page/my-trp-page';
 import axios from 'axios';
 import { GUIDE_PRODUCT_DATA, MAIN_CONTENT_DATA, SEARCH_DATA } from '@/constants/test';
 import { getTagName } from '@/utils';
-import { api } from '@/api/axios';
+import { authAxiosInstance } from '@/apis/axios';
 
 function MyTrip() {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
@@ -64,18 +64,13 @@ function MyTrip() {
     setCommingContent([]);
     setPastContent([]);
     try {
-      const response = await api.post(
+      const response = await authAxiosInstance.post(
         `${import.meta.env.VITE_BACKEND_URL}/v1/reservation/${name}/list`,
         {
           timeFilter: 0,
           statusFilter: 0,
           offset: 0,
           pageSize: 5,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         },
       );
 

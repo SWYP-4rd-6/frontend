@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import ReservationDetailView from './reservation-detail-page';
 import moment, { Moment } from 'moment';
 import { ReservationType } from '@/types/common';
-import { api } from '@/api/axios';
+import { authAxiosInstance } from '@/apis/axios';
 import { format, formatDate, isBefore } from 'date-fns';
 import { formatDateString, formatDateString2, formatOnlyDate, formatStringDateKor } from '@/utils';
 
@@ -69,7 +69,7 @@ function ReservationDetail() {
     try {
       // const guideStart = startDate && format(startDate, 'yyyy-MM-dd') + ' ' + startTime;
       //  const guideEnd = endDate && format(endDate, 'yyyy-MM-dd') + ' ' + endTime;
-      const response = await api.post(`/v1/reservation/client/save`, param);
+      const response = await authAxiosInstance.post(`/v1/reservation/client/save`, param);
 
       if (response.status === 200) {
         console.log(response.data);
