@@ -8,10 +8,10 @@ import {
 } from '@/types/common';
 
 export const imgs = [
-  '/trip_package_sample.png',
-  '/trip_image_sample1.png',
-  '/trip_image_sample2.png',
-  '/trip_package_sample.png',
+  '/samples/trip_package_sample.png',
+  '/samples/trip_image_sample1.png',
+  '/samples/trip_image_sample2.png',
+  '/samples/trip_package_sample.png',
 ];
 
 export const GUIDE_PRODUCT_DATA: GuideProductType = {
@@ -25,8 +25,8 @@ export const GUIDE_PRODUCT_DATA: GuideProductType = {
   guideStart: '2024-05-12T15:59:35.598Z',
   guideEnd: '2024-05-12T15:59:35.598Z',
   categories: ['DINING', 'OUTDOOR', 'TOUR', 'ENTERTAINMENT', 'ART_CULTURE', 'SPORTS_FITNESS'],
-  thumb: '/trip_package_sample.png',
-  images: ['/trip_package_sample.png', '/trip_package_sample.png', '/trip_package_sample.png'],
+  thumb: '/samples/trip_package_sample.png',
+  images: ['/samples/trip_package_sample.png', '/samples/trip_package_sample.png', '/samples/trip_package_sample.png'],
   guideTime: 3,
   nickname: 'nickname01',
   reviews: [
@@ -37,11 +37,11 @@ export const GUIDE_PRODUCT_DATA: GuideProductType = {
       content: '더미 후기가 너무 좋아서 기대 되네요! 다음번에도 참여하고 싶어요.',
       rating: 3,
       createdAt: '2024-05-05 00:00:00',
-      profileImageUrl: '/man_sample.png',
+      profileImageUrl: '/smaples/man_sample.png',
       reviewImages: [
-        '/trip_package_sample.png',
-        '/trip_image_sample1.png',
-        '/trip_image_sample2.png',
+        '/samples/trip_package_sample.png',
+        '/samples/trip_image_sample1.png',
+        '/samples/trip_image_sample2.png',
       ],
     },
     {
@@ -53,8 +53,8 @@ export const GUIDE_PRODUCT_DATA: GuideProductType = {
       rating: 5,
       createdAt: '2024-05-05 00:00:00',
       profile: '안녕하세요!',
-      profileImageUrl: '/man_sample.png',
-      reviewImages: ['/trip_package_sample.png', '/trip_image_sample1.png'],
+      profileImageUrl: '/samples/man_sample.png',
+      reviewImages: ['/samples/trip_package_sample.png', '/samples/trip_image_sample1.png'],
     },
   ],
 };
@@ -65,7 +65,7 @@ export const RESERVATION_DATA: ReservationType = {
     nickname: 'nickname01',
     name: 'name01',
     profile: '안녕하세요!',
-    profileImageUrl: '/trip_package_sample.png',
+    profileImageUrl: '/samples/trip_package_sample.png',
     reviewCount: 10,
     reviewRating: 4.6,
     createdAt: '2024-05-05 00:00:00',
@@ -75,7 +75,7 @@ export const RESERVATION_DATA: ReservationType = {
         id: 1,
         title: '상품 이름',
         description: '설명',
-        thumb: '/trip_package_sample.png',
+        thumb: '/samples/trip_package_sample.png',
         guideStart: '2024-05-17T13:13:31.658Z',
         guideEnd: '2024-05-17T13:13:31.658Z',
       },
@@ -95,8 +95,8 @@ export const RESERVATION_DATA: ReservationType = {
     guideEnd: '2024-05-17T13:13:31.658Z',
     guideTime: 3,
     categories: ['DINING', 'OUTDOOR'],
-    thumb: '/trip_package_sample.png',
-    images: ['/trip_package_sample.png', '/trip_package_sample.png'],
+    thumb: '/samples/trip_package_sample.png',
+    images: ['/samples/trip_package_sample.png', '/samples/trip_package_sample.png'],
     reviews: [
       {
         reviewId: 1,
@@ -123,7 +123,7 @@ export const USER_DATA: GuideType = {
   nickname: 'nickname01',
   name: 'name01',
   profile: '안녕하세요!',
-  profileImageUrl: '/man_sample.png',
+  profileImageUrl: '/samples/man_sample.png',
   reviewRating: 4.6,
   createdAt: '2024-05-05 00:00:00',
   languages: ['kor'],
@@ -132,7 +132,7 @@ export const USER_DATA: GuideType = {
       id: 1,
       title: '더미 상품 이름',
       description: '설명',
-      thumb: '/trip_image_sample1.png',
+      thumb: '/samples/trip_image_sample1.png',
       guideStart: '2024-05-15T01:21:04.331Z',
       guideEnd: '2024-05-15T01:21:04.331Z',
     },
@@ -140,7 +140,7 @@ export const USER_DATA: GuideType = {
       id: 2,
       title: '상품 이름',
       description: '설명',
-      thumb: '/trip_image_sample1.png',
+      thumb: '/samples/trip_image_sample1.png',
       guideStart: '2024-05-15T01:21:04.331Z',
       guideEnd: '2024-05-15T01:21:04.331Z',
     },
@@ -148,7 +148,7 @@ export const USER_DATA: GuideType = {
       id: 3,
       title: '한강 치맥파티',
       description: '설명',
-      thumb: '/trip_image_sample1.png',
+      thumb: '/samples/trip_image_sample1.png',
       guideStart: '2024-05-15T01:21:04.331Z',
       guideEnd: '2024-05-15T01:21:04.331Z',
     },
@@ -160,7 +160,7 @@ export const SEARCH_DATA: SearchContentType = {
     {
       id: 2,
       title: '가EHF타HY다라P다JJFAKCLGQYVXQLXYJF',
-      thumb: '/trip_image_sample1.png',
+      thumb: '/samples/trip_image_sample1.png',
       locationName: '여수 오동도',
       guideStart: '2024-09-01 03:16:07',
       guideEnd: '2024-09-06 03:16:07',
@@ -207,7 +207,7 @@ export const MAIN_CONTENT_DATA: MainContentType = {
     {
       id: 1,
       title: '신나는 서울 투어',
-      thumb: '/trip_image_sample1.png',
+      thumb: '/samples/trip_image_sample1.png',
       locationName: '한강 공원',
       guideStart: '2024-05-18T05:18:25.834Z',
       guideEnd: '2024-05-18T05:18:25.834Z',
@@ -215,7 +215,7 @@ export const MAIN_CONTENT_DATA: MainContentType = {
     {
       id: 2,
       title: '신나는 서울 투어',
-      thumb: '/trip_image_sample1.png',
+      thumb: '/samples/trip_image_sample1.png',
       locationName: '한강 공원',
       guideStart: '2024-05-18T05:18:25.834Z',
       guideEnd: '2024-05-18T05:18:25.834Z',
@@ -223,7 +223,7 @@ export const MAIN_CONTENT_DATA: MainContentType = {
     {
       id: 1,
       title: '신나는 서울 투어',
-      thumb: '/trip_image_sample1.png',
+      thumb: '/samples/trip_image_sample1.png',
       locationName: '한강 공원',
       guideStart: '2024-05-18T05:18:25.834Z',
       guideEnd: '2024-05-18T05:18:25.834Z',
@@ -233,7 +233,7 @@ export const MAIN_CONTENT_DATA: MainContentType = {
     {
       id: 1,
       title: '신나는 서울 투어',
-      thumb: '/trip_image_sample1.png',
+      thumb: '/samples/trip_image_sample1.png',
       locationName: '한강 공원',
       guideStart: '2024-05-18T05:18:25.834Z',
       guideEnd: '2024-05-18T05:18:25.834Z',
@@ -242,7 +242,7 @@ export const MAIN_CONTENT_DATA: MainContentType = {
     {
       id: 2,
       title: '신나는 서울 투어',
-      thumb: '/trip_image_sample1.png',
+      thumb: '/samples/trip_image_sample1.png',
       locationName: '한강 공원',
       guideStart: '2024-05-18T05:18:25.834Z',
       guideEnd: '2024-05-18T05:18:25.834Z',
@@ -250,7 +250,7 @@ export const MAIN_CONTENT_DATA: MainContentType = {
     {
       id: 1,
       title: '신나는 서울 투어',
-      thumb: '/trip_image_sample1.png',
+      thumb: '/samples/trip_image_sample1.png',
       locationName: '한강 공원',
       guideStart: '2024-05-18T05:18:25.834Z',
       guideEnd: '2024-05-18T05:18:25.834Z',
@@ -264,7 +264,7 @@ export const MAIN_CONTENT_DATA: MainContentType = {
       {
         id: 1,
         title: '신나는 서울 투어',
-        thumb: '/trip_image_sample1.png',
+        thumb: '/samples/trip_image_sample1.png',
         locationName: '한강 공원',
         guideStart: '2024-05-18T05:18:25.834Z',
         guideEnd: '2024-05-18T05:18:25.834Z',
@@ -272,7 +272,7 @@ export const MAIN_CONTENT_DATA: MainContentType = {
       {
         id: 2,
         title: '신나는 서울 투어',
-        thumb: '/trip_image_sample1.png',
+        thumb: '/samples/trip_image_sample1.png',
         locationName: '한강 공원',
         guideStart: '2024-05-18T05:18:25.834Z',
         guideEnd: '2024-05-18T05:18:25.834Z',
@@ -280,7 +280,7 @@ export const MAIN_CONTENT_DATA: MainContentType = {
       {
         id: 1,
         title: '신나는 서울 투어',
-        thumb: '/trip_image_sample1.png',
+        thumb: '/samples/trip_image_sample1.png',
         locationName: '한강 공원',
         guideStart: '2024-05-18T05:18:25.834Z',
         guideEnd: '2024-05-18T05:18:25.834Z',
@@ -288,7 +288,7 @@ export const MAIN_CONTENT_DATA: MainContentType = {
       {
         id: 1,
         title: '신나는 서울 투어',
-        thumb: '/trip_image_sample1.png',
+        thumb: '/samples/trip_image_sample1.png',
         locationName: '한강 공원',
         guideStart: '2024-05-18T05:18:25.834Z',
         guideEnd: '2024-05-18T05:18:25.834Z',

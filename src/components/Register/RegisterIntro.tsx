@@ -23,7 +23,7 @@ const RegisterIntro = ({ setStage, setStep }: StagePropsType) => {
       >
         <span className="font-[700] text-xl mr-[10px]">시작하기</span>
         <span className="flex-1 text-right">
-          <img src="/arrow-forward-white.png" alt="arrow" className="h-full object-contain" />
+          <img src="/icons/arrow_forward_white.png" alt="arrow" className="h-full object-contain" />
         </span>
       </button>
     </div>

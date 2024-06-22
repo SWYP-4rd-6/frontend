@@ -21,9 +21,9 @@ const ArrowButton = ({ activate, moveForward, moveBack }: ArrowButtonProps) => {
         onClick={moveForward}
       >
         {activate ? (
-          <img src="/arrow-forward-white.png" alt="arrow" />
+          <img src="/icons/arrow_forward_white.png" alt="arrow" />
         ) : (
-          <img src="/arrow-forward.png" alt="arrow" />
+          <img src="/icons/arrow_forward.png" alt="arrow" />
         )}
       </button>
     </div>

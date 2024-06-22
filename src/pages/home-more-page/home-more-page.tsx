@@ -37,18 +37,18 @@ const HomeMorePageView = ({ multiSlickSettings, selectedCategory, onCategoryClic
 
       <section className="content-section p-5 ">
         <div className="grid-img-wrap">
-          <img src="trip_image_sample1.png" />
-          <img src="trip_image_sample2.png" />
-          <img src="trip_image_sample1.png" />
-          <img src="trip_image_sample2.png" />
-          <img src="trip_image_sample2.png" />
-          <img src="trip_image_sample2.png" />
-          <img src="trip_image_sample2.png" />
-          <img src="trip_image_sample2.png" />
-          <img src="trip_image_sample2.png" />
-          <img src="trip_image_sample2.png" />
-          <img src="trip_image_sample2.png" />
-          <img src="trip_image_sample2.png" />
+          <img src="/samples/trip_image_sample1.png" />
+          <img src="/samples/trip_image_sample2.png" />
+          <img src="/samples/trip_image_sample1.png" />
+          <img src="/samples/trip_image_sample2.png" />
+          <img src="/samples/trip_image_sample2.png" />
+          <img src="/samples/trip_image_sample2.png" />
+          <img src="/samples/trip_image_sample2.png" />
+          <img src="/samples/trip_image_sample2.png" />
+          <img src="/samples/trip_image_sample2.png" />
+          <img src="/samples/trip_image_sample2.png" />
+          <img src="/samples/trip_image_sample2.png" />
+          <img src="/samples/trip_image_sample2.png" />
         </div>
       </section>
     </div>

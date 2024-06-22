@@ -11,7 +11,7 @@ const SlideArrow = ({ onClick, direction }: PropsType) => {
     >
       <img
         className="z-50 w-full h-9 top-0 left-0 right-0 bottom-0 m-auto "
-        src={'/slide_arrow.png'}
+        src={'/icons/slide_arrow.png'}
       />
     </div>
   );

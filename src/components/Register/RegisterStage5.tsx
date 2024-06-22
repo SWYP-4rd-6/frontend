@@ -60,7 +60,7 @@ const RegisterStage5 = ({ setStage, setStep }: StagePropsType) => {
             className="w-28 h-28 cursor-pointer border border-dashed flex items-center justify-center"
             onClick={() => document.getElementById('fileInput')?.click()}
           >
-            <img src="/tour_register_photo.png" alt="photo" />
+            <img src="/icons/tour_register_photo.png" alt="photo" />
           </div>
         )}
       </div>

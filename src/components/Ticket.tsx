@@ -18,24 +18,24 @@ type PropsType = {
 
 const TICKET_SET = [
   {
-    top: '/ticket_top_blue.png',
-    bottom: '/ticket_bottom_blue.png',
+    top: '/images/ticket_top_blue.png',
+    bottom: '/images/ticket_bottom_blue.png',
   },
   {
-    top: '/ticket_top_green.png',
-    bottom: '/ticket_bottom_green.png',
+    top: '/images/ticket_top_green.png',
+    bottom: '/images/ticket_bottom_green.png',
   },
   {
-    top: '/ticket_top_pink.png',
-    bottom: '/ticket_bottom_pink.png',
+    top: '/images/ticket_top_pink.png',
+    bottom: '/images/ticket_bottom_pink.png',
   },
   {
-    top: '/ticket_top_yellow.png',
-    bottom: '/ticket_bottom_yellow.png',
+    top: '/images/ticket_top_yellow.png',
+    bottom: '/images/ticket_bottom_yellow.png',
   },
   {
-    top: '/ticket_top_red.png',
-    bottom: '/ticket_bottom_red.png',
+    top: '/images/ticket_top_red.png',
+    bottom: '/images/ticket_bottom_red.png',
   },
 ];
 

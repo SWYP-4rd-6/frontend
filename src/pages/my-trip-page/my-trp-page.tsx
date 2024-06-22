@@ -42,7 +42,7 @@ const MyTripPageView = ({
   return (
     <BottomNavLayout login={isLogin}>
       <div className="px-6 pt-4 pb-1">
-        <img src="logo_voyage.png" className="w-56" alt="logo" />
+        <img src="/images/logo_voyage.png" className="w-56" alt="logo" />
       </div>
       <div className="px-6 pt-8 *:w-1/2 *:py-2 *:text-xl font-black">
         <button

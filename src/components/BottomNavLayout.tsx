@@ -49,14 +49,14 @@ const BottomNavLayout = ({ login, children }: PropsType) => {
           <>
             <Link to="/" className="flex-1 flex justify-center items-center">
               {location.pathname === '/' ? (
-                <img src="/select_nav_home.png" className="w-[6.4rem]" alt="home" />
+                <img src="/icons/select_nav_home.png" className="w-[6.4rem]" alt="home" />
               ) : (
                 <MaterialSymbol icon="home" size={24} fill grade={-25} color="#d9d9d9" />
               )}
             </Link>
             <Link to="/mytrip" className="flex-1 flex justify-center items-center">
               {location.pathname === '/mytrip' ? (
-                <img src="/select_nav_mytrip.png" className="w-[6.4rem]" alt="mytrip" />
+                <img src="/icons/select_nav_mytrip.png" className="w-[6.4rem]" alt="mytrip" />
               ) : (
                 <MaterialSymbol icon="trip" size={24} fill grade={-25} color="#d9d9d9" />
               )}
@@ -66,7 +66,7 @@ const BottomNavLayout = ({ login, children }: PropsType) => {
             </Link> */}
             <Link to={`/mypage/${localStorage.getItem('userId')}`} className="flex-1 flex justify-center items-center">
               {location.pathname.startsWith('/mypage/') ? (
-                <img src="/select_nav_mypage.png" className="w-[6.4rem]" alt="mypage" />
+                <img src="/icons/select_nav_mypage.png" className="w-[6.4rem]" alt="mypage" />
               ) : (
                 <MaterialSymbol icon="person" size={24} fill grade={-25} color="#d9d9d9" />
               )}
@@ -75,7 +75,7 @@ const BottomNavLayout = ({ login, children }: PropsType) => {
         ) : (
           <>
             <Link to="#" className="w-1/2">
-              <img src="/select_nav_explore.png" className="w-[8.2rem]" alt="explore" />
+              <img src="/icons/select_nav_explore.png" className="w-[8.2rem]" alt="explore" />
             </Link>
             <Link to="/login" className="w-1/2 font-poppins font-extrabold text-xl text-signature">
               Login

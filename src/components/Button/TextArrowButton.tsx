@@ -17,7 +17,7 @@ const TextArrowButton = ({ activate, onClick }: ArrowButtonProps) => {
         onClick={() => onClick()}
       >
         <div className="min-w-fit  w-1/2 font-bold text-xl pr-1 py-2">예약 신청 완료</div>
-        <img className="max-w-[64%] " src="/arrow-forward-white-m.png " alt="arrow" />
+        <img className="max-w-[64%] " src="/icons/arrow_forward_white_m.png " alt="arrow" />
       </button>
     </div>
   );
